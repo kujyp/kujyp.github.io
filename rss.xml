@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 02 Jan 2019 20:13:56 GMT</lastBuildDate><item><title><![CDATA[gatsby starter lumen으로 블로그 생성하기]]></title><description><![CDATA[gatsby starter lumen으로 블로그 생성하기]]></description><link>https://kujyp.github.io/posts/gatsby-starter-lumen으로-블로그-생성하기/</link><guid isPermaLink="false">https://kujyp.github.io/posts/gatsby-starter-lumen으로-블로그-생성하기/</guid><pubDate>Thu, 03 Jan 2019 04:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;TL;DR&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 02 Jan 2019 20:39:20 GMT</lastBuildDate><item><title><![CDATA[gatsby starter lumen으로 블로그 생성하기]]></title><description><![CDATA[gatsby starter lumen으로 블로그 생성하기]]></description><link>https://kujyp.github.io/posts/gatsby-starter-lumen으로-블로그-생성하기/</link><guid isPermaLink="false">https://kujyp.github.io/posts/gatsby-starter-lumen으로-블로그-생성하기/</guid><pubDate>Thu, 03 Jan 2019 04:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;(작성중)&lt;/h1&gt;
+&lt;h3&gt;TL;DR&lt;/h3&gt;
 &lt;p&gt;React를 사용하는 정적 페이지 생성 툴 &lt;a href=&quot;https://www.gatsbyjs.org/&quot;&gt;gatsby&lt;/a&gt;를 활용해 개발블로그를 만들어 보았다.
 &lt;a href=&quot;https://github.com/alxshelepenok/gatsby-starter-lumen&quot;&gt;lumen starter&lt;/a&gt;를 활용해 css, plugin가 미리 세팅된 환경에서 작업을 시작했고,
 github pages를 이용해 생성된 정적페이지를 호스팅했다.&lt;/p&gt;
@@ -77,7 +78,7 @@ gatsby new kujyp https://github.com/alxshelepenok/gatsby-starter-lumen
 &lt;ul&gt;
 &lt;li&gt;username.github.io repo를 생성(&lt;a href=&quot;https://github.com/kujyp/kujyp.github.io&quot;&gt;https://github.com/kujyp/kujyp.github.io&lt;/a&gt;)&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;development branch에 stareter code를 push했다.(master는 build 결과물을 올려야한다.)&lt;/p&gt;
+&lt;p&gt;development branch에 stareter code를 push.(master는 build 결과물을 올려야한다.)&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; init
 &lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; checkout -b development
@@ -90,6 +91,12 @@ gatsby new kujyp https://github.com/alxshelepenok/gatsby-starter-lumen
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
+&lt;p&gt;starter config 변경&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;gatsby-config.js author&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
 &lt;p&gt;github pages 배포&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;package.json 에서 deploy 명령어를 변경한다.&lt;br/&gt;
@@ -97,7 +104,7 @@ gatsby new kujyp https://github.com/alxshelepenok/gatsby-starter-lumen
 
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/deploy-db58e55df8f5481a03a99fc082d77936-da673.png&quot;
+    href=&quot;/static/packagejson_deploy-db58e55df8f5481a03a99fc082d77936-da673.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -114,15 +121,15 @@ gatsby new kujyp https://github.com/alxshelepenok/gatsby-starter-lumen
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
-        alt=&quot;deploy.png&quot;
+        alt=&quot;packagejson_deploy.png&quot;
         title=&quot;&quot;
-        src=&quot;/static/deploy-db58e55df8f5481a03a99fc082d77936-c83f1.png&quot;
-        srcset=&quot;/static/deploy-db58e55df8f5481a03a99fc082d77936-569e3.png 240w,
-/static/deploy-db58e55df8f5481a03a99fc082d77936-93400.png 480w,
-/static/deploy-db58e55df8f5481a03a99fc082d77936-c83f1.png 960w,
-/static/deploy-db58e55df8f5481a03a99fc082d77936-23e13.png 1440w,
-/static/deploy-db58e55df8f5481a03a99fc082d77936-10d8f.png 1920w,
-/static/deploy-db58e55df8f5481a03a99fc082d77936-da673.png 1986w&quot;
+        src=&quot;/static/packagejson_deploy-db58e55df8f5481a03a99fc082d77936-c83f1.png&quot;
+        srcset=&quot;/static/packagejson_deploy-db58e55df8f5481a03a99fc082d77936-569e3.png 240w,
+/static/packagejson_deploy-db58e55df8f5481a03a99fc082d77936-93400.png 480w,
+/static/packagejson_deploy-db58e55df8f5481a03a99fc082d77936-c83f1.png 960w,
+/static/packagejson_deploy-db58e55df8f5481a03a99fc082d77936-23e13.png 1440w,
+/static/packagejson_deploy-db58e55df8f5481a03a99fc082d77936-10d8f.png 1920w,
+/static/packagejson_deploy-db58e55df8f5481a03a99fc082d77936-da673.png 1986w&quot;
         sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
       /&gt;
     &lt;/span&gt;
@@ -131,10 +138,78 @@ gatsby new kujyp https://github.com/alxshelepenok/gatsby-starter-lumen
   &lt;/a&gt;
     &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;deploy를 실행한다.&lt;/p&gt;
+&lt;p&gt;deploy를 실행한다. 30초정도 소요된다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;yarn run deploy&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/yarn_deploy-34d5799e495cfa8a4846362a99b1025e-16497.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 37.461300309597526%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABYlAAAWJQFJUiTwAAABC0lEQVQoz4WPXW6DMBCEuUsfKAQqwOAfjG0MKk6CUFNVyv1vMl2QokJaqQ+j2bU036yjsHxhmm+YP+8Itzu4P0MMZ7TDBcpfoWhWPmy7Hn+07nvp8QoXFkTGGhTOQFw+MFF4EQKzUBCCQXVvkKqFdQ6MMRRFgaIsNq+qChWrDl6SIuc9/DSifw/onYchoJUSSklwguqug5DrLFDXNRrOqUwgTVMkSfJLkdAMsnuBMXILa2Ng+552Q7LoabbWwlNxqzXqpoEmL8tyg55Op4OizjUYwivBOIXpQms22Bpyu6+unlHgcckDtvoeHAmpwHm9PeZ5jizLDo37rz1f9OeFJasRx/Ghba/nwH/Ab84B4fP0GEg1AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;yarn_deploy.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/yarn_deploy-34d5799e495cfa8a4846362a99b1025e-c83f1.png&quot;
+        srcset=&quot;/static/yarn_deploy-34d5799e495cfa8a4846362a99b1025e-569e3.png 240w,
+/static/yarn_deploy-34d5799e495cfa8a4846362a99b1025e-93400.png 480w,
+/static/yarn_deploy-34d5799e495cfa8a4846362a99b1025e-c83f1.png 960w,
+/static/yarn_deploy-34d5799e495cfa8a4846362a99b1025e-16497.png 1292w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/yarn_deploy2-ae9061cc3a98459adc71fd194dedf418-05ad3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 37.858220211161395%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABDUlEQVQoz5WR206FMBBF+RHfD1BOCiXQcumFFg4aY6Jvvvj/f7Fte0QhkhgfVmgmdM2eaWJvL1ie3/D6/gE1P0Eoh84s/6b/IhlkjkEyTNbBGIOu68AFhzYarK5BKUVZln9CS4qKMSSk5mh5g6a5I7ywqipwzlEUBdI0RZZlB0JtT5beazkhSK7l1ZspGKs97JDocrn8XNwJ8zz/RaiHAIl0D1AT8SPPsM5BKQWtNcZxRN/3EELENYRmbdvGhmfSUCNBqB2DnTsst0e42WGaJizLEs/rukJKGRtYa+MqztIdhBW3GEaF2j9A4xNs+wtpwghbGuL3s13cvvuk38LJjH7UOUoC+5/P2EvPEn4Ck7wAZkG1gxwAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;yarn_deploy2.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/yarn_deploy2-ae9061cc3a98459adc71fd194dedf418-c83f1.png&quot;
+        srcset=&quot;/static/yarn_deploy2-ae9061cc3a98459adc71fd194dedf418-569e3.png 240w,
+/static/yarn_deploy2-ae9061cc3a98459adc71fd194dedf418-93400.png 480w,
+/static/yarn_deploy2-ae9061cc3a98459adc71fd194dedf418-c83f1.png 960w,
+/static/yarn_deploy2-ae9061cc3a98459adc71fd194dedf418-05ad3.png 1326w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
