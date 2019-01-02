@@ -1,0 +1,2 @@
+webpackJsonp([55702396619907],{390:function(t,a){t.exports={data:{site:{siteMetadata:{title:"kujyp 개발블로그",subtitle:"ML DevOps, Python ...",menu:[{label:"Articles",path:"/"},{label:"About me",path:"/about/"}],author:{name:"kujyp",email:"swe.jaeyoungpark@gmail.com",github:"kujyp"}}},allMarkdownRemark:{group:[{fieldValue:"hosting",totalCount:1},{fieldValue:"nodejs",totalCount:1},{fieldValue:"react",totalCount:1}]}},pathContext:{}}}});
+//# sourceMappingURL=path---tags-e78089c319dfcfa336a1.js.map
