@@ -6,7 +6,7 @@ import './style.scss';
 
 class PostTemplateDetails extends React.Component {
   render() {
-    const { subtitle, author, disqusShortname, url } = this.props.siteMetadata;
+    const { title, subtitle, author, disqusShortname, url } = this.props.siteMetadata;
     const post = this.props.post;
     const tags = post.fields.tagSlugs;
 
@@ -51,9 +51,10 @@ class PostTemplateDetails extends React.Component {
             {tagsBlock}
             <hr />
             <p className="post-single__footer-text">
-              {subtitle}
-              <a href={`https://twitter.com/${author.twitter}`} target="_blank" rel="noopener noreferrer">
-                <br /> <strong>{author.name}</strong> on Twitter
+              <h4>{title}</h4>
+              {subtitle}<br />
+              <a href={`https://www.github.com/${author.github}`} target="_blank" rel="noopener noreferrer">
+                <strong>{author.github}</strong> on Github
               </a>
             </p>
             {disqusShortname && commentsBlock}
