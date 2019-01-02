@@ -15,13 +15,9 @@ module.exports = {
       },
     ],
     author: {
-      name: 'John Doe',
-      email: '#',
-      telegram: '#',
-      twitter: '#',
-      github: '#',
-      rss: '#',
-      vk: '#'
+      name: 'kujyp',
+      email: 'swe.jaeyoungpark@gmail.com',
+      github: 'kujyp'
     }
   },
   plugins: [
