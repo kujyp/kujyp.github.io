@@ -12,7 +12,7 @@ tags:
 description: "gatsby starter lumen으로 블로그 생성하기"
 ---
 
-# (작성중)
+
 ### TL;DR
 React를 사용하는 정적 페이지 생성 툴 [gatsby](https://www.gatsbyjs.org/)를 활용해 개발블로그를 만들어 보았다.
 [lumen starter](https://github.com/alxshelepenok/gatsby-starter-lumen)를 활용해 css, plugin가 미리 세팅된 환경에서 작업을 시작했고,
@@ -66,7 +66,9 @@ git remote add origin https://github.com/kujyp/kujyp.github.io.git
 git push -u origin development
 ```
 - starter config 변경
-  - gatsby-config.js author
+  - gatsby-config.js 에서 siteMetadata 를 수정한다.
+  - disqusShortname 은 아래의 가이드대로 추가한다.
+  - contact page 는 삭제했다.
 - github pages 배포
   - package.json 에서 deploy 명령어를 변경한다.<br/>
 `gh-pages -d public -b master`
@@ -84,6 +86,54 @@ gatsby develop
 ```
 ![develop.png](./develop.png)
 
+
+### disqus 추가하기
+- https://disqus.com 에 접속해서 사이트를 추가한다. disqusShortname 을 받아와야한다.
+- get started 클릭
+![disqus_getstarted_1.png](./disqus_getstarted_1.png)
+- I want to install Disqus on my site 클릭
+![disqus_install_2.png](./disqus_install_2.png)
+- website name 입력, category 선택
+![disqus_create_3.png](./disqus_create_3.png)
+- basic plan 선택(무료)
+![disqus_setup_plan_4.png](./disqus_setup_plan_4.png)
+- 지킬 등 site generator 어느 것 사용했냐고 물어보는데, 맨 하단 `I dont's see my platform ~` 선택
+![disqus_setup_type_5.png](./disqus_setup_type_5.png)
+- website URL 입력, Complete Setup 클릭
+![disqus_setup_6.png](./disqus_setup_6.png)
+- 이제 사이트 추가는 완료되었다.<br/>
+admin 페이지에서 settings - general 선택, shortname을 받아온다. <br/>
+위의 프로젝트에서 gatsby-config.js disqusShortname 필드를 수정해준다. 
+![disqus_site_general_shortname_7.png](./disqus_site_general_shortname_7.png)
+- 댓글기능 추가 완료
+![disqus_complete.png](./disqus_complete.png)
+
+
+### 글 posting
+이제 마지막으로 블로그 글을 포스팅하는 작업만 진행하면 된다.
+
+- starter에 포함되어있는 형식대로 src/pages/articles 에 폴더를 하나 생성한다.
+- 필요한 사진파일은 폴더내부에 같이 포함시켜준다.<br/>
+(사용할때는 `![description](./filename)` 으로 사용하면된다.
+- markdown파일 맨 위에 frontmatter를 추가해준다.<br/>
+starter에 있는 형식그대로 가져와서 title, date, layout 등등을 추가해주었다.
+- 아래에 글내용을 markdown 형식으로 작성하면 완성.  
+![posting.png](./posting.png)
+- 글 작성은 `yarn run develop` 커맨드를 통해 localhost:8000 에서 결과물을 확인하면서 진행하였다.
+![posting_develop.png](./posting_develop.png)
+- 마지막으로 development branch에 수정내용을 commit, push해주고, master branch에 deploy를 진행한다.
+
+
+### 마치며
+gatsby를 활용하여, 인생 처음으로 기술블로그를 생성, 포스팅을 진행해보았다.<br/>
+글쓰는게 생각보다... 쉽지않다.<br/>
+1월 2일부터 쓰기시작해서 2일에 걸쳐 쓴것같은데, 다음글부터는 되도록 한호흡만에 글을 끝내도록 노력 해봐야겠다. 1편 2편으로 나눠야하나..
+
+아 그리고 markdown 한줄만 띄우는방법을 몰라서`<br/>` 태그를 줄마다 붙이고있는데, 너무 불편하다.<br/>
+github wiki에서도 이랬는데, github issue에서는 안그러고 완전 중구난방이다.(더 쉬운 방법 아시는분은 알려주세요...ㅜㅜ)
+
+아무튼 이번글은 여기까지 마치고, 다음 글에서는 시간이 허락한다면 circleci를 활용해 deploy과정 자동화를 진행해봐야겠다.
+ 
 
 ### 도움을 받았던 링크들
 - [Gatsby를 활용한 블로그 재구성 - adhrinae님](https://adhrinae.github.io/posts/creating-new-blog-with-gatsby)
