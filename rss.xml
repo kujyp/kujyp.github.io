@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 03 Jan 2019 18:45:07 GMT</lastBuildDate><item><title><![CDATA[gatsby starter lumen으로 블로그 생성하기]]></title><description><![CDATA[gatsby starter lumen으로 블로그 생성하기]]></description><link>https://kujyp.github.io/posts/gatsby-starter-lumen으로-블로그-생성하기/</link><guid isPermaLink="false">https://kujyp.github.io/posts/gatsby-starter-lumen으로-블로그-생성하기/</guid><pubDate>Thu, 03 Jan 2019 04:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;TL;DR&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 03 Jan 2019 18:46:52 GMT</lastBuildDate><item><title><![CDATA[gatsby starter lumen으로 블로그 생성하기]]></title><description><![CDATA[gatsby starter lumen으로 블로그 생성하기]]></description><link>https://kujyp.github.io/posts/gatsby-starter-lumen으로-블로그-생성하기/</link><guid isPermaLink="false">https://kujyp.github.io/posts/gatsby-starter-lumen으로-블로그-생성하기/</guid><pubDate>Thu, 03 Jan 2019 04:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;TL;DR&lt;/h3&gt;
 &lt;p&gt;React를 사용하는 정적 페이지 생성 툴 &lt;a href=&quot;https://www.gatsbyjs.org/&quot;&gt;gatsby&lt;/a&gt;를 활용해 개발블로그를 만들어 보았다.
 &lt;a href=&quot;https://github.com/alxshelepenok/gatsby-starter-lumen&quot;&gt;lumen starter&lt;/a&gt;를 활용해 css, plugin가 미리 세팅된 환경에서 작업을 시작했고,
 github pages를 이용해 생성된 정적페이지를 호스팅했다.&lt;/p&gt;
@@ -632,7 +632,42 @@ starter에 있는 형식그대로 가져와서 title, date, layout 등등을 추
   
   &lt;/a&gt;
     &lt;/li&gt;
-&lt;li&gt;마지막으로 development branch에 수정내용을 commit, push해주고, master branch에 deploy를 진행한다.&lt;/li&gt;
+&lt;li&gt;마지막으로 development branch에 수정내용을 commit, push해주고, master branch에 deploy를 진행한다.&lt;br/&gt;
+&lt;code class=&quot;language-text&quot;&gt;$ yarn run deploy&lt;/code&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/yarn_deploy2-ae9061cc3a98459adc71fd194dedf418-05ad3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 37.858220211161395%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAABDUlEQVQoz5WR206FMBBF+RHfD1BOCiXQcumFFg4aY6Jvvvj/f7Fte0QhkhgfVmgmdM2eaWJvL1ie3/D6/gE1P0Eoh84s/6b/IhlkjkEyTNbBGIOu68AFhzYarK5BKUVZln9CS4qKMSSk5mh5g6a5I7ywqipwzlEUBdI0RZZlB0JtT5beazkhSK7l1ZspGKs97JDocrn8XNwJ8zz/RaiHAIl0D1AT8SPPsM5BKQWtNcZxRN/3EELENYRmbdvGhmfSUCNBqB2DnTsst0e42WGaJizLEs/rukJKGRtYa+MqztIdhBW3GEaF2j9A4xNs+wtpwghbGuL3s13cvvuk38LJjH7UOUoC+5/P2EvPEn4Ck7wAZkG1gxwAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;yarn_deploy2.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/yarn_deploy2-ae9061cc3a98459adc71fd194dedf418-c83f1.png&quot;
+        srcset=&quot;/static/yarn_deploy2-ae9061cc3a98459adc71fd194dedf418-569e3.png 240w,
+/static/yarn_deploy2-ae9061cc3a98459adc71fd194dedf418-93400.png 480w,
+/static/yarn_deploy2-ae9061cc3a98459adc71fd194dedf418-c83f1.png 960w,
+/static/yarn_deploy2-ae9061cc3a98459adc71fd194dedf418-05ad3.png 1326w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3&gt;마치며&lt;/h3&gt;
 &lt;p&gt;gatsby를 활용하여, 인생 처음으로 기술블로그를 생성, 포스팅을 진행해보았다.&lt;br/&gt;
