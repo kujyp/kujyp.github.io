@@ -121,7 +121,9 @@ starter에 있는 형식그대로 가져와서 title, date, layout 등등을 추
 ![posting.png](./posting.png)
 - 글 작성은 `yarn run develop` 커맨드를 통해 localhost:8000 에서 결과물을 확인하면서 진행하였다.
 ![posting_develop.png](./posting_develop.png)
-- 마지막으로 development branch에 수정내용을 commit, push해주고, master branch에 deploy를 진행한다.
+- 마지막으로 development branch에 수정내용을 commit, push해주고, master branch에 deploy를 진행한다.<br/>
+`$ yarn run deploy`
+![yarn_deploy2.png](./yarn_deploy2.png)
 
 
 ### 마치며
