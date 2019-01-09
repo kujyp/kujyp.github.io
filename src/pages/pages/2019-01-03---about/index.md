@@ -9,20 +9,10 @@ path: "/about"
 - [https://github.com/kujyp](https://github.com/kujyp)
 
 
-### Education
-#### 고려대학교 2011.02 - 2018.07
-- 바이오의공학부, GPA 3.22/4.5
-- 소프트웨어 기술과 산업 융합전공, GPA 3.56/4.5
-
-
-### Skills
-- Strong: Python, Docker, Continuous Integration, Linux(Shell scripting, Deployment)
-- Knowledgeable: Python/tensorflow, Python/Flask, Java/Android, Kotlin/Android
-
-### Experience
+### Experiences
 #### Naver 2018.08 - 현재
 - Naver Papago MTEngine team(Machine Translation)
-- Python, C++, Jenkins
+- Python, C++, DevOps
 - Translation engine dockerize
 - In-house tool deployment, continuous integration
 
@@ -40,6 +30,25 @@ path: "/about"
 - 무인 카메라로 촬영한 영상으로 생산에 위협이 되는 요소를 미리 감지하는 시스템 개발
 - Python / OpenCV-Python 활용
 - Demo [https://www.youtube.com/watch?v=tTLDU4Gm5p4](https://www.youtube.com/watch?v=tTLDU4Gm5p4)
+
+
+### Education
+#### 고려대학교 2011.02 - 2018.07
+- 바이오의공학부, 소프트웨어 기술과 산업 융합전공
+
+
+### Skills
+- Strong: Python, Docker, Continuous Integration, Linux(Shell scripting, Deployment)
+- Knowledgeable: Python/tensorflow, Python/Flask, Java/Android, Kotlin/Android
+
+
+### Side-projects
+#### 소프트웨어에 물들다 사이트 개발 2018.03-05
+- 자원봉사 프로젝트 팀 소프트웨어에 물들다(http://somul.kr)에서 개발참여
+- 자원봉사자들의 참가신청을 도와주는 도서관, 강연자 매칭 시스템 개발(http://apply.somul.kr/)
+- Back-end 참여, Python/Flask 활용하여 구현
+- CI pipeline 구축
+- GitHub https://github.com/somul-project/somul-apply-library 
 
 
 ### Awards
@@ -89,12 +98,3 @@ path: "/about"
 - 강의를 녹음 후 내용을 받아적어주는 솔루션 "음성인식강의록" 개발
 - Java / Android 활용
 - 홍보영상제작 [https://www.youtube.com/watch?v=Obtevs1JTgM](https://www.youtube.com/watch?v=Obtevs1JTgM) 
-
-
-### Side-projects
-#### 소프트웨어에 물들다 사이트 개발 2018.03-05
-- 자원봉사 프로젝트 팀 소프트웨어에 물들다(http://somul.kr)에서 개발참여
-- 자원봉사자들의 참가신청을 도와주는 도서관, 강연자 매칭 시스템 개발(http://apply.somul.kr/)
-- Back-end 참여, Python/Flask 활용하여 구현
-- CI pipeline 구축
-- GitHub https://github.com/somul-project/somul-apply-library 
