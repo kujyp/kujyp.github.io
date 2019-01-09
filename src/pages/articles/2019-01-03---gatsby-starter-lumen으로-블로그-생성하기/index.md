@@ -9,7 +9,9 @@ tags:
   - "hosting"
   - "react"
   - "nodejs"
-description: "gatsby starter lumen으로 블로그 생성하기"
+description: "React를 사용하는 정적 페이지 생성 툴 gatsby를 활용해 개발블로그를 만들어 보았다.
+lumen starter를 활용해 css, plugin가 미리 세팅된 환경에서 작업을 시작했고,
+github pages를 이용해 생성된 정적페이지를 호스팅했다."
 ---
 
 
