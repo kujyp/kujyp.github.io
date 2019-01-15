@@ -50,8 +50,8 @@ shebang line `#!/bin/sh` 로 시작하는 쉘 스크립트의 내용을 볼 수 
 ![man_command.png](./man_command.png)<br/><br/>
 
 `-v` 뒤의 내용을 `re-read` 되는 내용으로 변경해준다. python 으로 예를들면 이런식이다.<br/>
-```
-$ command -v python
+```bash
+command -v python
 > /usr/bin/python
 ```
 
@@ -60,7 +60,7 @@ $ command -v python
 ![command_v_nothing.png](./command_v_nothing.png)<br/><br/>
 
 즉 command 가 존재하는지 여부를 판단할때 아래와 같은 쉘 조건문을 많이 사용한다.
-```
+```bash
 if [ "$(command -v nothing)" == "" ]; then
     # early exit
     echo "Install nothing first"
@@ -78,7 +78,7 @@ fi
 
 아래의 예시에서 helloworld function에 들어온 $@는 각각 "", "a", "a b" 이다.<br/>
 참고: macos와 linux의 shell 동작이 다를 수 있어서 예시는 docker centos7 image에서 실행했다.   
-```
+```bash
 docker run -it --rm centos:centos7 /bin/bash
 
 function helloworld() {
@@ -290,7 +290,6 @@ if file_exists file_that_doesnt_exist; then     echo true; else    echo false; f
 
 - 참고2. 중간에 띄어쓰기 때문에 작동안한 시행착오가있었다. 1, 2뒤에는 공백이 들어가면 안되는듯하다.
   - `ls "$@" > /dev/null 2> dev/null` (작동함)
-  - `ls "$@" > /dev/null 2 > dev/null` (작동안함)\
-
+  - `ls "$@" > /dev/null 2 > dev/null` (작동안함)
 - 참고3. shell은 공식 document를 어디서 찾아야하는지 몰라서 reference를 stackoverflow에서 가져왔다.
 - 참고4. shebang line을 보니 get-docker.sh 는 `sh`를 사용한다. shell script를 작성하다보면 가끔 `bash`와 `sh`의 차이에서 가끔 막히는경우가 있는데, 이번 글에서는 겪지 못한것을 보니 이번 글에서 사용한 기법들은 차이가 없나보다. 
