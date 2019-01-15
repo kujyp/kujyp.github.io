@@ -1,4 +1,432 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Wed, 09 Jan 2019 11:24:54 GMT</lastBuildDate><item><title><![CDATA[gatsby starter lumen으로 블로그 생성하기]]></title><description><![CDATA[gatsby starter lumen으로 블로그 생성하기]]></description><link>https://kujyp.github.io/posts/gatsby-starter-lumen으로-블로그-생성하기/</link><guid isPermaLink="false">https://kujyp.github.io/posts/gatsby-starter-lumen으로-블로그-생성하기/</guid><pubDate>Thu, 03 Jan 2019 04:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;TL;DR&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 15 Jan 2019 08:08:59 GMT</lastBuildDate><item><title><![CDATA[get docker 스크립트 파헤치기(command_exists)]]></title><description><![CDATA[평소에 인용해 사용하던 get-docker.sh 내부의 command_exists 함수의 동작을 파헤쳐보았다.]]></description><link>https://kujyp.github.io/posts/get-docker-스크립트-파헤치기-command-exists/</link><guid isPermaLink="false">https://kujyp.github.io/posts/get-docker-스크립트-파헤치기-command-exists/</guid><pubDate>Tue, 15 Jan 2019 17:06:00 GMT</pubDate><content:encoded>&lt;h3&gt;TL;DR&lt;/h3&gt;
+&lt;p&gt;평소에 인용해 사용하던 &lt;a href=&quot;https://get.docker.com/&quot;&gt;get-docker.sh&lt;/a&gt; 내부의 command_exists 함수의 동작을 파헤쳐보았다. &lt;/p&gt;
+&lt;h3&gt;들어가며&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://get.docker.com/&quot;&gt;get-docker.sh&lt;/a&gt; 는 &lt;a href=&quot;https://bootstrap.pypa.io/get-pip.py&quot;&gt;get-pip.py&lt;/a&gt; 처럼 널리 사용되는 설치 스크립트이다.
+어느 os, 어느 cpu architecture에서도 잘 돌아가는 설치스크립트는 꽤나 잘만들어져있다는 느낌을 준다.
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;get-docker.sh 코드 내부에 있는 &lt;code class=&quot;language-text&quot;&gt;command_exists&lt;/code&gt; 함수는 쉘스크립트가 보통은 갖기힘든 아름다운 가독성을 보여준다.
+사용예는 이렇다.&lt;br/&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; command_exists &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; exists
+&lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; command_exists &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; not exists
+&lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;이번 글에서는 이 &lt;code class=&quot;language-text&quot;&gt;command_exists&lt;/code&gt; 함수 내부의 내용을 파헤쳐보겠다. &lt;/p&gt;
+&lt;h3&gt;command_exists 함수&lt;/h3&gt;
+&lt;p&gt;브라우저로 &lt;a href=&quot;https://get.docker.com/&quot;&gt;https://get.docker.com/&lt;/a&gt; 에 접속해보자.&lt;br/&gt;
+shebang line &lt;code class=&quot;language-text&quot;&gt;#!/bin/sh&lt;/code&gt; 로 시작하는 쉘 스크립트의 내용을 볼 수 있는데, 이것이 &lt;code class=&quot;language-text&quot;&gt;get-docker.sh&lt;/code&gt;의 코드 내용이다.
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;내용 중 아래로 내려가다보면 &lt;code class=&quot;language-text&quot;&gt;command_exists&lt;/code&gt; 라는 함수가 보일것이다. 3줄짜리 간단한 코드이고, 오늘 파헤쳐볼 코드이다.&lt;br/&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/command_exists-30b44c405cb276e8ee941b8ed47ad34d-25ed0.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 491px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 16.08961303462322%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQI142OywqCUABE/f8PSjCil08wWoRRltEqJTAzH2kX78nHqmjRgWFmM8MopuGgjRfM5jaaNmVibjCPBdf0RVkJsqfgUdbkrXfKSkEjaZFI2YcPlJF7Qd8lGF6IqnuoVsDyUOD4CetzzuqUYm0jnH2MG9yx/RtFPZR/DoZx1ocoEYRJRcM/dO8G/+YNzwTjl8eklZcAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;command_exists.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/command_exists-30b44c405cb276e8ee941b8ed47ad34d-25ed0.png&quot;
+        srcset=&quot;/static/command_exists-30b44c405cb276e8ee941b8ed47ad34d-53310.png 240w,
+/static/command_exists-30b44c405cb276e8ee941b8ed47ad34d-87472.png 480w,
+/static/command_exists-30b44c405cb276e8ee941b8ed47ad34d-25ed0.png 491w&quot;
+        sizes=&quot;(max-width: 491px) 100vw, 491px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3&gt;command -v&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &amp;quot;$@&amp;quot;&lt;/code&gt; 부터 알아보자.&lt;br/&gt;
+아래는 command manual 중 &lt;code class=&quot;language-text&quot;&gt;-v&lt;/code&gt; 옵션의 내용이다.
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/man_command-81823eb899ad9404fb3843fb4281d7d4-881e6.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 676px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 6.952662721893491%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAABCAYAAADeko4lAAAACXBIWXMAAAsSAAALEgHS3X78AAAAVUlEQVQI12MwNLf/b2Tl/N/JJ+z/lFUH//cu2vW/a97W/z3zt/3vmL3xfzeQ3Tx93f+u+duB4tv+d87d+r934c7/3WD+1v/9S/f9n7b2+P+pa46CMQAPYTaNfgiEDwAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;man_command.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/man_command-81823eb899ad9404fb3843fb4281d7d4-881e6.png&quot;
+        srcset=&quot;/static/man_command-81823eb899ad9404fb3843fb4281d7d4-76c8e.png 240w,
+/static/man_command-81823eb899ad9404fb3843fb4281d7d4-7918d.png 480w,
+/static/man_command-81823eb899ad9404fb3843fb4281d7d4-881e6.png 676w&quot;
+        sizes=&quot;(max-width: 676px) 100vw, 676px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;-v&lt;/code&gt; 뒤의 내용을 &lt;code class=&quot;language-text&quot;&gt;re-read&lt;/code&gt; 되는 내용으로 변경해준다. python 으로 예를들면 이런식이다.&lt;br/&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ command -v python
+&amp;gt; /usr/bin/python&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;뒤의 내용이 실제로 실행할 파일이 있을때 결과가 출력된다.&lt;br/&gt;
+없을때에는? 아무것도 출력되지않는다.
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/command_v_nothing-a512f937a240897dbe5a14fc5946d471-2bb0d.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 381px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 11.548556430446196%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsSAAALEgHS3X78AAAAdElEQVQI1z2MywrDIBQF80e+wJWLRLENjRrTXgNu0v//itNwQ7o4DByYGeb5hVoriAjUGnrv2LY3YoyIjydKyWj7jiUlOOfgQ8CSM//WWgghoJT6b7ikckbXK/whpFMepwneB3yPg0NSSha01kxjDPP+7/0A/upGzy9PwtYAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;command_v_nothing.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/command_v_nothing-a512f937a240897dbe5a14fc5946d471-2bb0d.png&quot;
+        srcset=&quot;/static/command_v_nothing-a512f937a240897dbe5a14fc5946d471-0e6f4.png 240w,
+/static/command_v_nothing-a512f937a240897dbe5a14fc5946d471-2bb0d.png 381w&quot;
+        sizes=&quot;(max-width: 381px) 100vw, 381px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;즉 command 가 존재하는지 여부를 판단할때 아래와 같은 쉘 조건문을 많이 사용한다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;if [ &amp;quot;$(command -v nothing)&amp;quot; == &amp;quot;&amp;quot; ]; then
+    # early exit
+    echo &amp;quot;Install nothing first&amp;quot;
+    exit 1;
+fi
+
+# do something &lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h3&gt;”@#”&lt;/h3&gt;
+&lt;p&gt;그렇다면 &lt;code class=&quot;language-text&quot;&gt;command -v&lt;/code&gt; 뒤의 ”$@“는 무슨내용일까?&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;함수 또는 스크립트에 들어온 모든 parameter를 의미한다.&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;아래의 예시에서 helloworld function에 들어온 $@는 각각 &quot;&quot;, “a”, “a b” 이다.&lt;br/&gt;
+참고: macos와 linux의 shell 동작이 다를 수 있어서 예시는 docker centos7 image에서 실행했다.   &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;docker run -it --rm centos:centos7 /bin/bash
+
+function helloworld() {
+    echo &amp;quot;helloworld $@&amp;quot;
+}
+
+### MAIN ###
+helloworld
+helloworld a
+helloworld a b
+
+&amp;gt; helloworld
+&amp;gt; helloworld a
+&amp;gt; helloworld a b&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;ref: &lt;a href=&quot;https://stackoverflow.com/a/9994328&quot;&gt;What does $@ mean in a shell script?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;/dev/null(널장치)&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;먼저 &lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 앞의 &lt;code class=&quot;language-text&quot;&gt;&amp;gt;&lt;/code&gt;는 표준입력(stdout)을 redirection 한다는 것을 의미한다.&lt;br/&gt;
+표준입력을 &lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 로 redirection 한다는 의미인데, 여기에서 &lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 로 보낸다는의미는 버린다는 의미와 같다.&lt;br/&gt;
+즉 stdout으로 출력될 문구를 출력하지 말라는 의미이다.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://ko.wikipedia.org/wiki/%EB%84%90_%EC%9E%A5%EC%B9%98&quot;&gt;wikipedia 널 장치&lt;/a&gt;에 따르면 유닉스 쪽에서 &lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 은 비트 버킷 또는 블랙홀로 불린다고한다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ref: wikipedia 널 장치 &lt;a href=&quot;https://ko.wikipedia.org/wiki/%EB%84%90_%EC%9E%A5%EC%B9%98&quot;&gt;https://ko.wikipedia.org/wiki/%EB%84%90_%EC%9E%A5%EC%B9%98&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;file descriptor 1, 2&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 바로 뒤 &lt;code class=&quot;language-text&quot;&gt;2&lt;/code&gt; 에 주목하자 이는 file descriptor를 의미한다.&lt;br/&gt;
+여기서 &lt;code class=&quot;language-text&quot;&gt;file descriptor 1&lt;/code&gt; 은 &lt;code class=&quot;language-text&quot;&gt;stdout&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;file descriptor 2&lt;/code&gt; 는 &lt;code class=&quot;language-text&quot;&gt;stderr&lt;/code&gt; 를 의미한다.&lt;br/&gt;
+아래의 예시를 보자.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker run -it --rm centos:centos7 /bin/bash
+
+&lt;span class=&quot;token function&quot;&gt;touch&lt;/span&gt; file_that_exists
+&lt;span class=&quot;token comment&quot;&gt;# stdout을 버린다.&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_exists 1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist 1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; ls: cannot access file_that_doesnt_exist: No such &lt;span class=&quot;token function&quot;&gt;file&lt;/span&gt; or directory
+
+&lt;span class=&quot;token comment&quot;&gt;# stderr를 버린다.&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_exists 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; file_that_exists
+&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null
+&lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;-&gt; ls 명령어의 출력이 비슷해보이지만 &lt;code class=&quot;language-text&quot;&gt;stdout&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;stderr&lt;/code&gt;가 나뉘어져있었다.
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ls_output-c4946a896f13ae8644b927f9c0cb02be-28fee.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 20.62780269058296%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAuElEQVQY02WPSw6DMAxEuQ0FBCgUyMdJESVRQte9/1WmSRCoEouRZ+Pn52LiE7rFgK0fOFrwlQJBEgT1oFcHISW4EBinKU/OOeZ5BmkNqRTqukbTNFcKSRrObnDOYX2vGTDHJSEklCIQEYZhwKMsUVXVlRN0A5Ix8N7DhwBrbQSJwyCCdLTQ5jBJhm3bou069H2f+z/07IWKSwkY9h0heLy3LcOSaX432vJ4IB15jmO2TZ0xdrNL+QFGRoG1VsSQGgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;ls_output.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/ls_output-c4946a896f13ae8644b927f9c0cb02be-c83f1.png&quot;
+        srcset=&quot;/static/ls_output-c4946a896f13ae8644b927f9c0cb02be-569e3.png 240w,
+/static/ls_output-c4946a896f13ae8644b927f9c0cb02be-93400.png 480w,
+/static/ls_output-c4946a896f13ae8644b927f9c0cb02be-c83f1.png 960w,
+/static/ls_output-c4946a896f13ae8644b927f9c0cb02be-28fee.png 1338w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ref: &lt;a href=&quot;https://stackoverflow.com/a/818284&quot;&gt;In the shell, what does “ 2&gt;&amp;#x26;1 ” mean?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;2&gt;&amp;#x26;1&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;다음은 &lt;code class=&quot;language-text&quot;&gt;2&amp;gt;&amp;amp;1&lt;/code&gt; 차례이다.&lt;br/&gt;
+&lt;code class=&quot;language-text&quot;&gt;&amp;amp;&lt;/code&gt; 기호는 뒤의 내용이 &lt;code class=&quot;language-text&quot;&gt;file descriptor&lt;/code&gt; 라는 것을 보여준다.&lt;br/&gt;
+즉 &lt;code class=&quot;language-text&quot;&gt;&amp;amp;1&lt;/code&gt; 은 &lt;code class=&quot;language-text&quot;&gt;stdout&lt;/code&gt; 을 의미한다.&lt;br/&gt;
+(&amp;#x26;가 없으면 &lt;code class=&quot;language-text&quot;&gt;1&lt;/code&gt; 을 파일이름으로 하는 파일에 해당 내용이 redirection 된다.)&lt;/p&gt;
+&lt;p&gt;즉 이 코드는 앞에서 &lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 로 보냈던 &lt;code class=&quot;language-text&quot;&gt;stdout&lt;/code&gt;에 &lt;code class=&quot;language-text&quot;&gt;stderr&lt;/code&gt;를 연결해서 &lt;code class=&quot;language-text&quot;&gt;stderr&lt;/code&gt;까지 둘다 버리는것을 의미한다.&lt;/p&gt;
+&lt;p&gt;아래의 예시를 실행해보면 더 명확하게 알수있다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker run -it --rm centos:centos7 /bin/bash
+ 
+&lt;span class=&quot;token function&quot;&gt;touch&lt;/span&gt; file_that_exists
+
+&lt;span class=&quot;token comment&quot;&gt;# stderr는 버려지지않는다.&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; ls: cannot access file_that_doesnt_exist: No such &lt;span class=&quot;token function&quot;&gt;file&lt;/span&gt; or directory
+&lt;span class=&quot;token comment&quot;&gt;# stderr도 버려서 아무것도 출력되지않는다. &lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;1
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# stderr를 파일 &quot;1&quot;에 redirection, 아무것도 출력은 안된다.&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;1
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# cat으로 file &quot;1&quot;을 출력해보면 내용이 남아있다. &lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;cat&lt;/span&gt; 1
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; ls: cannot access file_that_doesnt_exist: No such &lt;span class=&quot;token function&quot;&gt;file&lt;/span&gt; or directory&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;참고: &lt;code class=&quot;language-text&quot;&gt;2&amp;gt;1&lt;/code&gt;을 하는 상황에서 &lt;code class=&quot;language-text&quot;&gt;ls&lt;/code&gt; 를 입력해보면, &lt;code class=&quot;language-text&quot;&gt;1&lt;/code&gt; 이라는 파일이 생성된것을 볼 수 있다.
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ls_file1-b7f1632d4d96476c6c318a171432fbd3-74102.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 9.298780487804878%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAf0lEQVQI1w2MWwqDMBQF3UxrXhVN1JuHhopiodD9L2eaj+Ew52O6WiulFFJKhK3gc8W4Aa11Q2HHBecjj3nC+BXX3E7SNtCbwHG/uH8jvZ2xVtNJjIgIcwjo+GbdT2LKxPbnhpWMkh1Tv9h84+TEpQ/PXFDLQboq25VQZmhBwx8kGEB/rI+onAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;ls_file1.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/ls_file1-b7f1632d4d96476c6c318a171432fbd3-c83f1.png&quot;
+        srcset=&quot;/static/ls_file1-b7f1632d4d96476c6c318a171432fbd3-569e3.png 240w,
+/static/ls_file1-b7f1632d4d96476c6c318a171432fbd3-93400.png 480w,
+/static/ls_file1-b7f1632d4d96476c6c318a171432fbd3-c83f1.png 960w,
+/static/ls_file1-b7f1632d4d96476c6c318a171432fbd3-74102.png 1312w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ref: &lt;a href=&quot;https://stackoverflow.com/a/818284&quot;&gt;In the shell, what does “ 2&gt;&amp;#x26;1 ” mean?&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ref2: &lt;a href=&quot;https://unix.stackexchange.com/a/23966&quot;&gt;Why is redirecting STDERR to /dev/null done this way?&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ref3: &lt;a href=&quot;https://gist.github.com/gin1314/3697341&quot;&gt;gist - bash: redirection cheetsheet&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;shell if&lt;/h3&gt;
+&lt;p&gt;위에서 설명한 function은 실제로 if 문 내부에서 써먹는다.&lt;br/&gt;
+if 문 내부에서 shell statement가 성공, 실패했을때 동작을 살펴보자.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker run -it --rm centos:centos7 /bin/bash
+ 
+&lt;span class=&quot;token function&quot;&gt;touch&lt;/span&gt; file_that_exists
+
+&lt;span class=&quot;token comment&quot;&gt;# shell statement 성공시&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_exists
+&lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; file_that_exists
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# shell statement 실패시&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist
+&lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; ls: cannot access file_that_doesnt_exist: No such &lt;span class=&quot;token function&quot;&gt;file&lt;/span&gt; or directory
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;-&gt; if 뒤에 나오는 statement가 성공시 true, 실패시 false를 반환하는것을 알 수 있다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;참고: function에 해당 구문을 넣어보았다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker run -it --rm centos:centos7 /bin/bash
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; file_exists&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;$@&lt;/span&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token function&quot;&gt;touch&lt;/span&gt; file_that_exists
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; file_exists file_that_exists
+&lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; file_that_exists
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; file_exists file_that_doesnt_exist
+&lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; ls: cannot access file_that_doesnt_exist: No such &lt;span class=&quot;token function&quot;&gt;file&lt;/span&gt; or directory
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;-&gt; function 으로 감싸도 결과는 같다.&lt;/p&gt;
+&lt;h3&gt;결론&lt;/h3&gt;
+&lt;p&gt;위에서 알아낸 내용을 종합하면 이 &lt;code class=&quot;language-text&quot;&gt;command_exists&lt;/code&gt; 함수는 &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &amp;quot;인자&amp;quot;&lt;/code&gt; 의 성공/실패여부를 반환하고,&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;stdout&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;stderr&lt;/code&gt;로 나와야할 출력을 &lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 로 버려주는 역할을 수행한다.
+&lt;br/&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;command_exists&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; -v &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;$@&lt;/span&gt;&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;1
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;이 함수를 통해 아래와 같이 사용해왔던 if 문을 좀더 미려하게 사용할 수 있게 만들었다.   &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# before&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; -v somethingtocheck&lt;span class=&quot;token variable&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; not exists&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# after&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; command_exists somethingtocheck&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; not exists&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h3&gt;마치며&lt;/h3&gt;
+&lt;p&gt;shell script는 정식으로 배울일이 없어서 예전부터 구글링하면서 작성을 해왔다.&lt;br/&gt;
+눈앞의 문제를 해결하기위해서만 코드 작성을 하다보면, 궁금한점이 자꾸 쌓이는데, 이번 기회에 여러가지 실험해보면서 정리를 해볼 수 있었다.&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;꽤 개운한 경험인것 같다.&lt;/p&gt;
+&lt;h3&gt;참고&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;참고1. 위에서 사용한 스크립트를 좀더 개선해보았다.&lt;br/&gt;
+가독성 측면에서 기존의 &lt;code class=&quot;language-text&quot;&gt;2&amp;gt;&amp;amp;1&lt;/code&gt; 는 좀 더 의도가 숨겨져있는 느낌이다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker run -it --rm centos:centos7 /bin/bash
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; file_exists&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;$@&lt;/span&gt;&quot;&lt;/span&gt; 1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; dev/null
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token function&quot;&gt;touch&lt;/span&gt; file_that_exists
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; file_exists file_that_exists&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;     &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; file_exists file_that_doesnt_exist&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;     &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;참고2. 중간에 띄어쓰기 때문에 작동안한 시행착오가있었다. 1, 2뒤에는 공백이 들어가면 안되는듯하다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;ls &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2&amp;gt; dev/null&lt;/code&gt; (작동함)&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;ls &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2 &amp;gt; dev/null&lt;/code&gt; (작동안함)\&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;참고3. shell은 공식 document를 어디서 찾아야하는지 몰라서 reference를 stackoverflow에서 가져왔다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;참고4. shebang line을 보니 get-docker.sh 는 &lt;code class=&quot;language-text&quot;&gt;sh&lt;/code&gt;를 사용한다. shell script를 작성하다보면 가끔 &lt;code class=&quot;language-text&quot;&gt;bash&lt;/code&gt;와 &lt;code class=&quot;language-text&quot;&gt;sh&lt;/code&gt;의 차이에서 가끔 막히는경우가 있는데, 이번 글에서는 겪지 못한것을 보니 이번 글에서 사용한 기법들은 차이가 없나보다. &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[gatsby starter lumen으로 블로그 생성하기]]></title><description><![CDATA[React를 사용하는 정적 페이지 생성 툴 gatsby를 활용해 개발블로그를 만들어 보았다. lumen starter를 활용해 css, plugin가 미리 세팅된 환경에서 작업을 시작했고, github pages를 이용해 생성된 정적페이지를 호스팅했다.]]></description><link>https://kujyp.github.io/posts/gatsby-starter-lumen으로-블로그-생성하기/</link><guid isPermaLink="false">https://kujyp.github.io/posts/gatsby-starter-lumen으로-블로그-생성하기/</guid><pubDate>Thu, 03 Jan 2019 04:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;TL;DR&lt;/h3&gt;
 &lt;p&gt;React를 사용하는 정적 페이지 생성 툴 &lt;a href=&quot;https://www.gatsbyjs.org/&quot;&gt;gatsby&lt;/a&gt;를 활용해 개발블로그를 만들어 보았다.
 &lt;a href=&quot;https://github.com/alxshelepenok/gatsby-starter-lumen&quot;&gt;lumen starter&lt;/a&gt;를 활용해 css, plugin가 미리 세팅된 환경에서 작업을 시작했고,
 github pages를 이용해 생성된 정적페이지를 호스팅했다.&lt;/p&gt;
