@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 15 Jan 2019 08:35:10 GMT</lastBuildDate><item><title><![CDATA[get docker 스크립트 파헤치기(command_exists)]]></title><description><![CDATA[평소에 인용해 사용하던 get-docker.sh 내부의 command_exists 함수의 동작을 파헤쳐보았다.]]></description><link>https://kujyp.github.io/posts/get-docker-스크립트-파헤치기-command-exists/</link><guid isPermaLink="false">https://kujyp.github.io/posts/get-docker-스크립트-파헤치기-command-exists/</guid><pubDate>Tue, 15 Jan 2019 17:06:00 GMT</pubDate><content:encoded>&lt;h1&gt;TL;DR&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 15 Jan 2019 09:27:21 GMT</lastBuildDate><item><title><![CDATA[get docker 스크립트 파헤치기(command_exists)]]></title><description><![CDATA[평소에 인용해 사용하던 get-docker.sh 내부의 command_exists 함수의 동작을 파헤쳐보았다.]]></description><link>https://kujyp.github.io/posts/get-docker-스크립트-파헤치기-command-exists/</link><guid isPermaLink="false">https://kujyp.github.io/posts/get-docker-스크립트-파헤치기-command-exists/</guid><pubDate>Tue, 15 Jan 2019 17:06:00 GMT</pubDate><content:encoded>&lt;h1&gt;TL;DR&lt;/h1&gt;
 &lt;p&gt;평소에 인용해 사용하던 &lt;a href=&quot;https://get.docker.com/&quot;&gt;get-docker.sh&lt;/a&gt; 내부의 command_exists 함수의 동작을 파헤쳐보았다. &lt;/p&gt;
 &lt;h1&gt;들어가며&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&quot;https://get.docker.com/&quot;&gt;get-docker.sh&lt;/a&gt; 는 &lt;a href=&quot;https://bootstrap.pypa.io/get-pip.py&quot;&gt;get-pip.py&lt;/a&gt; 처럼 널리 사용되는 설치 스크립트이다.
@@ -92,8 +92,8 @@ shebang line &lt;code class=&quot;language-text&quot;&gt;#!/bin/sh&lt;/code&gt; 
     &lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;-v&lt;/code&gt; 뒤의 내용을 &lt;code class=&quot;language-text&quot;&gt;re-read&lt;/code&gt; 되는 내용으로 변경해준다. python 으로 예를들면 이런식이다.&lt;br/&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;$ command -v python
-&amp;gt; /usr/bin/python&lt;/code&gt;&lt;/pre&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; -v python
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /usr/bin/python&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;p&gt;뒤의 내용이 실제로 실행할 파일이 있을때 결과가 출력된다.&lt;br/&gt;
 없을때에는? 아무것도 출력되지않는다.
@@ -131,13 +131,13 @@ shebang line &lt;code class=&quot;language-text&quot;&gt;#!/bin/sh&lt;/code&gt; 
     &lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
 &lt;p&gt;즉 command 가 존재하는지 여부를 판단할때 아래와 같은 쉘 조건문을 많이 사용한다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;if [ &amp;quot;$(command -v nothing)&amp;quot; == &amp;quot;&amp;quot; ]; then
-    # early exit
-    echo &amp;quot;Install nothing first&amp;quot;
-    exit 1;
-fi
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; -v nothing&lt;span class=&quot;token variable&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;# early exit&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Install nothing first&quot;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;exit&lt;/span&gt; 1&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
 
-# do something &lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;token comment&quot;&gt;# do something &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h1&gt;”@#”&lt;/h1&gt;
 &lt;p&gt;그렇다면 &lt;code class=&quot;language-text&quot;&gt;command -v&lt;/code&gt; 뒤의 ”$@“는 무슨내용일까?&lt;br/&gt;&lt;/p&gt;
@@ -145,20 +145,20 @@ fi
 &lt;p&gt;아래의 예시에서 helloworld function에 들어온 $@는 각각 &quot;&quot;, “a”, “a b” 이다.&lt;br/&gt;
 참고: macos와 linux의 shell 동작이 다를 수 있어서 예시는 docker centos7 image에서 실행했다.   &lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;docker run -it --rm centos:centos7 /bin/bash
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker run -it --rm centos:centos7 /bin/bash
 
-function helloworld() {
-    echo &amp;quot;helloworld $@&amp;quot;
-}
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; helloworld&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;helloworld &lt;span class=&quot;token variable&quot;&gt;$@&lt;/span&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
-### MAIN ###
+&lt;span class=&quot;token comment&quot;&gt;### MAIN ###&lt;/span&gt;
 helloworld
 helloworld a
 helloworld a b
 
-&amp;gt; helloworld
-&amp;gt; helloworld a
-&amp;gt; helloworld a b&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; helloworld
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; helloworld a
+&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; helloworld a b&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;ref: &lt;a href=&quot;https://stackoverflow.com/a/9994328&quot;&gt;What does $@ mean in a shell script?&lt;/a&gt;&lt;/li&gt;
@@ -417,15 +417,11 @@ if 문 내부에서 shell statement가 성공, 실패했을때 동작을 살펴�
 &lt;p&gt;참고2. 중간에 띄어쓰기 때문에 작동안한 시행착오가있었다. 1, 2뒤에는 공백이 들어가면 안되는듯하다.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;ls &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2&amp;gt; dev/null&lt;/code&gt; (작동함)&lt;/li&gt;
-&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;ls &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2 &amp;gt; dev/null&lt;/code&gt; (작동안함)\&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;ls &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2 &amp;gt; dev/null&lt;/code&gt; (작동안함)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;참고3. shell은 공식 document를 어디서 찾아야하는지 몰라서 reference를 stackoverflow에서 가져왔다.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;참고4. shebang line을 보니 get-docker.sh 는 &lt;code class=&quot;language-text&quot;&gt;sh&lt;/code&gt;를 사용한다. shell script를 작성하다보면 가끔 &lt;code class=&quot;language-text&quot;&gt;bash&lt;/code&gt;와 &lt;code class=&quot;language-text&quot;&gt;sh&lt;/code&gt;의 차이에서 가끔 막히는경우가 있는데, 이번 글에서는 겪지 못한것을 보니 이번 글에서 사용한 기법들은 차이가 없나보다. &lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;참고3. shell은 공식 document를 어디서 찾아야하는지 몰라서 reference를 stackoverflow에서 가져왔다.&lt;/li&gt;
+&lt;li&gt;참고4. shebang line을 보니 get-docker.sh 는 &lt;code class=&quot;language-text&quot;&gt;sh&lt;/code&gt;를 사용한다. shell script를 작성하다보면 가끔 &lt;code class=&quot;language-text&quot;&gt;bash&lt;/code&gt;와 &lt;code class=&quot;language-text&quot;&gt;sh&lt;/code&gt;의 차이에서 가끔 막히는경우가 있는데, 이번 글에서는 겪지 못한것을 보니 이번 글에서 사용한 기법들은 차이가 없나보다. &lt;/li&gt;
 &lt;/ul&gt;</content:encoded></item><item><title><![CDATA[gatsby starter lumen으로 블로그 생성하기]]></title><description><![CDATA[React를 사용하는 정적 페이지 생성 툴 gatsby를 활용해 개발블로그를 만들어 보았다. lumen starter를 활용해 css, plugin가 미리 세팅된 환경에서 작업을 시작했고, github pages를 이용해 생성된 정적페이지를 호스팅했다.]]></description><link>https://kujyp.github.io/posts/gatsby-starter-lumen으로-블로그-생성하기/</link><guid isPermaLink="false">https://kujyp.github.io/posts/gatsby-starter-lumen으로-블로그-생성하기/</guid><pubDate>Thu, 03 Jan 2019 04:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;TL;DR&lt;/h3&gt;
 &lt;p&gt;React를 사용하는 정적 페이지 생성 툴 &lt;a href=&quot;https://www.gatsbyjs.org/&quot;&gt;gatsby&lt;/a&gt;를 활용해 개발블로그를 만들어 보았다.
 &lt;a href=&quot;https://github.com/alxshelepenok/gatsby-starter-lumen&quot;&gt;lumen starter&lt;/a&gt;를 활용해 css, plugin가 미리 세팅된 환경에서 작업을 시작했고,
