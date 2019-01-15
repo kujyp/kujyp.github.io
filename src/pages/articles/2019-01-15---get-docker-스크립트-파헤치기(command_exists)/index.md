@@ -11,11 +11,11 @@ tags:
 description: "평소에 인용해 사용하던 get-docker.sh 내부의 command_exists 함수의 동작을 파헤쳐보았다."
 ---
 
-### TL;DR
+# TL;DR
 평소에 인용해 사용하던 [get-docker.sh](https://get.docker.com/) 내부의 command_exists 함수의 동작을 파헤쳐보았다. 
 
 
-### 들어가며
+# 들어가며
 [get-docker.sh](https://get.docker.com/) 는 [get-pip.py](https://bootstrap.pypa.io/get-pip.py) 처럼 널리 사용되는 설치 스크립트이다.
 어느 os, 어느 cpu architecture에서도 잘 돌아가는 설치스크립트는 꽤나 잘만들어져있다는 느낌을 준다.
 <br/>
@@ -35,7 +35,7 @@ fi
 이번 글에서는 이 `command_exists` 함수 내부의 내용을 파헤쳐보겠다. 
 
 
-### command_exists 함수
+# command_exists 함수
 브라우저로 https://get.docker.com/ 에 접속해보자.<br/>
 shebang line `#!/bin/sh` 로 시작하는 쉘 스크립트의 내용을 볼 수 있는데, 이것이 `get-docker.sh`의 코드 내용이다.
 <br/>
@@ -44,7 +44,7 @@ shebang line `#!/bin/sh` 로 시작하는 쉘 스크립트의 내용을 볼 수 
 ![command_exists.png](./command_exists.png)
 
 
-### command -v
+# command -v
 `command -v "$@"` 부터 알아보자.<br/> 
 아래는 command manual 중 `-v` 옵션의 내용이다. 
 ![man_command.png](./man_command.png)<br/><br/>
@@ -71,7 +71,7 @@ fi
 ```
 
 
-### "@#"
+# "@#"
 그렇다면 `command -v` 뒤의 "$@"는 무슨내용일까?<br/>
 
 함수 또는 스크립트에 들어온 모든 parameter를 의미한다.<br/>
@@ -97,7 +97,7 @@ helloworld a b
 - ref: [What does $@ mean in a shell script?](https://stackoverflow.com/a/9994328)
 
 
-### /dev/null(널장치)
+# /dev/null(널장치)
 `command -v "$@" > /dev/null 2>&1`
 
 먼저 `/dev/null` 앞의 `>`는 표준입력(stdout)을 redirection 한다는 것을 의미한다.<br/>
@@ -109,7 +109,7 @@ helloworld a b
 - ref: wikipedia 널 장치 https://ko.wikipedia.org/wiki/%EB%84%90_%EC%9E%A5%EC%B9%98
 
 
-### file descriptor 1, 2
+# file descriptor 1, 2
 `command -v "$@" > /dev/null 2>&1`
 
 `/dev/null` 바로 뒤 `2` 에 주목하자 이는 file descriptor를 의미한다.<br/>
@@ -138,7 +138,7 @@ ls file_that_doesnt_exist 2> /dev/null
 
 - ref: [In the shell, what does “ 2>&1 ” mean?](https://stackoverflow.com/a/818284)
 
-### 2>&1
+# 2>&1
 `command -v "$@" > /dev/null 2>&1`
 
 다음은 `2>&1` 차례이다.<br/>
@@ -176,7 +176,7 @@ cat 1
 - ref3: [gist - bash: redirection cheetsheet](https://gist.github.com/gin1314/3697341)
 
 
-### shell if
+# shell if
 위에서 설명한 function은 실제로 if 문 내부에서 써먹는다.<br/>
 if 문 내부에서 shell statement가 성공, 실패했을때 동작을 살펴보자.
 
@@ -237,7 +237,7 @@ fi
 ```
 -> function 으로 감싸도 결과는 같다.
 
-### 결론
+# 결론
 위에서 알아낸 내용을 종합하면 이 `command_exists` 함수는 
 1. `command -v "인자"` 의 성공/실패여부를 반환하고,
 2. `stdout`, `stderr`로 나와야할 출력을 `/dev/null` 로 버려주는 역할을 수행한다.
@@ -262,14 +262,14 @@ if ! command_exists somethingtocheck; then
 fi
 ```
 
-### 마치며
+# 마치며
 shell script는 정식으로 배울일이 없어서 예전부터 구글링하면서 작성을 해왔다.<br/>
 눈앞의 문제를 해결하기위해서만 코드 작성을 하다보면, 궁금한점이 자꾸 쌓이는데, 이번 기회에 여러가지 실험해보면서 정리를 해볼 수 있었다.<br/>
 
 꽤 개운한 경험인것 같다.
 
 
-### 참고
+# 참고
 - 참고1. 위에서 사용한 스크립트를 좀더 개선해보았다.<br/>
 가독성 측면에서 기존의 `2>&1` 는 좀 더 의도가 숨겨져있는 느낌이다.
 
