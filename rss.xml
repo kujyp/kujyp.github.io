@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 15 Jan 2019 08:08:59 GMT</lastBuildDate><item><title><![CDATA[get docker 스크립트 파헤치기(command_exists)]]></title><description><![CDATA[평소에 인용해 사용하던 get-docker.sh 내부의 command_exists 함수의 동작을 파헤쳐보았다.]]></description><link>https://kujyp.github.io/posts/get-docker-스크립트-파헤치기-command-exists/</link><guid isPermaLink="false">https://kujyp.github.io/posts/get-docker-스크립트-파헤치기-command-exists/</guid><pubDate>Tue, 15 Jan 2019 17:06:00 GMT</pubDate><content:encoded>&lt;h3&gt;TL;DR&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 15 Jan 2019 08:35:10 GMT</lastBuildDate><item><title><![CDATA[get docker 스크립트 파헤치기(command_exists)]]></title><description><![CDATA[평소에 인용해 사용하던 get-docker.sh 내부의 command_exists 함수의 동작을 파헤쳐보았다.]]></description><link>https://kujyp.github.io/posts/get-docker-스크립트-파헤치기-command-exists/</link><guid isPermaLink="false">https://kujyp.github.io/posts/get-docker-스크립트-파헤치기-command-exists/</guid><pubDate>Tue, 15 Jan 2019 17:06:00 GMT</pubDate><content:encoded>&lt;h1&gt;TL;DR&lt;/h1&gt;
 &lt;p&gt;평소에 인용해 사용하던 &lt;a href=&quot;https://get.docker.com/&quot;&gt;get-docker.sh&lt;/a&gt; 내부의 command_exists 함수의 동작을 파헤쳐보았다. &lt;/p&gt;
-&lt;h3&gt;들어가며&lt;/h3&gt;
+&lt;h1&gt;들어가며&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&quot;https://get.docker.com/&quot;&gt;get-docker.sh&lt;/a&gt; 는 &lt;a href=&quot;https://bootstrap.pypa.io/get-pip.py&quot;&gt;get-pip.py&lt;/a&gt; 처럼 널리 사용되는 설치 스크립트이다.
 어느 os, 어느 cpu architecture에서도 잘 돌아가는 설치스크립트는 꽤나 잘만들어져있다는 느낌을 준다.
 &lt;br/&gt;&lt;/p&gt;
@@ -16,7 +16,7 @@
 &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;p&gt;이번 글에서는 이 &lt;code class=&quot;language-text&quot;&gt;command_exists&lt;/code&gt; 함수 내부의 내용을 파헤쳐보겠다. &lt;/p&gt;
-&lt;h3&gt;command_exists 함수&lt;/h3&gt;
+&lt;h1&gt;command_exists 함수&lt;/h1&gt;
 &lt;p&gt;브라우저로 &lt;a href=&quot;https://get.docker.com/&quot;&gt;https://get.docker.com/&lt;/a&gt; 에 접속해보자.&lt;br/&gt;
 shebang line &lt;code class=&quot;language-text&quot;&gt;#!/bin/sh&lt;/code&gt; 로 시작하는 쉘 스크립트의 내용을 볼 수 있는데, 이것이 &lt;code class=&quot;language-text&quot;&gt;get-docker.sh&lt;/code&gt;의 코드 내용이다.
 &lt;br/&gt;&lt;/p&gt;
@@ -54,7 +54,7 @@ shebang line &lt;code class=&quot;language-text&quot;&gt;#!/bin/sh&lt;/code&gt; 
   
   &lt;/a&gt;
     &lt;/p&gt;
-&lt;h3&gt;command -v&lt;/h3&gt;
+&lt;h1&gt;command -v&lt;/h1&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &amp;quot;$@&amp;quot;&lt;/code&gt; 부터 알아보자.&lt;br/&gt;
 아래는 command manual 중 &lt;code class=&quot;language-text&quot;&gt;-v&lt;/code&gt; 옵션의 내용이다.
 
@@ -139,7 +139,7 @@ fi
 
 # do something &lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;h3&gt;”@#”&lt;/h3&gt;
+&lt;h1&gt;”@#”&lt;/h1&gt;
 &lt;p&gt;그렇다면 &lt;code class=&quot;language-text&quot;&gt;command -v&lt;/code&gt; 뒤의 ”$@“는 무슨내용일까?&lt;br/&gt;&lt;/p&gt;
 &lt;p&gt;함수 또는 스크립트에 들어온 모든 parameter를 의미한다.&lt;br/&gt;&lt;/p&gt;
 &lt;p&gt;아래의 예시에서 helloworld function에 들어온 $@는 각각 &quot;&quot;, “a”, “a b” 이다.&lt;br/&gt;
@@ -163,7 +163,7 @@ helloworld a b
 &lt;ul&gt;
 &lt;li&gt;ref: &lt;a href=&quot;https://stackoverflow.com/a/9994328&quot;&gt;What does $@ mean in a shell script?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3&gt;/dev/null(널장치)&lt;/h3&gt;
+&lt;h1&gt;/dev/null(널장치)&lt;/h1&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;먼저 &lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 앞의 &lt;code class=&quot;language-text&quot;&gt;&amp;gt;&lt;/code&gt;는 표준입력(stdout)을 redirection 한다는 것을 의미한다.&lt;br/&gt;
 표준입력을 &lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 로 redirection 한다는 의미인데, 여기에서 &lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 로 보낸다는의미는 버린다는 의미와 같다.&lt;br/&gt;
@@ -172,7 +172,7 @@ helloworld a b
 &lt;ul&gt;
 &lt;li&gt;ref: wikipedia 널 장치 &lt;a href=&quot;https://ko.wikipedia.org/wiki/%EB%84%90_%EC%9E%A5%EC%B9%98&quot;&gt;https://ko.wikipedia.org/wiki/%EB%84%90_%EC%9E%A5%EC%B9%98&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3&gt;file descriptor 1, 2&lt;/h3&gt;
+&lt;h1&gt;file descriptor 1, 2&lt;/h1&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 바로 뒤 &lt;code class=&quot;language-text&quot;&gt;2&lt;/code&gt; 에 주목하자 이는 file descriptor를 의미한다.&lt;br/&gt;
 여기서 &lt;code class=&quot;language-text&quot;&gt;file descriptor 1&lt;/code&gt; 은 &lt;code class=&quot;language-text&quot;&gt;stdout&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;file descriptor 2&lt;/code&gt; 는 &lt;code class=&quot;language-text&quot;&gt;stderr&lt;/code&gt; 를 의미한다.&lt;br/&gt;
@@ -231,7 +231,7 @@ helloworld a b
 &lt;ul&gt;
 &lt;li&gt;ref: &lt;a href=&quot;https://stackoverflow.com/a/818284&quot;&gt;In the shell, what does “ 2&gt;&amp;#x26;1 ” mean?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3&gt;2&gt;&amp;#x26;1&lt;/h3&gt;
+&lt;h1&gt;2&gt;&amp;#x26;1&lt;/h1&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;다음은 &lt;code class=&quot;language-text&quot;&gt;2&amp;gt;&amp;amp;1&lt;/code&gt; 차례이다.&lt;br/&gt;
 &lt;code class=&quot;language-text&quot;&gt;&amp;amp;&lt;/code&gt; 기호는 뒤의 내용이 &lt;code class=&quot;language-text&quot;&gt;file descriptor&lt;/code&gt; 라는 것을 보여준다.&lt;br/&gt;
@@ -306,7 +306,7 @@ helloworld a b
 &lt;p&gt;ref3: &lt;a href=&quot;https://gist.github.com/gin1314/3697341&quot;&gt;gist - bash: redirection cheetsheet&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3&gt;shell if&lt;/h3&gt;
+&lt;h1&gt;shell if&lt;/h1&gt;
 &lt;p&gt;위에서 설명한 function은 실제로 if 문 내부에서 써먹는다.&lt;br/&gt;
 if 문 내부에서 shell statement가 성공, 실패했을때 동작을 살펴보자.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
@@ -365,7 +365,7 @@ if 문 내부에서 shell statement가 성공, 실패했을때 동작을 살펴�
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;p&gt;-&gt; function 으로 감싸도 결과는 같다.&lt;/p&gt;
-&lt;h3&gt;결론&lt;/h3&gt;
+&lt;h1&gt;결론&lt;/h1&gt;
 &lt;p&gt;위에서 알아낸 내용을 종합하면 이 &lt;code class=&quot;language-text&quot;&gt;command_exists&lt;/code&gt; 함수는 &lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &amp;quot;인자&amp;quot;&lt;/code&gt; 의 성공/실패여부를 반환하고,&lt;/li&gt;
@@ -389,11 +389,11 @@ if 문 내부에서 shell statement가 성공, 실패했을때 동작을 살펴�
     &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; not exists&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;h3&gt;마치며&lt;/h3&gt;
+&lt;h1&gt;마치며&lt;/h1&gt;
 &lt;p&gt;shell script는 정식으로 배울일이 없어서 예전부터 구글링하면서 작성을 해왔다.&lt;br/&gt;
 눈앞의 문제를 해결하기위해서만 코드 작성을 하다보면, 궁금한점이 자꾸 쌓이는데, 이번 기회에 여러가지 실험해보면서 정리를 해볼 수 있었다.&lt;br/&gt;&lt;/p&gt;
 &lt;p&gt;꽤 개운한 경험인것 같다.&lt;/p&gt;
-&lt;h3&gt;참고&lt;/h3&gt;
+&lt;h1&gt;참고&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;참고1. 위에서 사용한 스크립트를 좀더 개선해보았다.&lt;br/&gt;
 가독성 측면에서 기존의 &lt;code class=&quot;language-text&quot;&gt;2&amp;gt;&amp;amp;1&lt;/code&gt; 는 좀 더 의도가 숨겨져있는 느낌이다.&lt;/li&gt;
