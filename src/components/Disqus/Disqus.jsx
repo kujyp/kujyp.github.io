@@ -25,7 +25,6 @@ class Disqus extends Component {
     return (
       <ReactDisqusComments
         shortname={shortName}
-        identifier={post.title}
         title={post.title}
         url={url}
         category_id={post.category_id}
