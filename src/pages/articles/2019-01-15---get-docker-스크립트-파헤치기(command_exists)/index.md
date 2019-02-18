@@ -286,7 +286,7 @@ if file_exists file_that_exists; then     echo true; else    echo false; fi
 
 if file_exists file_that_doesnt_exist; then     echo true; else    echo false; fi
 > false
-``` 
+```
 
 - 참고2. 중간에 띄어쓰기 때문에 작동안한 시행착오가있었다. 1, 2뒤에는 공백이 들어가면 안되는듯하다.
   - `ls "$@" > /dev/null 2> dev/null` (작동함)
