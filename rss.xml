@@ -1,4 +1,203 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Mon, 18 Feb 2019 16:18:08 GMT</lastBuildDate><item><title><![CDATA[get docker 스크립트 파헤치기(command_exists)]]></title><description><![CDATA[평소에 인용해 사용하던 get-docker.sh 내부의 command_exists 함수의 동작을 파헤쳐보았다.]]></description><link>https://kujyp.github.io/posts/get-docker-스크립트-파헤치기-command-exists/</link><guid isPermaLink="false">https://kujyp.github.io/posts/get-docker-스크립트-파헤치기-command-exists/</guid><pubDate>Tue, 15 Jan 2019 17:06:00 GMT</pubDate><content:encoded>&lt;h1&gt;TL;DR&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Fri, 22 Feb 2019 16:51:56 GMT</lastBuildDate><item><title><![CDATA[Jenkins Extended E-mail Notification plugin에서 비어있는 환경변수 처리]]></title><description><![CDATA[Jenkins Extended E-mail Notification plugin을 사용하여 email 알림을 보낸다.]]></description><link>https://kujyp.github.io/posts/2019-02-22---Jenkins-Extended-E-mail-Notification-plugin에서-비어있는-환경변수-처리</link><guid isPermaLink="false">https://kujyp.github.io/posts/2019-02-22---Jenkins-Extended-E-mail-Notification-plugin에서-비어있는-환경변수-처리</guid><pubDate>Sat, 23 Feb 2019 01:49:00 GMT</pubDate><content:encoded>&lt;h3&gt;TL;DR&lt;/h3&gt;
+&lt;p&gt;Jenkins Extended E-mail Notification plugin을 사용하여 email 알림을 보낼때 비어있는 환경변수를 처리한다. &lt;/p&gt;
+&lt;h4&gt;Email-ext plugin&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://wiki.jenkins.io/display/JENKINS/Email-ext+plugin&quot;&gt;Email-ext plugin&lt;/a&gt; 은 Jenkins에서 작업 완료 알림을 이메일로 받아 볼 수 있도록 해준다.&lt;/p&gt;
+&lt;p&gt;나는 사내 Repository에서 Jenkins pipeline 중 post block을 아래의 내용으로 채우고있다.&lt;br/&gt;
+tag나 Pull Request로 유발된 작업이거나, master branch 인 경우, 작업이 끝났을때 알림 이메일을 보낸다는 내용이다.&lt;br/&gt; &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-groovy&quot;&gt;&lt;code class=&quot;language-groovy&quot;&gt;post &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    always &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;token comment&quot;&gt;// recipientProviders document: https://jenkins.io/doc/pipeline/steps/email-ext/&lt;/span&gt;
+        script &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;env&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;BRANCH_NAME &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;master&quot;&lt;/span&gt;
+                    &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; env&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;BRANCH_NAME&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;startsWith&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;PR&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; env&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;TAG_NAME&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; committerEmail &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; sh &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+                    script&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;git --no-pager show -s --format=\&apos;%ae\&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                    returnStdout&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;trim&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+                &lt;span class=&quot;token function&quot;&gt;emailext&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+                  subject&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;$DEFAULT_SUBJECT&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                  body&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &apos;&lt;span class=&quot;token punctuation&quot;&gt;$&lt;/span&gt;DEFAULT_CONTENT\n\
+\n\
+This email triggered by &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;PR&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; tag&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; master branch&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; only&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;\n\
+&apos;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                  to&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; committerEmail&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                  recipientProviders&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+                    &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;DevelopersRecipientProvider&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;RequesterRecipientProvider&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                    &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;CulpritsRecipientProvider&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;
+                  &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;token function&quot;&gt;deleteDir&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        echo &lt;span class=&quot;token string&quot;&gt;&apos;done&apos;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Email-ext plugin을 사용하면, &lt;code class=&quot;language-text&quot;&gt;Default Subject&lt;/code&gt;(제목)이 &lt;code class=&quot;language-text&quot;&gt;$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!&lt;/code&gt; 로 세팅되어있다.&lt;br/&gt;
+&lt;code class=&quot;language-text&quot;&gt;Manage Jenkins &amp;gt; Configure System &amp;gt; Extended E-mail Notification &amp;gt; Defalt Subject, Default Content&lt;/code&gt; 에서 변경이 가능한데,&lt;br/&gt;
+Pull Request를 하는경우 어떤 PR에서 날라온 결과인지 구분하기위해 제목에 PR이름을 추가했다.&lt;br/&gt;
+Jenkins에서는 이를 &lt;code class=&quot;language-text&quot;&gt;$CHANGE_TITLE&lt;/code&gt; 로 제공한다.&lt;br/&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$PROJECT_NAME&lt;/span&gt; &lt;span class=&quot;token variable&quot;&gt;$CHANGE_TITLE&lt;/span&gt; - Build &lt;span class=&quot;token comment&quot;&gt;# $BUILD_NUMBER - $BUILD_STATUS!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/before_setting-058c600d96fc8f1c64594d4a91b7b75e-65191.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 45.10978043912176%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAAAsSAAALEgHS3X78AAABAklEQVQoz5WSC27EIAxEc//b9AC9TpvdNOQD4Q/TMVmkqoqi1tKTDYFhbGWY5xnCcRwVjFprDCG8p5TeSimj7DFXgjskYsoYvPcQKNQFy7qukzFm5EEvh3POleCOZVmwbhoDnUEpBedccyK6MUbQYXuZuYnJ+or+TXQ2bTBorUFHIlhF6DR5xo9W/9SyCwnDtm1ge+ghDvvL/8W6cLYsLkWoc3cp3bTvQzwFhW6bvbW1uJZsX7UxGoYPy1hKOcXLi1Zzz3k63PcdgmxKpFzw8VDkC59Phce0sJ4xMk9qh7GRsyqwF2jLGeJXpFyxagdrLR1aZoeDNf9NuqgobSy4xLiCb2xJwV+0W0wnAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;before_setting.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/before_setting-058c600d96fc8f1c64594d4a91b7b75e-c83f1.png&quot;
+        srcset=&quot;/static/before_setting-058c600d96fc8f1c64594d4a91b7b75e-569e3.png 240w,
+/static/before_setting-058c600d96fc8f1c64594d4a91b7b75e-93400.png 480w,
+/static/before_setting-058c600d96fc8f1c64594d4a91b7b75e-c83f1.png 960w,
+/static/before_setting-058c600d96fc8f1c64594d4a91b7b75e-23e13.png 1440w,
+/static/before_setting-058c600d96fc8f1c64594d4a91b7b75e-65191.png 1503w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;그런데 이것이 일반 브랜치(master, tag로 trigger되는경우)에서는 PR제목이 존재하지않아서, &lt;code class=&quot;language-text&quot;&gt;$CHANGE_TITLE&lt;/code&gt; 에 넣을 값이 존재하지 않는 경우가 생긴다.&lt;br/&gt;
+이 경우 Email-ext plugin은 이메일에 &lt;code class=&quot;language-text&quot;&gt;$CHANGE_TITLE&lt;/code&gt; 문자를 그대로 발송한다.&lt;br/&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/prev_example-86d7ec92fddc4ac6612bde232b6fee78-69124.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 38.17204301075269%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAAAsSAAALEgHS3X78AAABTElEQVQoz11S6U7DMAzO+z8MEtJ4BR6A8Y9Jg7Zq0yM90ittYhs72sqYpU9OHB+f7ajL5YJVVVGSJJhlGYr+vl4xTRMsCo0/WYl5aTBLUxyGgViQheKBbprv8zyTtZZU13XUNA2WZUml1lTXNRnTkh16suNIWyACOgQBMCZ4xl1U27Zc2XISg13XwsdXDu/nHIrKQN93YEwDzq0gPCgyums62D1C5XnOQYYTdp+DnV96697svJ8mhnP+NE3utG3+tW1BM3HSJWBdBxIS0p33/l9iJe1KQnbYxnGc+W1hzM/wgcLOsftOKDqEEPEs6j7lvzlgdASAG8It2DN29H4ngdiE3bZtERIvd8VB2Pc98VKQH3CaJtRao8yWFxRRFEW0yW+oqjousOHlsW/cLHcWC4hWklkqLMtytCFnsa3remiBc45b3g9WjyLdyPsvrCRplJ3ogLsAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;prev_example.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/prev_example-86d7ec92fddc4ac6612bde232b6fee78-c83f1.png&quot;
+        srcset=&quot;/static/prev_example-86d7ec92fddc4ac6612bde232b6fee78-569e3.png 240w,
+/static/prev_example-86d7ec92fddc4ac6612bde232b6fee78-93400.png 480w,
+/static/prev_example-86d7ec92fddc4ac6612bde232b6fee78-c83f1.png 960w,
+/static/prev_example-86d7ec92fddc4ac6612bde232b6fee78-23e13.png 1440w,
+/static/prev_example-86d7ec92fddc4ac6612bde232b6fee78-69124.png 1860w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;이를 개선하려고 찾아보니 환경변수를 &lt;code class=&quot;language-text&quot;&gt;${ENV, var=&amp;quot;VARIABLE_NAME&amp;quot;}&lt;/code&gt;로 가져올수 있어서, 이 포맷를 적용했다.&lt;br/&gt;
+Shell 환경변수는 가져올때 해당변수가 할당이 안되어있는경우 공백(&quot;&quot;)을 제공하므로 위의 문제를 해결할 수 있다.&lt;br/&gt;&lt;br&gt;
+&lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/env_setting-e9e36831e8d4bac1fb06bb3d89ce7a14-e5628.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 46.33663366336634%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABH0lEQVQoz42SfW6EIBDFvf+leoYeoP3T3SiCiKB8+Tozsq3NJttO8nPAwOPNQGethVIK67oeFOBPSuk95/xWax1BQfkg8AqOmDK6GCO2bRMh/snZOWeJkRZGXlxKOQi8YlkWaGPR7fsOYwy89+KEdckh+KCrWC75mZxFjDPvnzQJhhBEkFweLHJc4lLqv0r2W0RHvRO7j2CHZxkZf5V5pdYCt26nw3mev09hwSwl/iyWeW7QOFFOdAEpN2RcTofcw9Y/nDd6YDAB/ejw2Tt83Dx65THoFXflcCOmJcKGitkXWEIyze9mR8di/HS4sQ+HPJ+mCaPSgtZG+jzTf66GTbQLI6rA88AO22v51UPePAwDbTbglgQ69CrS3usTXP4XBenAPwcWt3YAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;env_setting.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/env_setting-e9e36831e8d4bac1fb06bb3d89ce7a14-c83f1.png&quot;
+        srcset=&quot;/static/env_setting-e9e36831e8d4bac1fb06bb3d89ce7a14-569e3.png 240w,
+/static/env_setting-e9e36831e8d4bac1fb06bb3d89ce7a14-93400.png 480w,
+/static/env_setting-e9e36831e8d4bac1fb06bb3d89ce7a14-c83f1.png 960w,
+/static/env_setting-e9e36831e8d4bac1fb06bb3d89ce7a14-23e13.png 1440w,
+/static/env_setting-e9e36831e8d4bac1fb06bb3d89ce7a14-10d8f.png 1920w,
+/static/env_setting-e9e36831e8d4bac1fb06bb3d89ce7a14-6bb82.png 2880w,
+/static/env_setting-e9e36831e8d4bac1fb06bb3d89ce7a14-e5628.png 3030w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;아래는 참고했었던, 문서 위치.&lt;br/&gt;
+&lt;code class=&quot;language-text&quot;&gt;Manage Jenkins &amp;gt; Configure System &amp;gt; Extended E-mail Notification&lt;/code&gt; 섹션에서, &lt;code class=&quot;language-text&quot;&gt;Content Reference&lt;/code&gt; 오른쪽의 물음표(?)를 클릭하면 볼수있다.&lt;br&gt;
+&lt;img src=&quot;/reference_gif-1d30a3e49ff5bbb0708b784939ffd1e3.gif&quot; alt=&quot;reference_gif.gif&quot;&gt;&lt;/li&gt;
+&lt;li&gt;${ENV, var=“VARIABLENAME”}
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/reference-94bfa5cadcd94caa2a6d2ad08b8f2ce4-881e0.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 10.948191593352883%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsSAAALEgHS3X78AAAAfElEQVQI103MsQrCMAAA0f7/9ygODgoWER1ColK0SU3a0iZBUan7GamIwxtuuez+eJILw2yjmeQFubQcdI8qO/aJPLUUpqOqA8Z5yg/r0S78GTvEK9lrGNgqzXRdMt9VLETNSjYj1bIUjqPpOduYxh7XRi5NSOJX+HWMN94YYY9RuomMeQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;reference.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/reference-94bfa5cadcd94caa2a6d2ad08b8f2ce4-c83f1.png&quot;
+        srcset=&quot;/static/reference-94bfa5cadcd94caa2a6d2ad08b8f2ce4-569e3.png 240w,
+/static/reference-94bfa5cadcd94caa2a6d2ad08b8f2ce4-93400.png 480w,
+/static/reference-94bfa5cadcd94caa2a6d2ad08b8f2ce4-c83f1.png 960w,
+/static/reference-94bfa5cadcd94caa2a6d2ad08b8f2ce4-23e13.png 1440w,
+/static/reference-94bfa5cadcd94caa2a6d2ad08b8f2ce4-10d8f.png 1920w,
+/static/reference-94bfa5cadcd94caa2a6d2ad08b8f2ce4-881e0.png 2046w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[get docker 스크립트 파헤치기(command_exists)]]></title><description><![CDATA[평소에 인용해 사용하던 get-docker.sh 내부의 command_exists 함수의 동작을 파헤쳐보았다.]]></description><link>https://kujyp.github.io/posts/get-docker-스크립트-파헤치기-command-exists/</link><guid isPermaLink="false">https://kujyp.github.io/posts/get-docker-스크립트-파헤치기-command-exists/</guid><pubDate>Tue, 15 Jan 2019 17:06:00 GMT</pubDate><content:encoded>&lt;h1&gt;TL;DR&lt;/h1&gt;
 &lt;p&gt;평소에 인용해 사용하던 &lt;a href=&quot;https://get.docker.com/&quot;&gt;get-docker.sh&lt;/a&gt; 내부의 command_exists 함수의 동작을 파헤쳐보았다. &lt;/p&gt;
 &lt;h1&gt;들어가며&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&quot;https://get.docker.com/&quot;&gt;get-docker.sh&lt;/a&gt; 는 &lt;a href=&quot;https://bootstrap.pypa.io/get-pip.py&quot;&gt;get-pip.py&lt;/a&gt; 처럼 널리 사용되는 설치 스크립트이다.
