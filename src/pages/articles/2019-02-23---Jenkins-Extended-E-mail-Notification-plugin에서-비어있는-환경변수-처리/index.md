@@ -3,7 +3,7 @@ title: Jenkins Extended E-mail Notification plugin에서 비어있는 환경변�
 date: "2019-02-23T01:49:00.000Z"
 layout: post
 draft: false
-path: "/posts/2019-02-22---Jenkins-Extended-E-mail-Notification-plugin에서-비어있는-환경변수-처리"
+path: "/posts/2019-02-23---Jenkins-Extended-E-mail-Notification-plugin에서-비어있는-환경변수-처리"
 category: "Development"
 tags:
   - "jenkins"
