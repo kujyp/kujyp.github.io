@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     url: 'https://kujyp.github.io',
     title: 'kujyp 개발블로그',
-    subtitle: 'ML DevOps, Python ...',
+    subtitle: 'ML DevOps, Python, Docker ...',
     disqusShortname: 'kujyp',
     menu: [
       {
