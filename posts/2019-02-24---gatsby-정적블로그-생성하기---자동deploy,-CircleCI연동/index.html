@@ -1,0 +1,554 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><link rel="preload" href="/component---src-layouts-index-jsx-a1bde37d09df53508c47.js" as="script"/><link rel="preload" href="/component---src-templates-post-template-jsx-5378e4610e0201cf93e4.js" as="script"/><link rel="preload" href="/path---posts-2019-02-24-gatsby-정적블로그-생성하기-자동deploy-circle-ci연동-d6092a50ba815b170644.js" as="script"/><link rel="preload" href="/app-af3784954dc3ac604a08.js" as="script"/><link rel="preload" href="/commons-1cfc51756e40a3763f91.js" as="script"/><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,700" rel="stylesheet"/><link rel="sitemap" type="application/xml" href="/sitemap.xml"/><title data-react-helmet="true">gatsby 정적블로그 생성하기 - 자동deploy, CircleCI연동 - kujyp 개발블로그</title><meta data-react-helmet="true" name="description" content="Gatsby 정적블로그에 CircleCI를 활용해서 자동 Deploy 하는 Pipeline을 만들어보았다."/><style id="gatsby-inlined-css">/*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 2.5rem}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 .125rem;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}[hidden],template{display:none}html{font-size:100}body{color:#222;line-height:1.625;font-size:1rem;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}body,h1,h2,h3,h4,h5,h6{font-family:Roboto,Helvetica Neue,Helvetica,Arial,sans-serif}h1,h2,h3,h4,h5,h6{font-weight:500}h1{font-size:2.5rem;line-height:3.25rem;margin-top:6.5rem;margin-bottom:1.625rem}h2{font-size:1.6875rem;line-height:2.4375rem}h2,h3{margin-top:3.25rem;margin-bottom:.8125rem}h3{font-size:1.375rem;line-height:1.625rem}h4{font-size:1.2rem;margin-top:2.4375rem}h4,h5{line-height:1.625rem;margin-bottom:.8125rem}h5,h6{font-size:1rem;margin-top:4.0625rem}h6{line-height:1.625rem;margin-bottom:.8125rem}img{max-width:100%;margin:inherit auto}hr,img{border:0;display:block}hr{color:#222;height:26px;margin:3.25rem auto;background-size:100% 26px;background-image:linear-gradient(180deg,transparent 1px,transparent 11px,#222 0,#222 15px,transparent 0,transparent 26px);width:6.25rem}a{color:#5d93ff;text-decoration:none}a:active,a:focus,a:hover{color:#f7a046}b,strong{font-weight:500}ul{list-style:square;margin-bottom:1.625rem}ul li{padding:0 .3125rem;margin-bottom:.625rem}p{line-height:1.625rem;margin-bottom:1.625rem}blockquote{padding:0;font-style:italic;text-align:center}figure{display:block;width:100%;height:auto}figcaption{line-height:1.21875rem;margin-top:.40625rem;color:#222;font-size:.875rem;font-style:italic;margin-bottom:0;text-align:center}.layout{max-width:66.875rem;margin-left:auto;margin-right:auto}.layout:after,.layout:before{content:"";display:table}.layout:after{clear:both}.content__inner{padding:1.5625rem 1.25rem}@media screen and (min-width:685px){figure.float-left,figure.float-right{max-width:19.375rem;padding:0 1.625rem}.float-right{float:right}.float-left{float:left}.content{width:calc(99.9% * 7/12 - 0.78125rem)}.content:nth-child(1n){float:left;margin-right:1.875rem;clear:none}.content:last-child{margin-right:0}.content:nth-child(12n){margin-right:0;float:right}.content:nth-child(12n+1){clear:both}.content__inner{padding:1.875rem 1.25rem}}@media screen and (min-width:960px){.content{width:calc(99.9% * 2/3 - 0.625rem)}.content:nth-child(1n){float:left;margin-right:1.875rem;clear:none}.content:last-child{margin-right:0}.content:nth-child(3n){margin-right:0;float:right}.content:nth-child(3n+1){clear:both}.content__inner{padding:2.5rem 2.1875rem}}code[class*=language-],pre[class*=language-]{color:#000;background:none;text-shadow:0 1px #fff;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}code[class*=language-]::selection,code[class*=language-] ::selection,pre[class*=language-]::selection,pre[class*=language-] ::selection{text-shadow:none;background:#b3d4fc}@media print{code[class*=language-],pre[class*=language-]{text-shadow:none}}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#f5f2f0}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#708090}.token.punctuation{color:#999}.namespace{opacity:.7}.token.boolean,.token.constant,.token.deleted,.token.number,.token.property,.token.symbol,.token.tag{color:#905}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#690}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url{color:#a67f59;background:hsla(0,0%,100%,.5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.function{color:#dd4a68}.token.important,.token.regex,.token.variable{color:#e90}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.tags__list-item-link{color:#222}.tags__list-item-link:focus,.tags__list-item-link:hover{color:#5d93ff;border-bottom:1px solid #5d93ff}.categories__list-item-link{color:#222}.categories__list-item-link:focus,.categories__list-item-link:hover{color:#5d93ff;border-bottom:1px solid #5d93ff}.menu{margin-bottom:1.625rem}.menu__list{list-style:none;padding:0;margin:0}.menu__list-item{padding:0;margin:.625rem 0}.menu__list-item-link{font-size:1rem;color:#222;font-weight:400;border:0}.menu__list-item-link:focus,.menu__list-item-link:hover{color:#5d93ff;border-bottom:1px solid #5d93ff}.menu__list-item-link--active{color:#222;border-bottom:1px solid #222}.links{margin-bottom:1.625rem}.links__list{display:-ms-flexbox;display:flex;list-style:none;padding:0;margin:.625rem -.1875rem}.links__list-item{padding:0;margin:0 .1875rem;height:24px;width:1.5rem;line-height:1.5rem;border-radius:.1875rem;text-align:center;background:#ebebeb}.links__list-item a{border:0}.links__list-item a i{font-size:.875rem;color:#555}.links__list-item a:focus i,.links__list-item a:hover i{color:#222}@font-face{font-family:fontello;src:url(/static/fontello.96eee913.eot);src:url(/static/fontello.96eee913.eot#iefix) format("embedded-opentype"),url(/static/fontello.07ad3c83.woff2) format("woff2"),url(/static/fontello.9aee3ebc.woff) format("woff"),url(/static/fontello.554de365.ttf) format("truetype"),url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxtZXRhZGF0YT5Db3B5cmlnaHQgKEMpIDIwMTcgYnkgb3JpZ2luYWwgYXV0aG9ycyBAIGZvbnRlbGxvLmNvbTwvbWV0YWRhdGE+CjxkZWZzPgo8Zm9udCBpZD0iZm9udGVsbG8iIGhvcml6LWFkdi14PSIxMDAwIiA+Cjxmb250LWZhY2UgZm9udC1mYW1pbHk9ImZvbnRlbGxvIiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0cmV0Y2g9Im5vcm1hbCIgdW5pdHMtcGVyLWVtPSIxMDAwIiBhc2NlbnQ9Ijg1MCIgZGVzY2VudD0iLTE1MCIgLz4KPG1pc3NpbmctZ2x5cGggaG9yaXotYWR2LXg9IjEwMDAiIC8+CjxnbHlwaCBnbHlwaC1uYW1lPSJtYWlsIiB1bmljb2RlPSImI3hlODAwOyIgZD0iTTkyOSAxMXY0MjhxLTE4LTIwLTM5LTM2LTE0OS0xMTUtMjM4LTE4OS0yOC0yNC00Ni0zN3QtNDgtMjgtNTctMTNoLTJxLTI2IDAtNTcgMTN0LTQ4IDI4LTQ2IDM3cS04OCA3NC0yMzggMTg5LTIxIDE2LTM5IDM2di00MjhxMC03IDYtMTN0MTItNWg4MjJxNyAwIDEyIDV0NiAxM3ogbTAgNTg2djE0dC0xIDctMSA3LTMgNS01IDQtOCAyaC04MjJxLTcgMC0xMi02dC02LTEycTAtOTQgODMtMTU5IDEwNy04NCAyMjMtMTc2IDQtMyAyMC0xN3QyNS0yMSAyNS0xNyAyOC0xNiAyNC01aDJxMTEgMCAyNCA1dDI4IDE2IDI1IDE3IDI1IDIxIDIwIDE3cTExNiA5MiAyMjQgMTc2IDMwIDI0IDU2IDY1dDI2IDczeiBtNzEgMjF2LTYwN3EwLTM3LTI2LTYzdC02My0yN2gtODIycS0zNiAwLTYzIDI3dC0yNiA2M3Y2MDdxMCAzNyAyNiA2M3Q2MyAyNmg4MjJxMzcgMCA2My0yNnQyNi02M3oiIGhvcml6LWFkdi14PSIxMDAwIiAvPgoKPGdseXBoIGdseXBoLW5hbWU9InR3aXR0ZXIiIHVuaWNvZGU9IiYjeGYwOTk7IiBkPSJNOTA0IDYyMnEtMzctNTQtOTAtOTMgMC04IDAtMjMgMC03My0yMS0xNDV0LTY0LTEzOS0xMDMtMTE3LTE0NC04Mi0xODEtMzBxLTE1MSAwLTI3NiA4MSAxOS0yIDQzLTIgMTI2IDAgMjI0IDc3LTU5IDEtMTA1IDM2dC02NCA4OXExOS0zIDM0LTMgMjQgMCA0OCA2LTYzIDEzLTEwNCA2MnQtNDEgMTE1djJxMzgtMjEgODItMjMtMzcgMjUtNTkgNjR0LTIyIDg2cTAgNDkgMjUgOTEgNjgtODMgMTY0LTEzM3QyMDgtNTVxLTUgMjEtNSA0MSAwIDc1IDUzIDEyN3QxMjcgNTNxNzkgMCAxMzItNTcgNjEgMTIgMTE1IDQ0LTIxLTY0LTgwLTEwMCA1MiA2IDEwNCAyOHoiIGhvcml6LWFkdi14PSI5MjguNiIgLz4KCjxnbHlwaCBnbHlwaC1uYW1lPSJmYWNlYm9vayIgdW5pY29kZT0iJiN4ZjA5YTsiIGQ9Ik01MzUgODQzdi0xNDdoLTg3cS00OCAwLTY1LTIwdC0xNy02MHYtMTA2aDE2NGwtMjItMTY1aC0xNDJ2LTQyNGgtMTcxdjQyNGgtMTQydjE2NWgxNDJ2MTIycTAgMTA0IDU4IDE2MXQxNTUgNTdxODIgMCAxMjctN3oiIGhvcml6LWFkdi14PSI1NzEuNCIgLz4KCjxnbHlwaCBnbHlwaC1uYW1lPSJyc3MiIHVuaWNvZGU9IiYjeGYwOWU7IiBkPSJNMjE0IDEwMHEwLTQ1LTMxLTc2dC03Ni0zMS03NiAzMS0zMSA3NiAzMSA3NiA3NiAzMSA3Ni0zMSAzMS03NnogbTI4Ni02OXExLTE1LTktMjYtMTAtMTItMjctMTJoLTc1cS0xNCAwLTI0IDl0LTExIDIzcS0xMiAxMjgtMTAzIDIxOXQtMjE5IDEwM3EtMTQgMS0yMyAxMXQtOSAyNHY3NXEwIDE2IDEyIDI2IDkgMTAgMjQgMTBoM3E4OS03IDE3MC00NXQxNDUtMTAxcTYzLTYzIDEwMS0xNDV0NDUtMTcxeiBtMjg2LTFxMS0xNS0xMC0yNi0xMC0xMS0yNi0xMWgtODBxLTE0IDAtMjUgMTB0LTEwIDIzcS03IDEyMC01NyAyMjh0LTEyOSAxODgtMTg4IDEyOS0yMjcgNTdxLTE0IDEtMjQgMTF0LTEwIDI0djgwcTAgMTYgMTEgMjYgMTAgMTAgMjUgMTBoMXExNDctOCAyODAtNjd0MjM4LTE2NHExMDQtMTA0IDE2NC0yMzh0NjctMjgweiIgaG9yaXotYWR2LXg9Ijc4NS43IiAvPgoKPGdseXBoIGdseXBoLW5hbWU9ImxpbmtlZGluIiB1bmljb2RlPSImI3hmMGUxOyIgZD0iTTE5NSA1MDF2LTU1M2gtMTg0djU1M2gxODR6IG0xMiAxNzFxMC00MS0yOS02OHQtNzUtMjdoLTFxLTQ2IDAtNzQgMjd0LTI4IDY4cTAgNDEgMjkgNjh0NzUgMjcgNzQtMjcgMjktNjh6IG02NTAtNDA3di0zMTdoLTE4M3YyOTZxMCA1OS0yMyA5MnQtNzEgMzNxLTM1IDAtNTgtMTl0LTM2LTQ4cS02LTE3LTYtNDV2LTMwOWgtMTg0cTEgMjIzIDEgMzYxdDAgMTY1bC0xIDI3aDE4NHYtODBoLTFxMTEgMTggMjMgMzF0MzEgMjkgNDkgMjQgNjQgOXE5NSAwIDE1My02M3Q1OC0xODZ6IiBob3Jpei1hZHYteD0iODU3LjEiIC8+Cgo8Z2x5cGggZ2x5cGgtbmFtZT0iZ2l0aHViIiB1bmljb2RlPSImI3hmMTEzOyIgZD0iTTM1NyAxNzFxMC0yMi03LTQ1dC0yNC00My00MC0xOS00MSAxOS0yNCA0My03IDQ1IDcgNDYgMjQgNDMgNDEgMTkgNDAtMTkgMjQtNDMgNy00NnogbTM1NyAwcTAtMjItNy00NXQtMjQtNDMtNDAtMTktNDEgMTktMjQgNDMtNyA0NSA3IDQ2IDI0IDQzIDQxIDE5IDQwLTE5IDI0LTQzIDctNDZ6IG05MCAwcTAgNjctMzkgMTE0dC0xMDQgNDdxLTIzIDAtMTA5LTEyLTQwLTYtODgtNnQtODcgNnEtODUgMTItMTA5IDEyLTY2IDAtMTA0LTQ3dC0zOS0xMTRxMC00OSAxOC04NXQ0NS01OCA2OC0zMyA3OC0xNyA4My00aDk0cTQ2IDAgODMgNHQ3OCAxNyA2OSAzMyA0NSA1OCAxOCA4NXogbTEyNSA5OXEwLTExNi0zNC0xODUtMjItNDMtNTktNzR0LTc5LTQ4LTk1LTI3LTk2LTEyLTkzLTNxLTQzIDAtNzkgMnQtODIgNy04NSAxNy03NyAyOS02NyA0NS00OCA2NHEtMzUgNjktMzUgMTg1IDAgMTMyIDc2IDIyMS0xNSA0NS0xNSA5NSAwIDY0IDI4IDEyMSA2MSAwIDEwNi0yMnQxMDYtNjlxODIgMjAgMTcyIDIwIDgzIDAgMTU3LTE4IDU4IDQ2IDEwNCA2N3QxMDUgMjJxMjktNTcgMjktMTIxIDAtNDktMTUtOTQgNzYtODkgNzYtMjIyeiIgaG9yaXotYWR2LXg9IjkyOC42IiAvPgoKPGdseXBoIGdseXBoLW5hbWU9InN0YWNrb3ZlcmZsb3ciIHVuaWNvZGU9IiYjeGYxNmM7IiBkPSJNNzE5LTYxaC02MjR2MjY4aC04OXYtMzU3aDgwM3YzNTdoLTkwdi0yNjh6IG0tNTI1IDI5M2wxOCA4NyA0MzctOTItMTgtODd6IG01NyAyMDhsMzggODIgNDA0LTE4OS0zNy04MXogbTExMiAxOTlsNTcgNjkgMzQzLTI4Ny01Ny02OHogbTIyMiAyMTFsMjY2LTM1OC03MS01My0yNjcgMzU3eiBtLTQwMS04MjF2ODloNDQ3di04OWgtNDQ3eiIgaG9yaXotYWR2LXg9Ijg1Ny4xIiAvPgoKPGdseXBoIGdseXBoLW5hbWU9Imluc3RhZ3JhbSIgdW5pY29kZT0iJiN4ZjE2ZDsiIGQ9Ik01NzEgMzUwcTAgNTktNDEgMTAxdC0xMDEgNDItMTAxLTQyLTQyLTEwMSA0Mi0xMDEgMTAxLTQyIDEwMSA0MiA0MSAxMDF6IG03NyAwcTAtOTEtNjQtMTU2dC0xNTUtNjQtMTU2IDY0LTY0IDE1NiA2NCAxNTYgMTU2IDY0IDE1NS02NCA2NC0xNTZ6IG02MSAyMjlxMC0yMS0xNS0zNnQtMzctMTUtMzYgMTUtMTUgMzYgMTUgMzYgMzYgMTUgMzctMTUgMTUtMzZ6IG0tMjgwIDEyM3EtNCAwLTQzIDB0LTU5IDAtNTQtMi01Ny01LTQwLTExcS0yOC0xMS00OS0zMnQtMzMtNDlxLTYtMTYtMTAtNDB0LTYtNTgtMS01MyAwLTU5IDAtNDMgMC00MyAwLTU5IDEtNTMgNi01OCAxMC00MHExMi0yOCAzMy00OXQ0OS0zMnExNi02IDQwLTExdDU3LTUgNTQtMiA1OSAwIDQzIDAgNDIgMCA1OSAwIDU0IDIgNTggNSAzOSAxMXEyOCAxMSA1MCAzMnQzMiA0OXE2IDE2IDEwIDQwdDYgNTggMSA1MyAwIDU5IDAgNDMgMCA0MyAwIDU5LTEgNTMtNiA1OC0xMCA0MHEtMTEgMjgtMzIgNDl0LTUwIDMycS0xNiA2LTM5IDExdC01OCA1LTU0IDItNTkgMC00MiAweiBtNDI4LTM1MnEwLTEyOC0zLTE3Ny01LTExNi02OS0xODB0LTE3OS02OXEtNTAtMy0xNzctM3QtMTc3IDNxLTExNiA2LTE4MCA2OXQtNjkgMTgwcS0zIDQ5LTMgMTc3dDMgMTc3cTUgMTE2IDY5IDE4MHQxODAgNjlxNDkgMyAxNzcgM3QxNzctM3ExMTYtNiAxNzktNjl0NjktMTgwcTMtNDkgMy0xNzd6IiBob3Jpei1hZHYteD0iODU3LjEiIC8+Cgo8Z2x5cGggZ2x5cGgtbmFtZT0idHVtYmxyIiB1bmljb2RlPSImI3hmMTczOyIgZD0iTTUyNyAxMDhsNDQtMTMycS0xMi0xOS02MS0zN3QtOTktMThxLTU4LTEtMTA3IDE1dC03OSA0MS01MyA1OS0zMSA2Ny05IDY2djMwNGgtOTR2MTIwcTQwIDE0IDcyIDM5dDUxIDUwIDMyIDU3IDE5IDU1IDggNDlxMSAzIDMgNXQ0IDJoMTM2di0yMzdoMTg2di0xNDBoLTE4NnYtMjg5cTAtMTcgMy0zMXQxMy0zMCAyOC0yMyA0NS04cTQ0IDEgNzUgMTZ6IiBob3Jpei1hZHYteD0iNTcxLjQiIC8+Cgo8Z2x5cGggZ2x5cGgtbmFtZT0iZHJpYmJibGUiIHVuaWNvZGU9IiYjeGYxN2Q7IiBkPSJNNTcxIDEzcS0yMyAxMzQtNzggMjc4aC0xbC0xLTFxLTktMy0yNC05dC01Ni0yNy03Ny00Ni03My02NC01Ny04MmwtOSA2cTEwMy04NCAyMzQtODQgNzMgMCAxNDIgMjl6IG0tMTAzIDMzOXEtMTEgMjctMjkgNjItMTc0LTUyLTM3Ni01MiAwLTQgMC0xMiAwLTY5IDI0LTEzMnQ2OS0xMTJxMjggNDkgNjkgOTN0ODAgNjkgNzMgNDUgNTUgMjdsMjEgN3EyIDEgNyAydDcgM3ogbS01OSAxMThxLTY3IDExOS0xMzcgMjExLTc3LTM2LTEzMC0xMDR0LTcyLTE1MnExNjkgMCAzMzkgNDV6IG0zODEtMTc4cS0xMTcgMzMtMjI4IDE2IDQ5LTEzMyA3MS0yNjIgNjIgNDIgMTA0IDEwNnQ1MyAxNDB6IG0tNDQ5IDQxNHEtMSAwLTEtMSAwIDEgMSAxeiBtMzI5LTgxcS0xMDMgOTEtMjQxIDkxLTQzIDAtODctMTAgNzMtOTUgMTM3LTIxNCAzOSAxNSA3MyAzNHQ1NCAzNCAzNiAzMiAyMSAyM3ogbTEyNS0yNzFxLTIgMTI5LTgzIDIyOWwtMS0xcS01LTctMTEtMTN0LTI0LTI1LTQwLTM0LTU1LTM2LTc0LTM2cTE0LTMwIDI1LTUzIDEtMyAzLTEwdDUtOXEyMCAyIDQxIDR0NDEgMSAzOS0xIDM1LTIgMzItMyAyNy00IDIwLTMgMTQtM3ogbTYyLTRxMC0xMTctNTctMjE1dC0xNTYtMTU2LTIxNS01OC0yMTYgNTgtMTU1IDE1Ni01OCAyMTUgNTggMjE1IDE1NSAxNTYgMjE2IDU4IDIxNS01OCAxNTYtMTU2IDU3LTIxNXoiIGhvcml6LWFkdi14PSI4NTcuMSIgLz4KCjxnbHlwaCBnbHlwaC1uYW1lPSJza3lwZSIgdW5pY29kZT0iJiN4ZjE3ZTsiIGQ9Ik02NTUgMjU3cTAgMjgtMTEgNTF0LTI3IDM4LTQxIDI3LTQ2IDE5LTQ5IDEzbC01OCAxNHEtMTcgNC0yNSA2dC0xOSA2LTE3IDktOSAxMi00IDE2cTAgNDMgODAgNDMgMjQgMCA0My02dDMwLTE2IDIxLTE5IDIzLTE2IDI3LTdxMjYgMCA0MiAxOHQxNiA0M3EwIDMxLTMyIDU1dC03OSAzOC0xMDEgMTNxLTM4IDAtNzQtOXQtNjctMjYtNDktNDgtMTktNzJxMC0zNCAxMC02MHQzMi00MiA0NC0yNyA1OC0xOGw4MS0yMHE1MS0xMiA2My0yMCAxOC0xMSAxOC0zNCAwLTIxLTIzLTM2dC01OC0xNHEtMjkgMC01MSA5dC0zNyAyMi0yNSAyNS0yNiAyMS0zMCA5cS0yOCAwLTQyLTE3dC0xNC00MXEwLTUyIDY4LTg4dDE2Mi0zN3E0MSAwIDc4IDEwdDY5IDMwIDQ5IDUyIDE5IDc0eiBtMjAyLTEyMXEwLTg5LTYzLTE1MnQtMTUxLTYzcS03MyAwLTEzMSA0NS00My05LTgzLTktODAgMC0xNTMgMzF0LTEyNiA4NC04MyAxMjUtMzEgMTUzcTAgNDEgOSA4NC00NSA1OC00NSAxMzAgMCA4OSA2MyAxNTJ0MTUxIDYzcTczIDAgMTMxLTQ1IDQzIDkgODQgOSA3OSAwIDE1Mi0zMXQxMjYtODQgODQtMTI1IDMwLTE1M3EwLTQxLTgtODQgNDQtNTggNDQtMTMweiIgaG9yaXotYWR2LXg9Ijg1Ny4xIiAvPgoKPGdseXBoIGdseXBoLW5hbWU9InZrb250YWt0ZSIgdW5pY29kZT0iJiN4ZjE4OTsiIGQ9Ik0xMDcwIDU2MHExMy0zNi04NC0xNjQtMTMtMTgtMzYtNDgtMjItMjgtMzEtNDB0LTE3LTI3LTctMjQgOC0xOSAxOC0yNCAzMi0zMHEyLTEgMi0yIDc5LTczIDEwNy0xMjMgMi0zIDQtN3Q0LTE1LTEtMTktMTQtMTUtMzMtN2wtMTQyLTNxLTE0LTItMzIgM3QtMjkgMTNsLTExIDZxLTE3IDEyLTM5IDM2dC0zOCA0My0zNCAzMy0zMiA4cS0xIDAtNC0ydC0xMC04LTEyLTE2LTktMjktNC00NHEwLTgtMi0xNXQtNC0xMGwtMi0zcS0xMC0xMS0zMC0xMmgtNjRxLTQwLTMtODEgOXQtNzQgMjktNTcgMzctNDAgMzJsLTE0IDE0cS01IDUtMTUgMTd0LTQwIDUwLTU5IDg1LTY4IDExNy03MyAxNTJxLTQgOS00IDE1dDIgOWwyIDNxOSAxMSAzMiAxMWwxNTMgMXE3LTEgMTMtM3Q5LTVsMy0ycTktNiAxMy0xOCAxMS0yOCAyNi01N3QyMy00Nmw5LTE2cTE2LTM0IDMxLTU4dDI3LTM4IDIzLTIyIDE5LTggMTUgM3ExIDEgMyAzdDcgMTIgNyAyNiA1IDQ2IDAgNjlxLTEgMjMtNSA0MXQtNyAyNmwtNCA2cS0xNCAxOS00NyAyNC04IDIgMyAxNCA4IDEwIDIxIDE3IDI5IDE0IDEzMyAxMyA0Ni0xIDc1LTcgMTItMyAxOS04dDEyLTEzIDUtMTggMi0yNSAwLTMxLTItNDAgMC00NnEwLTYtMS0yM3QwLTI3IDItMjIgNi0yMiAxMy0xNHE0LTEgOS0ydDE1IDYgMjEgMTkgMjkgMzggMzggNjBxMzMgNTggNjAgMTI1IDIgNiA1IDEwdDYgNmwzIDIgMiAxdDggMiAxMSAwbDE2MCAxcTIyIDMgMzYtMXQxNy0xMHoiIGhvcml6LWFkdi14PSIxMDcxLjQiIC8+Cgo8Z2x5cGggZ2x5cGgtbmFtZT0ic2xhY2siIHVuaWNvZGU9IiYjeGYxOTg7IiBkPSJNODQ4IDQxN3EzNCAwIDU3LTIzdDI0LTU2cTAtNTQtNTItNzNsLTk2LTMzIDMxLTkzcTQtMTIgNC0yNiAwLTMzLTI0LTU3dC01Ni0yNHEtMjYgMC00OCAxNXQtMjkgNDBsLTMxIDkyLTE3My01OSAzMS05MXE0LTE0IDQtMjcgMC0zMy0yMy01N3QtNTctMjRxLTI3IDAtNDggMTV0LTI5IDQxbC0zMSA5MS04NS0zMHEtMTctNS0yOC01LTM0IDAtNTcgMjJ0LTIzIDU3cTAgMjYgMTYgNDd0NDAgMzBsODcgMjktNTkgMTc1LTg3LTMwcS0xNC01LTI3LTUtMzMgMC01NiAyM3QtMjMgNTZxMCAyNiAxNSA0OHQ0MCAyOWw4OCAzMC0zMCA4OHEtNCAxNC00IDI3IDAgMzMgMjMgNTd0NTcgMjRxMjYgMCA0OC0xNnQyOS00MGwzMC04OSAxNzMgNTktMzAgODlxLTQgMTMtNCAyNiAwIDMzIDIzIDU3dDU3IDI0cTI2IDAgNDgtMTV0MzAtNDBsMjktOTAgOTEgMzFxMTEgMyAyNCAzIDMzIDAgNTctMjJ0MjQtNTVxMC0yNS0xNy00NXQtNDEtMjlsLTg4LTMwIDU5LTE3NyA5MSAzMnExMyA0IDI2IDR6IG0tNDQzLTE0NmwxNzMgNTgtNTkgMTc2LTE3My02MHoiIGhvcml6LWFkdi14PSI5MjguNiIgLz4KCjxnbHlwaCBnbHlwaC1uYW1lPSJwYXBlci1wbGFuZSIgdW5pY29kZT0iJiN4ZjFkODsiIGQ9Ik05ODQgODQ0cTE5LTEzIDE1LTM2bC0xNDItODU3cS0zLTE2LTE4LTI1LTgtNS0xOC01LTYgMC0xMyAzbC0yNTMgMTA0LTEzNS0xNjVxLTEwLTEzLTI3LTEzLTcgMC0xMiAyLTExIDQtMTcgMTN0LTcgMjF2MTk1bDQ4MiA1OTAtNTk2LTUxNi0yMjEgOTFxLTIwIDgtMjIgMzAtMSAyMyAxOCAzM2w5MjggNTM2cTkgNSAxOCA1IDExIDAgMjAtNnoiIGhvcml6LWFkdi14PSIxMDAwIiAvPgoKPGdseXBoIGdseXBoLW5hbWU9IndoYXRzYXBwIiB1bmljb2RlPSImI3hmMjMyOyIgZD0iTTU1MCAzMDdxNyAwIDU0LTI1dDUwLTMwcTEtMiAxLTggMC0xOC05LTQyLTktMjItNDAtMzd0LTU3LTE1cS0zMiAwLTEwNiAzNS01NSAyNS05NSA2NnQtODIgMTAzcS00MSA2MC00MCAxMDh2NXEyIDUwIDQxIDg4IDE0IDEyIDI5IDEyIDQgMCAxMC0xdDExLTFxMTEgMCAxNS0zdDgtMTZxNS0xMSAxOS00OXQxNC00MXEwLTEyLTE5LTMzdC0yMC0yNnEwLTMgMy04IDE5LTQxIDU3LTc2IDMxLTMwIDg0LTU3IDctNCAxMy00IDggMCAzMCAyN3QyOSAyOHogbS0xMTQtMjk2cTcxIDAgMTM2IDI4dDExMiA3NCA3NSAxMTIgMjggMTM2LTI4IDEzNi03NSAxMTItMTEyIDc1LTEzNiAyOC0xMzUtMjgtMTEyLTc1LTc1LTExMi0yOC0xMzZxMC0xMTMgNjctMjA1bC00NC0xMzAgMTM1IDQzcTg4LTU4IDE5Mi01OHogbTAgNzcxcTg2IDAgMTY0LTM0dDEzNC04OSA5MC0xMzUgMzMtMTYzLTMzLTE2My05MC0xMzQtMTM0LTkwLTE2NC0zNHEtMTA4IDAtMjAzIDUzbC0yMzMtNzUgNzYgMjI2cS02MCA5OS02MCAyMTcgMCA4NiAzMyAxNjN0OTAgMTM1IDEzNCA4OSAxNjMgMzR6IiBob3Jpei1hZHYteD0iODU3LjEiIC8+Cgo8Z2x5cGggZ2x5cGgtbmFtZT0ib2Rub2tsYXNzbmlraSIgdW5pY29kZT0iJiN4ZjI2MzsiIGQ9Ik0zNTcgMzQ0cS0xMDUgMC0xNzkgNzR0LTc0IDE3OXEwIDEwNSA3NCAxNzl0MTc5IDc0IDE3OS03NCA3NS0xNzlxMC0xMDUtNzUtMTc5dC0xNzktNzR6IG0wIDM3OHEtNTEgMC04OC0zN3QtMzYtODhxMC01MiAzNi04OHQ4OC0zNyA4OCAzNyAzNyA4OHEwIDUyLTM3IDg4dC04OCAzN3ogbTI5Mi00MDlxNy0xNSA4LTI3dC0yLTIzLTE1LTIxLTI0LTIxLTM0LTIzcS02NC00MS0xNzYtNTNsNDEtNDAgMTQ5LTE0OXExNy0xNyAxNy00MXQtMTctNDFsLTctN3EtMTctMTctNDEtMTd0LTQxIDE3cS0zOCAzOC0xNDkgMTQ5bC0xNDktMTQ5cS0xOC0xNy00Mi0xN3QtNDAgMTdsLTcgN3EtMTcgMTctMTcgNDF0MTcgNDFsMTQ5IDE0OSA0MCA0MHEtMTEzIDEyLTE3NyA1My0yMSAxNC0zNCAyM3QtMjQgMjEtMTUgMjEtMiAyMyA4IDI3cTYgMTEgMTYgMjB0MjMgMTIgMzItMSAzNi0yMHEzLTIgOC02dDI0LTEzIDM5LTE3IDUxLTE0IDYzLTZxNTEgMCA5NyAxNHQ2NyAyOGwyMSAxNHExOSAxNSAzNyAyMHQzMSAxIDIzLTEyIDE2LTIweiIgaG9yaXotYWR2LXg9IjcxNC4zIiAvPgo8L2ZvbnQ+CjwvZGVmcz4KPC9zdmc+#fontello) format("svg");font-weight:400;font-style:normal}[class*=" icon-"]:before,[class^=icon-]:before{font-family:fontello;font-style:normal;font-weight:400;speak:none;display:inline-block;text-decoration:inherit;width:1em;margin-right:.2em;text-align:center;-webkit-font-feature-settings:normal;font-feature-settings:normal;font-variant:normal;text-transform:none;line-height:1em;margin-left:.2em;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.icon-mail:before{content:"\E800"}.icon-twitter:before{content:"\F099"}.icon-facebook:before{content:"\F09A"}.icon-rss:before{content:"\F09E"}.icon-linkedin:before{content:"\F0E1"}.icon-github:before{content:"\F113"}.icon-stackoverflow:before{content:"\F16C"}.icon-instagram:before{content:"\F16D"}.icon-tumblr:before{content:"\F173"}.icon-dribbble:before{content:"\F17D"}.icon-skype:before{content:"\F17E"}.icon-vkontakte:before{content:"\F189"}.icon-slack:before{content:"\F198"}.icon-paper-plane:before{content:"\F1D8"}.icon-whatsapp:before{content:"\F232"}.icon-odnoklassniki:before{content:"\F263"}.sidebar{width:100%}.sidebar__inner{position:relative;padding:1.5625rem 1.25rem 0}.sidebar__author-photo{display:inline-block;margin-bottom:0;border-radius:50%;background-clip:padding-box}.sidebar__author-title{font-size:1.125rem;font-weight:500;line-height:1.82813rem;margin:.8125rem 0}.sidebar__author-title-link,.sidebar__author-title-link:focus,.sidebar__author-title-link:hover{color:#222}.sidebar__author-subtitle{color:#888;line-height:1.625rem;margin-bottom:1.625rem}.sidebar__copyright{color:#b6b6b6;font-size:.875rem}@media screen and (min-width:685px){.sidebar{width:calc(99.9% * 5/12 - 1.09375rem)}.sidebar:nth-child(1n){float:left;margin-right:1.875rem;clear:none}.sidebar:last-child{margin-right:0}.sidebar:nth-child(12n){margin-right:0;float:right}.sidebar:nth-child(12n+1){clear:both}.sidebar__inner{padding:1.875rem 1.25rem 0}.sidebar__inner:after{background:#e6e6e6;background:linear-gradient(180deg,#e6e6e6 0,#e6e6e6 48%,#fff);position:absolute;content:"";width:.0625rem;height:540px;top:30px;right:-10px;bottom:0}}@media screen and (min-width:960px){.sidebar{width:calc(99.9% * 1/3 - 1.25rem)}.sidebar:nth-child(1n){float:left;margin-right:1.875rem;clear:none}.sidebar:last-child{margin-right:0}.sidebar:nth-child(3n){margin-right:0;float:right}.sidebar:nth-child(3n+1){clear:both}.sidebar__inner{padding:2.5rem}}.page{margin-bottom:3.25rem}.page__title{font-size:2.5rem;font-weight:500;line-height:3.25rem;margin-top:0;margin-bottom:2.35625rem}.page__body{font-size:1rem;line-height:1.625rem;margin:0 0 1.625rem}.post-single__inner{max-width:59.0625rem;padding:0 .9375rem;margin:0 auto}.post-single__title{font-size:2rem;max-width:40rem;margin:1.625rem auto 0;font-weight:600;text-align:center;line-height:2.68125rem}.post-single__body figure{margin-bottom:1.625rem}.post-single__body figure blockquote{font-style:italic;text-align:center;margin-top:0;padding:1.625rem 0}.post-single__body figure blockquote p{max-width:40rem;font-size:1.6817rem;margin-top:0;margin-bottom:1.625rem;line-height:2.4375rem}.post-single__body a{text-decoration:underline}.post-single__body .gatsby-highlight{max-width:40rem;margin-left:.9375rem;margin-right:.9375rem;margin-bottom:1.625rem}.post-single__body :not(div){max-width:40rem;margin-left:auto;margin-right:auto}.post-single__footer{max-width:40rem;margin:1.625rem .9375rem 3.25rem;line-height:1.625rem}.post-single__footer-text a{text-decoration:underline}.post-single__date{max-width:40rem;margin-left:auto;margin-right:auto}.post-single__tags{margin-bottom:.8125rem}.post-single__tags-list{list-style:none;margin:0 -.3125rem;padding:0}.post-single__tags-list-item{display:inline-block;margin:.625rem .3125rem}.post-single__tags-list-item-link{background:#ebebeb;text-decoration:none;border:0;border-radius:.1875rem;color:#555;line-height:1.625;padding:.5rem 1rem}.post-single__tags-list-item-link:focus,.post-single__tags-list-item-link:hover{color:#222;background:#dfdfdf;border:0}.post-single__home-button{display:block;margin-left:auto;margin-right:auto;max-width:5.625rem;font-size:1rem;padding:0 1rem;height:35px;line-height:2.1875rem;text-align:center;color:#555;background:#ebebeb;font-weight:400;border-radius:.1875rem;margin-top:1.625rem}.post-single__home-button:focus,.post-single__home-button:hover{color:#222;background:#dfdfdf;border:0}@media screen and (min-width:685px){.post-single__body .gatsby-highlight,.post-single__footer{margin-left:auto;margin-right:auto}}@media screen and (min-width:960px){.post-single__inner{padding:0}.post-single__title{font-size:3rem;line-height:3.65625rem;margin-top:3.65625rem;margin-bottom:2.4375rem}.post-single__body,.post-single__body p{font-size:1.125rem;line-height:1.82813rem;margin-bottom:1.82813rem}.post-single__home-button{position:fixed;max-width:auto;margin:0;top:30px;left:30px}}.post{margin-bottom:2.03125rem}.post:last-child,.post__title{margin-bottom:.8125rem}.post__title{font-size:1.6875rem;line-height:2.4375rem;margin-top:0}.post__title-link{color:#222}.post__title-link:focus,.post__title-link:hover{color:#222;border-bottom:1px solid #222}.post__description{font-size:1rem;line-height:1.625rem;margin-bottom:1.21875rem}.post__meta-time{font-size:.875rem;color:#222;font-weight:500;text-transform:uppercase}.post__meta-divider{margin:0 .3125rem}.post__meta-category-link{font-size:.875rem;color:#f7a046;font-weight:500;text-transform:uppercase}.post__meta-category-link:focus,.post__meta-category-link:hover{color:#5d93ff}.post__readmore{font-size:1rem;color:#5d93ff}.post__readmore:focus,.post__readmore:hover{color:#5d93ff;border-bottom:1px solid #5d93ff}</style></head><body><div id="___gatsby"><div class="layout" data-reactroot="" data-reactid="1" data-react-checksum="-376769898"><!-- react-empty: 2 --><div data-reactid="3"><!-- react-empty: 4 --><div data-reactid="5"><div data-reactid="6"><a class="post-single__home-button" href="/" data-reactid="7">All Articles</a></div><div class="post-single" data-reactid="8"><div class="post-single__inner" data-reactid="9"><h1 class="post-single__title" data-reactid="10">gatsby 정적블로그 생성하기 - 자동deploy, CircleCI연동</h1><div class="post-single__body" data-reactid="11"><h3>TL;DR</h3>
+<p>Gatsby 정적블로그에 CircleCI를 활용해서 자동 Deploy 하는 Pipeline을 만들어보았다.</p>
+<h3>CircleCI 연동</h3>
+<p>지난번에 블로그를 만들면서 생성한 Github Repository에 CircleCI 를 연동해서, deploy 작업을 자동화 시키려고한다. (지난글 - <a href="https://kujyp.github.io/posts/gatsby-starter-lumen%EC%9C%BC%EB%A1%9C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0/">gatsby starter lumen으로 블로그 생성하기</a>)<br/>
+CircleCI는 Jenkins, Travis 처럼 CI 툴의 일종으로, Jenkins와 같은 설치형과 다르게 오픈소스에 대해<br/>
+무료로 클라우드 자원을 할당해줘서, 본인의 서버가 필요없다는 장점이 있다.(Travis도 마찬가지 장점이 있다.)  </p>
+<p>CircleCI를 연동하는 방법은 간단하다.</p>
+<ol>
+<li>CircleCI에 Github계정으로 가입.</li>
+<li>CircleCI에서 해당 Github Repository - “Set Up Project”</li>
+<li>Github repository에 .circleci/config.yml 파일 추가
+<br/>
+<br/></li>
+</ol>
+<h3>1. CircleCI에 Github 계정으로 가입.</h3>
+<p><a href="https://circleci.com/">https://circleci.com/</a> 접속 > 우측 상단 SignUp > Github으로 가입을 진행한다.
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/circleci_signup-4b2977dddc11994e9beaa83ce32cb33f-c549a.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 36.12087139845397%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAAAsSAAALEgHS3X78AAABZklEQVQoz02QzW6CQBSF2YgI1jbKz/AzKLUJpgoJy+67UxITTfoQDbSC0Kbpglfo0/TxTu+M1nbx5c7MPZx7LkpRFGiaBl3XoW1b1HWN4/Eo30QV1FWFsiyIEiXpK7q3by2aQ41D947X7y+Unw3K5wKKqqowDAOj0Qi6rmNA6BIDw+FQolO/rw3QH5zQNO2kE2+TK/QeONQb0vRUKK7rgjEG0zRhUbWYe6l8FmF6O0dAuIQ3v4MnzkEgYT5Vl7g24ToMwkuxLEsaJklyIk2REqJmWYbVagXf9+VA27Yh9JZJWDYYd8jUge06sKhnU08RQo+c1+s18jzHdrvFZrOR9/1+j91uJweNx2Np6DBhxMBjDp5MKakn38Qg0ZcJHcfBPX20WCyQnutyuZTphFkURedktBrnCOa0fkarpiEZziiZ+Zfwd+U4jsFJHIah5P9ZDJSGQkv/jYUBXj4qPD7lmPCQEvNLwh+8DNCJRpu2kwAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="circleci_signup.png"
+        title=""
+        src="/static/circleci_signup-4b2977dddc11994e9beaa83ce32cb33f-c83f1.png"
+        srcset="/static/circleci_signup-4b2977dddc11994e9beaa83ce32cb33f-569e3.png 240w,
+/static/circleci_signup-4b2977dddc11994e9beaa83ce32cb33f-93400.png 480w,
+/static/circleci_signup-4b2977dddc11994e9beaa83ce32cb33f-c83f1.png 960w,
+/static/circleci_signup-4b2977dddc11994e9beaa83ce32cb33f-c549a.png 1423w"
+        sizes="(max-width: 960px) 100vw, 960px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    <br/></p>
+<p>참고: 로그인 후 콘솔이 뜨지않는 경우 우측 상단의 Go to app 버튼을 클릭한다.
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/circleci_gotoapp-6deddfdf18b7de3aafcf21bdf3269796-ee731.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 888px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 50.45045045045045%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsSAAALEgHS3X78AAABiUlEQVQoz2VSy26CUBRkr4Ao+IiJKzXx/QBjE2Nt3biwglE0aEzU+P/fML1z2muwXRzOezgzYGw2G+x2O+z3ezAOw1AsCiPJT6cTLpcLkiTBdrt99rVxN45jRFEkuZHJZOA4DgqFAkzTRDabFbMsC+zVajU0m03U63WZ0z3O0jzPQ7ValRp7RrlcBq1YLCKXy6FUKknMF9Dbti0xF/L5vACId388d+i5RxyDSa/Xw+12w+FwwP1+x+PxwPl8xmw2EyrX6xXH4xHr9fpJfzKZiATskbLrunKAoU9ut9vwfV/AGXe7XczncyyXS7xNp4iVxqvVCsPhUGYoA/1oNJIacWgGUYmePp8Uqd9UAX2pD/P+8YlEXUwGfDll4A415Q49weRCPrQuaSMoF03LhuMpLX8/Guu09JymKxfyQTHH47GcT9qDwUByUqFWvooDVdc1zjFmjznpv2hYqVREs06nI7rQ9/v9Z75YLBAEgWjbarVedKY1Go3/lKmDNlLRMSnxX+Rvke79ndE433FpIxCi8xBbAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="circleci_gotoapp.png"
+        title=""
+        src="/static/circleci_gotoapp-6deddfdf18b7de3aafcf21bdf3269796-ee731.png"
+        srcset="/static/circleci_gotoapp-6deddfdf18b7de3aafcf21bdf3269796-6024a.png 240w,
+/static/circleci_gotoapp-6deddfdf18b7de3aafcf21bdf3269796-a3e7a.png 480w,
+/static/circleci_gotoapp-6deddfdf18b7de3aafcf21bdf3269796-ee731.png 888w"
+        sizes="(max-width: 888px) 100vw, 888px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    <br/><br/></p>
+<h3>2. CircleCI에서 해당 Github Repository - “Set Up Project”</h3>
+<p>위에서 뜬 콘솔창에서 좌측 Add Projects 버튼을 클릭 > 해당 Repository 우측의 “Set Up Project” 버튼을 클릭해준다.<br/>
+참고: github.io 프로젝트는 이미 진행을 해놔서, 다른 프로젝트로 스크린샷을 찍어왔다.
+<img src="/circleci_setupproject-8137394147671613967939b4be06a8a3.gif" alt="circleci_setupproject.gif"></p>
+<p>“Set Up Project” 버튼을 클릭하면 환경을 리스트가 나오는데, React Project이므로 Node를 선택해준다.<br/>
+CircleCI를 부착하는 방법에 대해 설명이 나오는데, 맨아래에 보면 sample yaml 파일을 복사해갈수있다. 이를 복사하고 다음 단계로 진행한다.<br/>
+드래그해서 복사해도되고, 2번단계에 잇는 “Copy To Clipboard” 버튼을 클릭해도된다.
+<img src="/setupproject_node_samplecopy-0e17dc5ed403f62bb85bf0b011570e2c.gif" alt="setupproject_node_samplecopy.gif"><br/><br/></p>
+<h3>3. Github repository에 .circleci/config.yml 파일 추가</h3>
+<p>방금 복사한 샘플 yml 내용을하고, Repository의 .circleci/config.yml 에 넣어준다.<br/>
+나는 필요없는 부분은 제거하고, 마지막 run 부분을 <code class="language-text">yarn run deploy</code> 로 변경해주었다.</p>
+<p><a href="https://github.com/kujyp/kujyp.github.io/commit/febd66ce8af272572d0108524899956d706e287b">https://github.com/kujyp/kujyp.github.io/commit/febd66ce8af272572d0108524899956d706e287b</a> </p>
+<div class="gatsby-highlight">
+      <pre class="language-yaml"><code class="language-yaml"><span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token number">2.0</span>
+
+<span class="token key atrule">jobs</span><span class="token punctuation">:</span>
+  <span class="token key atrule">build</span><span class="token punctuation">:</span>
+    <span class="token key atrule">docker</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">image</span><span class="token punctuation">:</span> circleci/node<span class="token punctuation">:</span>9.10.0
+
+    <span class="token key atrule">working_directory</span><span class="token punctuation">:</span> ~/app
+
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> checkout
+
+    <span class="token punctuation">-</span> <span class="token key atrule">restore_cache</span><span class="token punctuation">:</span>
+        <span class="token key atrule">keys</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> v1<span class="token punctuation">-</span>dependencies<span class="token punctuation">-</span><span class="token punctuation">{</span><span class="token punctuation">{</span> checksum "package.json" <span class="token punctuation">}</span><span class="token punctuation">}</span>
+        <span class="token punctuation">-</span> v1<span class="token punctuation">-</span>dependencies<span class="token punctuation">-</span>
+
+    <span class="token punctuation">-</span> <span class="token key atrule">run</span><span class="token punctuation">:</span> yarn install
+
+    <span class="token punctuation">-</span> <span class="token key atrule">save_cache</span><span class="token punctuation">:</span>
+        <span class="token key atrule">paths</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> node_modules
+        <span class="token key atrule">key</span><span class="token punctuation">:</span> v1<span class="token punctuation">-</span>dependencies<span class="token punctuation">-</span><span class="token punctuation">{</span><span class="token punctuation">{</span> checksum "package.json" <span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+    <span class="token punctuation">-</span> <span class="token key atrule">run</span><span class="token punctuation">:</span> yarn run deploy</code></pre>
+      </div>
+<p>해당 내용을 Repository에 push 한뒤, 위에서 진행하던 CircleCI 콘솔 5번째 단계인 Start Building 버튼을 눌러준다.<br/>
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/setupproject_startbuilding-fee9b732931aff6196fedc5176fb6719-9a35b.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 893px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 43.225083986562154%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAAAsSAAALEgHS3X78AAABf0lEQVQoz52S2Y7UMBBF89O8IjEvfAwS/4DE8o6ghwY09EyTUXdnEi+Jl3i7XDsINTxi6aSqruVylStdXHbw6jOs+IRV7eDoJ7sH/FcUR35bVPxG4X62X67YI5lbZHdAt4YMNVtoMi8OcfZw2kGqBbMyWIXZYm2aJuWCEAsKgFI/V6uGXVpXuElsjALRWJSckVJEJiWSlOinpoUQkHNq2UrJiCkjkJVkap33HnKaoKSEEhJa68Y8zw1NFGPJfWNMqyTxQiBjtAkv3xvcvDV4/sbg3TGgM9biaRwheEAI0RgZVyZeNAxDSxRZaSUzWaVWVyt7UBH3MuJAlM9bQqUk36eimg0xsJXUCGyzVlTbqVQ/Mdkac9uvlW7wBal3YvH49qjx46RwIPcXjX6yeJwc+tH+xc8n88ffPSgou+KO579zaHtlcXIruruzxasPJxwHg5HiIC0unGzl2q+cp4UarVhwHmdcmPDFbY+bXY9nH4943U+cctom9V/r3/+Gbf8C4L6zasQ2V+4AAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="setupproject_startbuilding.png"
+        title=""
+        src="/static/setupproject_startbuilding-fee9b732931aff6196fedc5176fb6719-9a35b.png"
+        srcset="/static/setupproject_startbuilding-fee9b732931aff6196fedc5176fb6719-543ee.png 240w,
+/static/setupproject_startbuilding-fee9b732931aff6196fedc5176fb6719-e87a0.png 480w,
+/static/setupproject_startbuilding-fee9b732931aff6196fedc5176fb6719-9a35b.png 893w"
+        sizes="(max-width: 893px) 100vw, 893px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    <br/><br/></p>
+<h3>4. Job failed</h3>
+<p>뭔가 쉽게쉽게 잘 풀리는듯 했으나, 모든 개발이 그러하듯 바로 에러가 나타난다.</p>
+<h4>4-1. git empty name, email</h4>
+<p>CI를 부착하면 github commit 리스트에서 CI 결과 아이콘을 볼수 있는데,<br/>
+작업 진행중에는 <code class="language-text">노란 동그라미</code>가 나타나고, 실패하면 <code class="language-text">빨간 엑스표시</code>, 성공하면 <code class="language-text">초록 브이표시</code>가 나타난다.
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/circleci_fail-17867bdd4ae9de909f8389cc64a85a8d-e3a4e.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 25.348189415041784%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAAAsSAAALEgHS3X78AAAA1ElEQVQY03VQ7W6DMAzs+z/ipjI1lBYCKCFxGPkgN2N+dKrUSGfLiu989qXWihACiBicU0p4f0fPJ/Cv4KyBy0HQesTAGKcZE8M5D+s9Fk88ZP0oFPMOEzLoN6PsuwwXwVvb4etHoWkf6PoJ5FeExYOsQ3AkxFRe2HLFVgDioF3CTFl6XoKqRaM63J8aerZIWwT1A7KxqHyKw5B4quf6SQYAKwfP7g7h9F9wYLJi0SfnftAw1uL72uB6U3jwKRyvbhcn6xuK2GIW8hoLRnZoKCGXU/APZuWEMlMueaIAAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="circleci_fail.png"
+        title=""
+        src="/static/circleci_fail-17867bdd4ae9de909f8389cc64a85a8d-c83f1.png"
+        srcset="/static/circleci_fail-17867bdd4ae9de909f8389cc64a85a8d-569e3.png 240w,
+/static/circleci_fail-17867bdd4ae9de909f8389cc64a85a8d-93400.png 480w,
+/static/circleci_fail-17867bdd4ae9de909f8389cc64a85a8d-c83f1.png 960w,
+/static/circleci_fail-17867bdd4ae9de909f8389cc64a85a8d-e3a4e.png 1077w"
+        sizes="(max-width: 960px) 100vw, 960px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p><code class="language-text">엑스표시</code> 를 눌러서 나온 창에서 Details 링크를 클릭해보면 CircleCI 결과로그를 볼 수 있는데,<br/>
+<code class="language-text">Please tell me who you are.</code> 란다.<br/>
+<code class="language-text">gatsby build --prefix-paths &amp;&amp; gh-pages -d public -b master</code> 를 진행하면서 git push를 진행하게되는데(build 결과를 <code class="language-text">master branch</code>로 보낸다.)<br/>
+push를 할 git 계정, 이메일이 설정되어있지 않다. 로컬이라면 미리 설정해둔 값으로 보냇겠지만 CI 작업이 진행되는 환경은 CircleCI 클라우드 서버에서 진행되므로 완전백지상태이다.<br/>
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/circleci_fail_gitemptyname-26f462694a98944457071e9f59f227bf-3b349.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 28.896551724137932%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAAAsSAAALEgHS3X78AAAAz0lEQVQY05XR20rDQBDG8bxITt1Duu4mpBAaMGoUlZIW8aJCq9cKUjw8hvrUfzcBBe/Wi48ZWPjNDBst2hOO+0uWXY9WCjnLEWJGlmXkef7vRFU30J5vaM4GyqbjqGrIpse/YOiA6Pbwwe5tzCe79y9O13sKW5EmCWmakPj6g4WgUb99Znh4ZXX/wmp/4PrukavtE8uLG9yixTmH1trjadiGxswpS4cxhrG31qI8oOcGIRV1XVMURTgopPBb2AmUUk5RaqzCf44gjuNfLOTkb5P2sifjfk9tAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="circleci_fail_gitemptyname.png"
+        title=""
+        src="/static/circleci_fail_gitemptyname-26f462694a98944457071e9f59f227bf-c83f1.png"
+        srcset="/static/circleci_fail_gitemptyname-26f462694a98944457071e9f59f227bf-569e3.png 240w,
+/static/circleci_fail_gitemptyname-26f462694a98944457071e9f59f227bf-93400.png 480w,
+/static/circleci_fail_gitemptyname-26f462694a98944457071e9f59f227bf-c83f1.png 960w,
+/static/circleci_fail_gitemptyname-26f462694a98944457071e9f59f227bf-23e13.png 1440w,
+/static/circleci_fail_gitemptyname-26f462694a98944457071e9f59f227bf-3b349.png 1450w"
+        sizes="(max-width: 960px) 100vw, 960px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>다시 <code class="language-text">.circleci/config.yml</code>를 열어서 <code class="language-text">yarn run deploy</code> 를 수행하기 전, <code class="language-text">git config</code> 명령어를 수행해서 username, email을 설정해준다.<br>
+<a href="https://github.com/kujyp/kujyp.github.io/commit/8569e1b2f76ebb7b655e0d23f7ae7513aab8c8ef">https://github.com/kujyp/kujyp.github.io/commit/8569e1b2f76ebb7b655e0d23f7ae7513aab8c8ef</a></p>
+<div class="gatsby-highlight">
+      <pre class="language-yaml"><code class="language-yaml"><span class="token comment"># ...</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">run</span><span class="token punctuation">:</span>
+        <span class="token key atrule">command</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+          git config --global user.email "swe.jaeyoungpark@gmail.com"
+          git config --global user.name "kujyp"
+          yarn run deploy</span></code></pre>
+      </div>
+<br/>
+<h4>4-2. github read only key</h4>
+<p>위의 에러를 해결하면 이번엔 다른 에러가 뜬다. The key you are authencating with has been marked <strong>as read only.</strong>
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/circleci_fail_readonlykey-f86dd9018e7d804e04240359960ae34a-d1f92.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 43.45878136200717%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAAAsSAAALEgHS3X78AAABPklEQVQoz42S20sCQRTG9z/Z29yci7YrrZdSSMwH0VCs6CnCRN98CaGC3nqpf/prZnQtkNCHjzPnwP7mm+9sEIYhjDFQSkLKCoTgiOIYsVWSJF7xro+iaH/+T4GDtNstZNmZF+ccaZpuYR4SelAJOwYNsqyGbreDRqPwKopz1Os5sjwH4wJxYuEpOd3h8PEFs+U7Js+vvo6eNriZv6EzfECzN0b7eopWfwLCBCIbz1HgePWJ+/UXbtffmC4/MFts0L9beiATcpuljeBkh7W8icurAbLiAr3BCPPFyi9GKuVzdK5OAZU5B1oJGC2hpIDgDISkqFSEl1sQtzNX3UfhDu5qqb8L8w5j60JrDaWV/W3kHsIYtWIHopQe9JSSX4fEDtxWHdQYjWrVwFhpe4E7+76c2+pesL2M7oDEzn6BP+lfDcAIV1hsAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="circleci_fail_readonlykey.png"
+        title=""
+        src="/static/circleci_fail_readonlykey-f86dd9018e7d804e04240359960ae34a-c83f1.png"
+        srcset="/static/circleci_fail_readonlykey-f86dd9018e7d804e04240359960ae34a-569e3.png 240w,
+/static/circleci_fail_readonlykey-f86dd9018e7d804e04240359960ae34a-93400.png 480w,
+/static/circleci_fail_readonlykey-f86dd9018e7d804e04240359960ae34a-c83f1.png 960w,
+/static/circleci_fail_readonlykey-f86dd9018e7d804e04240359960ae34a-d1f92.png 1116w"
+        sizes="(max-width: 960px) 100vw, 960px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    <br/><br/></p>
+<p>CircleCI 는 Github에 접근할때 기본값으로 deploy key를 사용한다.<br/>
+repository를 clone 해오는데는 문제가 없지만, read only 이기때문에 deploy 과정에서 수행하는 write 작업을 수행할 수 없다.</p>
+<p>참고: deploy key. github 해당 repository settings 메뉴에서 볼 수 있다.
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/deploykey-44233d1aa25db153f4e76fe4a5a7bac8-8da88.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 47.84688995215311%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsSAAALEgHS3X78AAABSUlEQVQoz5VR7W7DIAzk/R9x07qqTdSUBFISIOEj3Izbbvk1tZZOYDjOZywa5fEtF3xcFgxTQEoJa7wjMPJjTYh5g3MeTdPAWgulbxjNxNCjQUwZYrYO1i10OMOvAWa2lHsWuBGx7p1fGGYm7jRhaI9wRrNA5eVtQ6JiLKjniI0Ocs6oYejB+dxA9j2RI0opfH/n0FrzAl5r1PN+UATNwuKsAnzY6KowqbZsneWWtrzhv3gWqoXXWI0ViFYHUi5/TgpVXDQ+D184HI/oeomLvKK7XnGVPQZ2ozAozcVrROsR6WuqZ3HS8e6QBQu3voaAcTboRgk5Dui0RK8UlBrhvSfUP/VsoBpJ5C7RX9a9OPUOcoqw6/ZLeDUqd89nwbZteZJ1Somm9CS9gr0QHrm49COMXeCXwHgS3xHeQyibYXzmCe8rv9P6Pn4AHUEOTNGeoaIAAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="deploykey.png"
+        title=""
+        src="/static/deploykey-44233d1aa25db153f4e76fe4a5a7bac8-c83f1.png"
+        srcset="/static/deploykey-44233d1aa25db153f4e76fe4a5a7bac8-569e3.png 240w,
+/static/deploykey-44233d1aa25db153f4e76fe4a5a7bac8-93400.png 480w,
+/static/deploykey-44233d1aa25db153f4e76fe4a5a7bac8-c83f1.png 960w,
+/static/deploykey-44233d1aa25db153f4e76fe4a5a7bac8-8da88.png 1045w"
+        sizes="(max-width: 960px) 100vw, 960px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    <br/><br/></p>
+<p>Github write 권한을 주기위해 CircleCI 콘솔에 가서 ssh key를 추가해준다.<br/>
+CircleCI Console > Jobs > 프로젝트명 우측 설정 버튼 클릭 > Checkout SSH keys 로 들어간다.<br/>
+중간에 “Add user key” 부분이 있는데, <code class="language-text">Authorize With Github</code>를 진행해준다.
+<img src="/circleci_console_checkoutsshkeys-cdbb07858c9c284720e3a49612a7eb25.gif" alt="circleci_console_checkoutsshkeys.gif"><br/><br/></p>
+<p>이후 <code class="language-text">Create and add user key</code>를 누르면 deploy key 외에 user key가 하나더 생성되고, Preferred가 설정되는것을 볼 수 있다.<br>
+<img src="/circleci_console_createandadduserkey-2d27edb4f81b00145e2b0941a815f5d6.gif" alt="circleci_console_createandadduserkey.gif"><br/><br/></p>
+<p>Github에서도 user key(ssh key)가 추가된 것을 확인할 수 있다.<br/>
+<a href="https://github.com/settings/keys">https://github.com/settings/keys</a> 에 가보면 <code class="language-text">CircleCI: kujyp/kujyp.github.io</code>가 자동생성 된 것을 볼수있다.
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/github_userkey-a588a71f9d8cc72f991f7bd69b71b60c-a7577.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 28.468468468468465%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAAAsSAAALEgHS3X78AAAA2klEQVQY031Q0WrDMAzs/3/boAzG6BjtW7p22RI7jmXHtnyTw5ymKVRwWLJ9x+l2OWeUSolhidD1vUDNc4xxQWJG+VvBMqcQwP/8qrOrzTQFXC5XNE0zo21bEFkBwVqLIOQ1kVMC9VqEN4J1KIiccO1GnM4aXz8DDEWs3+8A3AnVWhwGjjjrb7weTtgfjnh5+8D+/RNKKRhjZO2Nw1gcqkeHi6DkRM5BWY3fUaOzA/Q4zHlaFzDFLLmuHIoQCyc/y9B7D+cDjMsYfZa53E3SMxQlEeVbBJuV6/kHebnVtsciKCcAAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="github_userkey.png"
+        title=""
+        src="/static/github_userkey-a588a71f9d8cc72f991f7bd69b71b60c-c83f1.png"
+        srcset="/static/github_userkey-a588a71f9d8cc72f991f7bd69b71b60c-569e3.png 240w,
+/static/github_userkey-a588a71f9d8cc72f991f7bd69b71b60c-93400.png 480w,
+/static/github_userkey-a588a71f9d8cc72f991f7bd69b71b60c-c83f1.png 960w,
+/static/github_userkey-a588a71f9d8cc72f991f7bd69b71b60c-a7577.png 1110w"
+        sizes="(max-width: 960px) 100vw, 960px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    <br/><br/></p>
+<h4>4-3. re-run job</h4>
+<p>read only key 문제를 해결하면, ssh key는 config.yml 파일 수정없이 적용된다.<br/>
+하지만 CircleCI에 권한이 있는 user key를 추가한다고 해서 작업이 저절로 다시 수행되지는 않는다.</p>
+<p>수동으로 re-run을 시켜하는데, Github에서 아까 실패한 마지막 commit 에 달려있는 링크를 타고 CircleCI 콘솔에 접속한다.<br/>
+실패한 작업 옆에 Details link를 클릭하면된다.
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/circleci_fail-17867bdd4ae9de909f8389cc64a85a8d-e3a4e.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 25.348189415041784%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAAAsSAAALEgHS3X78AAAA1ElEQVQY03VQ7W6DMAzs+z/ipjI1lBYCKCFxGPkgN2N+dKrUSGfLiu989qXWihACiBicU0p4f0fPJ/Cv4KyBy0HQesTAGKcZE8M5D+s9Fk88ZP0oFPMOEzLoN6PsuwwXwVvb4etHoWkf6PoJ5FeExYOsQ3AkxFRe2HLFVgDioF3CTFl6XoKqRaM63J8aerZIWwT1A7KxqHyKw5B4quf6SQYAKwfP7g7h9F9wYLJi0SfnftAw1uL72uB6U3jwKRyvbhcn6xuK2GIW8hoLRnZoKCGXU/APZuWEMlMueaIAAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="circleci_fail.png"
+        title=""
+        src="/static/circleci_fail-17867bdd4ae9de909f8389cc64a85a8d-c83f1.png"
+        srcset="/static/circleci_fail-17867bdd4ae9de909f8389cc64a85a8d-569e3.png 240w,
+/static/circleci_fail-17867bdd4ae9de909f8389cc64a85a8d-93400.png 480w,
+/static/circleci_fail-17867bdd4ae9de909f8389cc64a85a8d-c83f1.png 960w,
+/static/circleci_fail-17867bdd4ae9de909f8389cc64a85a8d-e3a4e.png 1077w"
+        sizes="(max-width: 960px) 100vw, 960px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    <br/><br/></p>
+<p>접속한 CircleCI 콘솔에서 우측에 있는 rerun workflow를 클릭해주면, 추가해둔 user key를 이용해서 작업을 다시 수행하게된다.<br/>
+참고: 이 짓이 귀찮으면 새 commit을 제출해도 새로 작업이 수행된다.
+<img src="/circleci_rerunjob-ce4ab58b7b3a6f4f38a5e8e877c6a3a2.gif" alt="circleci_rerunjob.gif"><br/><br/></p>
+<p>추가로 수행한 작업은 결국 성공했다. 그런데 따로 작업이 기록되어서 github commit 옆에는 여전히 X 표시가 남아있다.
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/circleci_workflow_success-3ec0edc6a3e4ac87a471655ffc71c2a0-2a537.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 661px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 31.46747352496218%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAAAsSAAALEgHS3X78AAABNUlEQVQY012Qa0+DMBRA+f9/yg8mZiZ+MsbH5qB74BhjQCltaWEe7zAaY5OT+0h6c+5Neh/QvUMbR9P1NLrHDpFr3/wg9ZVOcj99EoH4CUHyv0Qhubm94+HxhaXKeVpmPK0Uz4La5OTZ9pu14rDZk6st5twwaIOrNSFOhPEyEwUXRpLiWFLV7a9dK9GLzeUC3W5Ps1pj0ox2LaSKs9ROBk+Hgv9vmiaS+8U9L69vbLY70kyRqg1NXTMYIwYjRXWm0h3ayklMLycYcOMkjPTSc97PptqOuCGIYVFQyaem1bRaz9FaSwyR0FuWyxXv7yn7/MDHR0F5qqhk7WNZcZLYdma+eVZ62t6TLBaL2XC7y8lkFSWm109R7GwMs/XV/lie0HKO07mmbto5ejEaZU0nA/Pa09mBL3xmxpfAgEaYAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="circleci_workflow_success.png"
+        title=""
+        src="/static/circleci_workflow_success-3ec0edc6a3e4ac87a471655ffc71c2a0-2a537.png"
+        srcset="/static/circleci_workflow_success-3ec0edc6a3e4ac87a471655ffc71c2a0-ff763.png 240w,
+/static/circleci_workflow_success-3ec0edc6a3e4ac87a471655ffc71c2a0-8ac90.png 480w,
+/static/circleci_workflow_success-3ec0edc6a3e4ac87a471655ffc71c2a0-2a537.png 661w"
+        sizes="(max-width: 661px) 100vw, 661px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    <br/><br/></p>
+<h3>5. Post 등록</h3>
+<p>자동 deploy 작업을 추가했으니, 글을 등록해서 작업이 잘 되는지 테스트해본다.<br/>
+새로 글을 하나 작성하고 github development branch에 push 를 수행했다.</p>
+<p>Github에 작업이 성공한것으로 아이콘이 변했다.
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/autodeploy_result1-7f3296a21b4b8da0c7519b95d104887d-c7990.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 644px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 26.552795031055897%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAAAsSAAALEgHS3X78AAAA7UlEQVQY012PC2+DMAyE+f9/r7Cqo7xKEhJeoXQQCIyba23rtEins+T48zkopME5KZCTx4VEJjTiXOJKdWsf2AH4z5dW0kzF7Pdvf2miZnAK33A6x9D9CFn3qNqB3Qx3tL1FcRPIbyWEVBCqgtIG3nscx/FPgFs3BNoYpFkBVWkeELJCKRQ6gt3Hkb23A2t2jmAb/r4n7OdtGwGjKMTl8s4DTdv9appmrPsG0zbcN3WDjsGUvLP0p6dlAzxB7MeKvHG0cEHQW8vnPCHa1DyoKsOJJemaZgijM3uS5nx+kuUoSsHpp9nBLR7jtHD6LyEpepvUT9FjAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="autodeploy_result1.png"
+        title=""
+        src="/static/autodeploy_result1-7f3296a21b4b8da0c7519b95d104887d-c7990.png"
+        srcset="/static/autodeploy_result1-7f3296a21b4b8da0c7519b95d104887d-dd310.png 240w,
+/static/autodeploy_result1-7f3296a21b4b8da0c7519b95d104887d-a1ce9.png 480w,
+/static/autodeploy_result1-7f3296a21b4b8da0c7519b95d104887d-c7990.png 644w"
+        sizes="(max-width: 644px) 100vw, 644px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    <br/>
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/autodeploy_result2-51d57c64f1ac434486ebe1a690438354-cc76a.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 639px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 65.25821596244131%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAAAsSAAALEgHS3X78AAABhklEQVQ4y5WTi26CQBBF+f/Pa22tiREVUKgKCux74XZmqc+qsSQTyO7OmTuXnQj0aGOwP9TQWsPQt1QKikJICUVrUqqwx+f6vg/x6ImGAwiJznk47yl5gDKQo2na8DbWnhKP4NuIeDNJEiTLBJvNFut1jrIs/1Tmw4YKMVwSvOu6sNZ1d4DZboW3bIysylEUG6zyAp6UXirxpH6RLDGajDGbxw/bjlxbgbd850NLXJGrM/AqaK3WDWbVHEWzDQXYbyFEOH8sHvkyA1mNPM8Rx/Ng/j2PGFrta6R5SRalmE6nWFMna8pj8AnorIENP6MLKvj7NoxllQ5VozApHJZbhWVWoK4PVx4PLRPIWPckfHizQqEMNjVFQ+s+UE7tnj10Q8I9ZfZij/2dxTG+xp9YZSkWiwXeRx9Is+zKoqfAM8wFJVJbfB80eXnAdreDpSJ8b6+uzX+A1vOf7mmKNNq2vXtXXwayEh5HrVWYquNINq0guDjd25eBntRxi0L+jqSQQSkHg4/AH4mm9zM2omjQAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="autodeploy_result2.png"
+        title=""
+        src="/static/autodeploy_result2-51d57c64f1ac434486ebe1a690438354-cc76a.png"
+        srcset="/static/autodeploy_result2-51d57c64f1ac434486ebe1a690438354-528a0.png 240w,
+/static/autodeploy_result2-51d57c64f1ac434486ebe1a690438354-3cf44.png 480w,
+/static/autodeploy_result2-51d57c64f1ac434486ebe1a690438354-cc76a.png 639w"
+        sizes="(max-width: 639px) 100vw, 639px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    <br/><br/></p>
+<p>실제 블로그에도 정상적으로 반영이 되는것을 확인 할 수 있었다.
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/static/autodeploy_result3-741c08c1dd23f3d96416172be042e873-f2070.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; ; max-width: 927px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 41.963322545846815%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAAAsSAAALEgHS3X78AAABP0lEQVQoz32QT0/CQBDF+0X15EfTePPiwYMHD3oxMQEiYFsLrURQWkr/t3S3u8+dbSE0ECeZznYy+9v3xjAtG9c3t2CMQUoJIcQhpRQoK4bR5w8m3gZLP8FvECHYpmhEf3afxmg4xNXlBfz1GhQEPQ4aehp4uHt28DhY4v7FxMOrizfbx7kw8ixDkSW9JkE1uFM8X8UYuxulMsS7qs4qQc34Ye44jTDcIlPQuq5RVZW23kL1V1v7jiRqLsG4AGsAVXpuDgJIYVEU2O12aJpGZ7u7/qthlCBOEoi6VLQMYMVZu1qh7/tYd/s7sdzt0HXnmE6nsCwTH5MxZo4Nx3Fg2zZM09TnIAhahXEcoyzLHugU6CqYha/FQl2eqX9PQ6i/UL0oivSqyKG2zDn/F0iP0p7zPAfNp2mqz9Tb9wlK9Q9bRGXnCH2ZAAAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="autodeploy_result3.png"
+        title=""
+        src="/static/autodeploy_result3-741c08c1dd23f3d96416172be042e873-f2070.png"
+        srcset="/static/autodeploy_result3-741c08c1dd23f3d96416172be042e873-a9cf6.png 240w,
+/static/autodeploy_result3-741c08c1dd23f3d96416172be042e873-890df.png 480w,
+/static/autodeploy_result3-741c08c1dd23f3d96416172be042e873-f2070.png 927w"
+        sizes="(max-width: 927px) 100vw, 927px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>끝.</p></div><div class="post-single__date" data-reactid="12"><em data-reactid="13"><!-- react-text: 14 -->Published <!-- /react-text --><!-- react-text: 15 -->24 Feb 2019<!-- /react-text --></em></div></div><div class="post-single__footer" data-reactid="16"><div class="post-single__tags" data-reactid="17"><ul class="post-single__tags-list" data-reactid="18"><li class="post-single__tags-list-item" data-reactid="19"><a class="post-single__tags-list-item-link" href="/tags/gatsby/" data-reactid="20">gatsby</a></li><li class="post-single__tags-list-item" data-reactid="21"><a class="post-single__tags-list-item-link" href="/tags/circleci/" data-reactid="22">circleci</a></li></ul></div><hr data-reactid="23"/><p class="post-single__footer-text" data-reactid="24"><h4 data-reactid="25">kujyp 개발블로그</h4><!-- react-text: 26 -->ML DevOps, Python, Docker ...<!-- /react-text --><br data-reactid="27"/><a href="https://www.github.com/kujyp" target="_blank" rel="noopener noreferrer" data-reactid="28"><strong data-reactid="29">kujyp</strong><!-- react-text: 30 --> on Github<!-- /react-text --></a></p><div data-reactid="31"><div data-reactid="32"><div id="disqus_thread" data-reactid="33"></div></div></div></div></div></div></div></div></div><script id="webpack-manifest">/*<![CDATA[*/window.webpackManifest={"231608221292675":"app-af3784954dc3ac604a08.js","99219681209289":"component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js","11305920230724":"component---src-templates-page-template-jsx-ef150ef5bc28b140dfe9.js","108009296967943":"component---src-templates-post-template-jsx-5378e4610e0201cf93e4.js","2638498282051":"component---src-templates-tag-template-jsx-2b3726fa7cce65b202ed.js","90179704293519":"component---src-templates-category-template-jsx-801615e0ee15486d4622.js","183328146348521":"component---src-pages-404-jsx-265d0c38bdff4d0a90c6.js","142542727794042":"component---src-pages-categories-jsx-2da18a892adca87ae12e.js","213534597649335":"component---src-pages-index-jsx-64649fde84da96ead11c.js","36530248567819":"component---src-pages-tags-jsx-e787e63a56bf6859a224.js","60335399758886":"path----557518bd178906f8d58a.js","210333531512890":"path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js","273950069227526":"path---about-73924fe15280fbf063f3.js","114136929382123":"path---posts-gatsby-starter-lumen으로-블로그-생성하기-bf24fc17851c809f5b1b.js","260176117354489":"path---tags-hosting-4155ca71e692aa4c4d1d.js","84586273293571":"path---tags-react-ee347508c314c3e06980.js","45154319480143":"path---tags-nodejs-14ae5c1a0b24cc481bea.js","191465237228281":"path---categories-development-d4fcd71d3c9970f78000.js","195960259037782":"path---posts-get-docker-스크립트-파헤치기-command-exists-5ec723ec198df6ed8c93.js","76377051725678":"path---tags-shell-86ef37007fa14fbc0097.js","115329724643966":"path---tags-linux-785e31850b0f39991d24.js","274958555436247":"path---posts-2019-02-23-jenkins-extended-e-mail-notification-plugin에서-비어있는-환경변수-처리-f2434fb1845349173a77.js","218913375992731":"path---tags-jenkins-8fc3b55f050ef5f8aebc.js","212986313302902":"path---tags-devops-ed622631e15cb9994212.js","46982645306788":"path---posts-2019-02-23-py-charm-toggle-case-3dfcf2113c2b6efe5b74.js","175734255627269":"path---tags-ide-568c7c33fcaebbc81c21.js","4775032374283":"path---tags-pycharm-f15523d9666f95699a09.js","45888277696795":"path---posts-2019-02-24-gatsby-정적블로그-생성하기-자동deploy-circle-ci연동-d6092a50ba815b170644.js","134928267902561":"path---tags-gatsby-66032ad4b7bd4dbe552b.js","273814834062743":"path---tags-circleci-96425cdf2e922f091e29.js","254022195166212":"path---404-0bdb44a68624694d5450.js","30875753179511":"path---categories-cc3736a2c906471603af.js","142629428675168":"path---index-8211f2f5aefa3cbcd0ee.js","55702396619907":"path---tags-571a82e07cd794ba31b3.js","178698757827068":"path---404-html-0bdb44a68624694d5450.js","79611799117203":"component---src-layouts-index-jsx-a1bde37d09df53508c47.js"}/*]]>*/</script><script>
+            
+  
+  if(true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  }
+  if (typeof ga === "function") {
+    ga('create', 'UA-135032716-1', 'auto');
+      }
+      </script><script>/*<![CDATA[*/["/commons-1cfc51756e40a3763f91.js","/app-af3784954dc3ac604a08.js","/path---posts-2019-02-24-gatsby-정적블로그-생성하기-자동deploy-circle-ci연동-d6092a50ba815b170644.js","/component---src-templates-post-template-jsx-5378e4610e0201cf93e4.js","/component---src-layouts-index-jsx-a1bde37d09df53508c47.js"].forEach(function(s){document.write('<script src="'+s+'" defer></'+'script>')})/*]]>*/</script></body></html>
