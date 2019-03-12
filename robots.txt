@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://kujyp.github.io/sitemap.xml
+Host: https://kujyp.github.io
