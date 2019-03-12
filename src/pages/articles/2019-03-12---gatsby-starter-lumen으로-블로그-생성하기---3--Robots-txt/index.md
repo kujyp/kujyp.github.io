@@ -1,9 +1,9 @@
 ---
 title: gatsby starter lumen으로 블로그 생성하기 - 3. Robot.txt
-date: "2019-03-12T23:26:00+09:00"
+date: "2019-03-13T24:15:00+09:00"
 layout: post
 draft: false
-path: "/posts/2019-03-12---gatsby-starter-lumen으로-블로그-생성하기---3.-Robot.txt/"
+path: "/posts/2019-03-12---gatsby-starter-lumen으로-블로그-생성하기---3--Robot-txt/"
 category: "Development"
 tags:
   - "gatsby"
