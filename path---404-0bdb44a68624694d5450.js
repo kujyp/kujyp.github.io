@@ -1,2 +1,2 @@
-webpackJsonp([0xe70826b53c04],{393:function(t,e){t.exports={data:{site:{siteMetadata:{title:"kujyp 개발블로그",subtitle:"ML DevOps, Python, Docker ...",menu:[{label:"Articles",path:"/"},{label:"About me",path:"/about/"}],author:{name:"kujyp",email:"swe.jaeyoungpark@gmail.com",github:"kujyp"}}}},pathContext:{}}}});
+webpackJsonp([0xe70826b53c04],{394:function(t,e){t.exports={data:{site:{siteMetadata:{title:"kujyp 개발블로그",subtitle:"ML DevOps, Python, Docker ...",menu:[{label:"Articles",path:"/"},{label:"About me",path:"/about/"}],author:{name:"kujyp",email:"swe.jaeyoungpark@gmail.com",github:"kujyp"}}}},pathContext:{}}}});
 //# sourceMappingURL=path---404-0bdb44a68624694d5450.js.map
