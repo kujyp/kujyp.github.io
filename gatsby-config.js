@@ -1,5 +1,6 @@
 module.exports = {
   siteMetadata: {
+    siteUrl: 'https://kujyp.github.io',
     url: 'https://kujyp.github.io',
     title: 'kujyp 개발블로그',
     subtitle: 'ML DevOps, Python, Docker ...',
@@ -21,6 +22,7 @@ module.exports = {
     }
   },
   plugins: [
+    'gatsby-plugin-robots-txt',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
