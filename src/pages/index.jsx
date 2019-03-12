@@ -17,6 +17,7 @@ class IndexRoute extends React.Component {
         <Helmet>
           <title>{title}</title>
           <meta name="description" content={subtitle} />
+          <meta name="naver-site-verification" content="cd14eb7aa77c570360a07270cab55fbabb276d18" />
         </Helmet>
         <Sidebar siteMetadata={this.props.data.site.siteMetadata} />
         <div className="content">
