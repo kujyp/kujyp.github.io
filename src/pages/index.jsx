@@ -19,6 +19,7 @@ class IndexRoute extends React.Component {
           <title>{title}</title>
           <meta name="description" content={subtitle} />
           <meta name="naver-site-verification" content="cd14eb7aa77c570360a07270cab55fbabb276d18" />
+          <meta name="google-site-verification" content="qZBB3l1eh0JHFX7drRNCFMjyfMnm6GmYp0eJ3HG2HRY" />
           <meta property="og:type" content="website" />
           <meta property="og:title" content={title} />
           <meta property="og:description" content={subtitle} />
