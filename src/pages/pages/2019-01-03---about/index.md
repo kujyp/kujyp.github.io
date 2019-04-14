@@ -67,7 +67,7 @@ path: "/about"
 - Dockerize
 - 딥러닝 fast-style-transfer논문기반 구현
     - [Perceptual Losses for Real-Time Style Transfer and Super-Resolution](https://arxiv.org/pdf/1603.08155v1.pdf)
-    - [A Neural Algorithm of Artistic Style](​​https://arxiv.org/pdf/1508.06576.pdf)
+    - [A Neural Algorithm of Artistic Style](https://arxiv.org/pdf/1508.06576.pdf)
 - GitHub
     - https://github.com/kujyp/stylized-camera-android
     - https://github.com/kujyp/stylized-camera-worker
