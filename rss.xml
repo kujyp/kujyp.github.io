@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python, Docker ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sun, 14 Apr 2019 13:40:59 GMT</lastBuildDate><item><title><![CDATA[Jenkins pipeline tutorials - 1. Install Jenkins]]></title><description><![CDATA[아래 스펙의 jenkins를 설치하는것을 목적으로 합니다. jenkins(host container)를 docker image를 사용하여 구동합니다. jenkins login을 github auth와 연동합니다.]]></description><link>https://kujyp.github.io/posts/2019-04-14---Jenkins-pipeline-tutorials---1--Install-Jenkins/</link><guid isPermaLink="false">https://kujyp.github.io/posts/2019-04-14---Jenkins-pipeline-tutorials---1--Install-Jenkins/</guid><pubDate>Sun, 14 Apr 2019 12:15:00 GMT</pubDate><content:encoded>&lt;h3&gt;개요&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python, Docker ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sun, 14 Apr 2019 13:48:24 GMT</lastBuildDate><item><title><![CDATA[Jenkins pipeline tutorials - 1. Install Jenkins]]></title><description><![CDATA[아래 스펙의 jenkins를 설치하는것을 목적으로 합니다. jenkins(host container)를 docker image를 사용하여 구동합니다. jenkins login을 github auth와 연동합니다.]]></description><link>https://kujyp.github.io/posts/2019-04-14---Jenkins-pipeline-tutorials---1--Install-Jenkins/</link><guid isPermaLink="false">https://kujyp.github.io/posts/2019-04-14---Jenkins-pipeline-tutorials---1--Install-Jenkins/</guid><pubDate>Sun, 14 Apr 2019 12:15:00 GMT</pubDate><content:encoded>&lt;h3&gt;개요&lt;/h3&gt;
 &lt;p&gt;아래 스펙의 jenkins를 설치하는것을 목적으로 합니다.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;jenkins(host container)를 docker image를 사용하여 구동합니다.&lt;/li&gt;
@@ -107,27 +107,35 @@ systemctl start docker&lt;/code&gt;&lt;/pre&gt;
 &lt;/ul&gt;
 &lt;h3&gt;2- jenkins container 실행&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;jenkins를 docker container로 구동합니다.&lt;/li&gt;
-&lt;li&gt;Jenkins image는 &lt;code class=&quot;language-text&quot;&gt;jenkinsci/blueocean:1.9.0&lt;/code&gt; 를 사용합니다.&lt;br/&gt;
+&lt;li&gt;
+&lt;p&gt;jenkins를 docker container로 구동합니다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Jenkins image는 &lt;code class=&quot;language-text&quot;&gt;jenkinsci/blueocean:1.9.0&lt;/code&gt; 를 사용합니다.&lt;br/&gt;
 사용가능한 tag list는 아래링크에서 확인가능합니다.&lt;br/&gt;
 &lt;a href=&quot;https://hub.docker.com/r/jenkins/jenkins/tags&quot;&gt;https://hub.docker.com/r/jenkins/jenkins/tags&lt;/a&gt; (official jenkins)&lt;br/&gt;
-&lt;a href=&quot;https://hub.docker.com/r/jenkinsci/blueocean/tags&quot;&gt;https://hub.docker.com/r/jenkinsci/blueocean/tags&lt;/a&gt; (official jenkins/blueocean)&lt;/li&gt;
-&lt;li&gt;아래의 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;JENKINS_HOME&amp;gt;&lt;/code&gt; 부분을 본인이 jenkins home으로 사용하고싶은 경로로 지정합니다.&lt;br/&gt;
+&lt;a href=&quot;https://hub.docker.com/r/jenkinsci/blueocean/tags&quot;&gt;https://hub.docker.com/r/jenkinsci/blueocean/tags&lt;/a&gt; (official jenkins/blueocean)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;아래의 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;JENKINS_HOME&amp;gt;&lt;/code&gt; 부분을 본인이 jenkins home으로 사용하고싶은 경로로 지정합니다.&lt;br/&gt;
 jenkins 는 jenkins home 경로에 Configurations, Installed Jenkins plugins, &lt;br/&gt;
-Job 도중 생성되는 files(cloned source codes, build artifacts)를 저장합니다.&lt;/li&gt;
+Job 도중 생성되는 files(cloned source codes, build artifacts)를 저장합니다.&lt;/p&gt;
+&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;즉 Jenkins docker container 를 삭제, 재생성할때, 위의 경로에 이전에 사용하던 파일이 존재하면, 그 상태 그대로 복구가능합니다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker run -d --restart&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;always \
---name jenkins \
--p 80:8080 \
--u root \
--v &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;JENKINS_HOME&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;:/var/jenkins_home \
--v /var/run/docker.sock:/var/run/docker.sock \
-jenkinsci/blueocean:1.9.0&lt;/code&gt;&lt;/pre&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;docker run -d --restart=always \
+    --name jenkins \
+    -p 80:8080 \
+    -u root \
+    -v &amp;lt;JENKINS_HOME&amp;gt;:/var/jenkins_home \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    jenkinsci/blueocean:1.9.0&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
+&lt;br/&gt;
 &lt;/li&gt;
-&lt;li&gt;실행후 &lt;code class=&quot;language-text&quot;&gt;docker ps&lt;/code&gt; 로 실행여부 확인해줍니다.&lt;br/&gt;
+&lt;li&gt;
+&lt;p&gt;실행후 &lt;code class=&quot;language-text&quot;&gt;docker ps&lt;/code&gt; 로 실행여부 확인해줍니다.&lt;br/&gt;
 
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
@@ -160,10 +168,15 @@ jenkinsci/blueocean:1.9.0&lt;/code&gt;&lt;/pre&gt;
   &lt;/span&gt;
   
   &lt;/a&gt;
-    &lt;br/&gt;&lt;br/&gt;&lt;/li&gt;
-&lt;li&gt;참고: 이때 docker run 옵션에서 &lt;code class=&quot;language-text&quot;&gt;-v /var/run/docker.sock:/var/run/docker.sock&lt;/code&gt; 는 jenkins 내부에서 docker agent를 돌려야하는데, jenkins 이미지는 &lt;a href=&quot;https://github.com/jpetazzo/dind&quot;&gt;docker in docker&lt;/a&gt;가 구현되어있지않아서 내부에 docker container를 생성할수없습니다.&lt;br/&gt;
-따라서 외부의 docker를 사용하기위해 docker.sock을 공유해줍니다.&lt;/li&gt;
-&lt;li&gt;ref: &lt;a href=&quot;https://jenkins.io/doc/tutorials/build-a-python-app-with-pyinstaller/#run-jenkins-in-docker&quot;&gt;https://jenkins.io/doc/tutorials/build-a-python-app-with-pyinstaller/#run-jenkins-in-docker&lt;/a&gt; &lt;br/&gt;&lt;br/&gt;&lt;/li&gt;
+    &lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;참고: 이때 docker run 옵션에서 &lt;code class=&quot;language-text&quot;&gt;-v /var/run/docker.sock:/var/run/docker.sock&lt;/code&gt; 는 jenkins 내부에서 docker agent를 돌려야하는데, jenkins 이미지는 &lt;a href=&quot;https://github.com/jpetazzo/dind&quot;&gt;docker in docker&lt;/a&gt;가 구현되어있지않아서 내부에 docker container를 생성할수없습니다.&lt;br/&gt;
+따라서 외부의 docker를 사용하기위해 docker.sock을 공유해줍니다.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ref: &lt;a href=&quot;https://jenkins.io/doc/tutorials/build-a-python-app-with-pyinstaller/#run-jenkins-in-docker&quot;&gt;https://jenkins.io/doc/tutorials/build-a-python-app-with-pyinstaller/#run-jenkins-in-docker&lt;/a&gt; &lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;2-1 jenkins web 접속&lt;/h4&gt;
 &lt;ul&gt;
