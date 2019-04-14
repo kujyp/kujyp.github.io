@@ -1,4 +1,403 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python, Docker ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 12 Mar 2019 16:56:28 GMT</lastBuildDate><item><title><![CDATA[gatsby starter lumen으로 블로그 생성하기 - 4. Search Engine Optimization - Naver]]></title><description><![CDATA[네이버 검색엔진 Console에서 robots.txt추가, Open Graph meta tag 추가 등의 검색노출을 위한 작업을 진행했다.]]></description><link>https://kujyp.github.io/posts/2019-03-13---gatsby-starter-lumen으로-블로그-생성하기---4--Search-Engine-Optimization---Naver/</link><guid isPermaLink="false">https://kujyp.github.io/posts/2019-03-13---gatsby-starter-lumen으로-블로그-생성하기---4--Search-Engine-Optimization---Naver/</guid><pubDate>Tue, 12 Mar 2019 16:51:00 GMT</pubDate><content:encoded>&lt;h3&gt;TL;DR&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python, Docker ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sun, 14 Apr 2019 13:37:22 GMT</lastBuildDate><item><title><![CDATA[Jenkins pipeline tutorials - 1. Install Jenkins]]></title><description><![CDATA[아래 스펙의 jenkins를 설치하는것을 목적으로 합니다. jenkins(host container)를 docker image를 사용하여 구동합니다. jenkins login을 github auth와 연동합니다.]]></description><link>https://kujyp.github.io/posts/2019-04-14---Jenkins-pipeline-tutorials---1--Install-Jenkins/</link><guid isPermaLink="false">https://kujyp.github.io/posts/2019-04-14---Jenkins-pipeline-tutorials---1--Install-Jenkins/</guid><pubDate>Sun, 14 Apr 2019 12:15:00 GMT</pubDate><content:encoded>&lt;h3&gt;개요&lt;/h3&gt;
+&lt;p&gt;아래 스펙의 jenkins를 설치하는것을 목적으로 합니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;jenkins(host container)를 docker image를 사용하여 구동합니다.&lt;/li&gt;
+&lt;li&gt;jenkins login을 github auth와 연동합니다.&lt;/li&gt;
+&lt;li&gt;UI로 blueocean을 사용합니다.&lt;/li&gt;
+&lt;li&gt;Jenkins job item 으로 pipeline job(organization, multi branch) 을 사용합니다.&lt;/li&gt;
+&lt;li&gt;Groovy 언어로 작성된 Jenkinsfile 을 사용합니다.&lt;/li&gt;
+&lt;li&gt;메일발송으로 emailext plugin를 사용합니다.&lt;/li&gt;
+&lt;li&gt;jenkins job을 docker agent를 사용하여 구동합니다.(위의 host container와 구분되는 runner container 입니다)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;목차&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Install Jenkins&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1- docker 설치&lt;/li&gt;
+&lt;li&gt;2- jenkins container 실행&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(미작성)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;3- github authentication plugin&lt;/li&gt;
+&lt;li&gt;4- webhook 세팅&lt;/li&gt;
+&lt;li&gt;5- pipeline organization job 생성&lt;/li&gt;
+&lt;li&gt;6- jenkins concurrency
+&lt;br/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;과정&lt;/h2&gt;
+&lt;h3&gt;1- docker 설치&lt;/h3&gt;
+&lt;p&gt;가이드는 Centos를 기준으로 작성합니다. Ubuntu나 기타 OS 사용자는 Reference 링크 참조하면 될 것 같습니다.&lt;/p&gt;
+&lt;p&gt;제 경우 GPU 가 필요한 job을 돌려야하기 때문에, nvidia-docker 까지 설치합니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;yellow&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;\033[0;33m&quot;&lt;/span&gt;
+red&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;\033[0;31m&quot;&lt;/span&gt;
+nocolor&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;\033[0m&quot;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; command_exists&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; -v &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;$@&lt;/span&gt;&quot;&lt;/span&gt; 1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;1
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; check_gpu_exists&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    nvidia-smi 1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;1
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+
+&lt;span class=&quot;token comment&quot;&gt;### Main&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;id&lt;/span&gt; -u&lt;span class=&quot;token variable&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&quot;&lt;/span&gt; -ne &lt;span class=&quot;token string&quot;&gt;&quot;0&quot;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;${red}&lt;/span&gt;[ERROR] install with root privilege.&lt;span class=&quot;token variable&quot;&gt;${nocolor}&lt;/span&gt;&quot;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;exit&lt;/span&gt; 1
+&lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# Remove legacy docker&lt;/span&gt;
+yum remove docker \
+    docker-client \
+    docker-client-latest \
+    docker-common \
+    docker-latest \
+    docker-latest-logrotate \
+    docker-logrotate \
+    docker-engine
+
+&lt;span class=&quot;token comment&quot;&gt;# Remove pre-installed docker, nvidia-docker&lt;/span&gt;
+yum remove docker -y \
+    docker-engine \
+    containerd.io \
+    docker-ce-cli \
+    nvidia-container-runtime
+
+&lt;span class=&quot;token comment&quot;&gt;# Install dependencies&lt;/span&gt;
+yum &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -y yum-utils \
+    device-mapper-persistent-data \
+    lvm2
+
+yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+
+
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; check_gpu_exists&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    distribution&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;.&lt;/span&gt; /etc/os-release&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; $ID$VERSION_ID&lt;span class=&quot;token variable&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;curl&lt;/span&gt; -s -L https://nvidia.github.io/nvidia-docker/&lt;span class=&quot;token variable&quot;&gt;$distribution&lt;/span&gt;/nvidia-docker.repo &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; \
+        &lt;span class=&quot;token function&quot;&gt;tee&lt;/span&gt; /etc/yum.repos.d/nvidia-docker.repo
+
+    yum &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -y nvidia-docker2
+    &lt;span class=&quot;token function&quot;&gt;sed&lt;/span&gt; -i &lt;span class=&quot;token string&quot;&gt;&apos;2i \    \&quot;default-runtime\&quot;: \&quot;nvidia\&quot;,&apos;&lt;/span&gt; /etc/docker/daemon.json
+&lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
+    yum &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -y docker-ce
+&lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# Replace &amp;lt;LINUX_USERNAME&gt; with your username.&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;usermod&lt;/span&gt; -aG docker &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;LINUX_USERNAME&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# Start docker service on startup&lt;/span&gt;
+systemctl &lt;span class=&quot;token function&quot;&gt;enable&lt;/span&gt; docker.service
+
+systemctl start docker&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;br/&gt;
+&lt;ul&gt;
+&lt;li&gt;Ref: &lt;a href=&quot;https://docs.docker.com/install/linux/docker-ce/centos/&quot;&gt;https://docs.docker.com/install/linux/docker-ce/centos/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Ref: &lt;a href=&quot;https://docs.docker.com/install/linux/docker-ce/ubuntu/&quot;&gt;https://docs.docker.com/install/linux/docker-ce/ubuntu/&lt;/a&gt;
+&lt;br/&gt;&lt;br/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;2- jenkins container 실행&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;jenkins를 docker container로 구동합니다.&lt;/li&gt;
+&lt;li&gt;Jenkins image는 &lt;code class=&quot;language-text&quot;&gt;jenkinsci/blueocean:1.9.0&lt;/code&gt; 를 사용합니다.&lt;br/&gt;
+사용가능한 tag list는 아래링크에서 확인가능합니다.&lt;br/&gt;
+&lt;a href=&quot;https://hub.docker.com/r/jenkins/jenkins/tags&quot;&gt;https://hub.docker.com/r/jenkins/jenkins/tags&lt;/a&gt; (official jenkins)&lt;br/&gt;
+&lt;a href=&quot;https://hub.docker.com/r/jenkinsci/blueocean/tags&quot;&gt;https://hub.docker.com/r/jenkinsci/blueocean/tags&lt;/a&gt; (official jenkins/blueocean)&lt;/li&gt;
+&lt;li&gt;아래의 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;JENKINS_HOME&amp;gt;&lt;/code&gt; 부분을 본인이 jenkins home으로 사용하고싶은 경로로 지정합니다.&lt;br/&gt;
+jenkins 는 jenkins home 경로에 Configurations, Installed Jenkins plugins, &lt;br/&gt;
+Job 도중 생성되는 files(cloned source codes, build artifacts)를 저장합니다.&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;즉 Jenkins docker container 를 삭제, 재생성할때, 위의 경로에 이전에 사용하던 파일이 존재하면, 그 상태 그대로 복구가능합니다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker run -d --restart&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;always \
+--name jenkins \
+-p 80:8080 \
+-u root \
+-v &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;JENKINS_HOME&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;:/var/jenkins_home \
+-v /var/run/docker.sock:/var/run/docker.sock \
+jenkinsci/blueocean:1.9.0&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;실행후 &lt;code class=&quot;language-text&quot;&gt;docker ps&lt;/code&gt; 로 실행여부 확인해줍니다.&lt;br/&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/2-0-dockerps-414665ada10d47dd29822a98a87f72b7-f19ce.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 926px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 17.818574514038875%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAAAsSAAALEgHS3X78AAAA2klEQVQY001Oy26DMBA0dkCAebhCoBpkAgiXRqLh43PMl/Qzek88XVtK1cNoZ3dnZ5Ydx4Ft27CuKz6o7vsXYQ+zeZ4xjiOstcQXaK2xWuu6rnvmeQ7B+Tdj7Ea4V1X1o9Qb2PV6YJomeOOJDLzJsiw0m/F5uQQTKSXoCGVZIs/ywKMocq+5R5qmvjo2DAPE6QRjRtR1DZ8sZYEkSUCpKIoCcRyHA0m8bVuXZZmLad80zZM0DzJ6vGvtlFJg/jNjDM7nyYvR933oX+lCCHDOA3z/n9OXf9zrfP0FgU1fP3pU26gAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;docker_container_dockerps.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/2-0-dockerps-414665ada10d47dd29822a98a87f72b7-f19ce.png&quot;
+        srcset=&quot;/static/2-0-dockerps-414665ada10d47dd29822a98a87f72b7-529fc.png 240w,
+/static/2-0-dockerps-414665ada10d47dd29822a98a87f72b7-9cd4b.png 480w,
+/static/2-0-dockerps-414665ada10d47dd29822a98a87f72b7-f19ce.png 926w&quot;
+        sizes=&quot;(max-width: 926px) 100vw, 926px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;br/&gt;&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;참고: 이때 docker run 옵션에서 &lt;code class=&quot;language-text&quot;&gt;-v /var/run/docker.sock:/var/run/docker.sock&lt;/code&gt; 는 jenkins 내부에서 docker agent를 돌려야하는데, jenkins 이미지는 &lt;a href=&quot;https://github.com/jpetazzo/dind&quot;&gt;docker in docker&lt;/a&gt;가 구현되어있지않아서 내부에 docker container를 생성할수없습니다.&lt;br/&gt;
+따라서 외부의 docker를 사용하기위해 docker.sock을 공유해줍니다.&lt;/li&gt;
+&lt;li&gt;ref: &lt;a href=&quot;https://jenkins.io/doc/tutorials/build-a-python-app-with-pyinstaller/#run-jenkins-in-docker&quot;&gt;https://jenkins.io/doc/tutorials/build-a-python-app-with-pyinstaller/#run-jenkins-in-docker&lt;/a&gt; &lt;br/&gt;&lt;br/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2-1 jenkins web 접속&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;2번과정에서 80포트로 개방한 jenkins web으로 접속합니다.&lt;/li&gt;
+&lt;li&gt;Jenkins container 를 띄운 곳의 Web domain or ip 를 브라우저에 입력하여 접속합니다.&lt;/li&gt;
+&lt;li&gt;최초 Unlock 진행해야합니다. &lt;code class=&quot;language-text&quot;&gt;docker logs jenkins&lt;/code&gt; 로 로그로 찍혀있는 password 복사, 입력합니다.&lt;br/&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/2-1-unlock_jenkins-39041c28153ad934b9f90f3cb258835a-7d5a0.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 840px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 70.47619047619048%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAAAsSAAALEgHS3X78AAABg0lEQVQ4y4VT7Y6CMBD0/V/NH55GjVETExMQ+SpwgNCCc516S9CobDLZbaGTndl2ppTC5XJxqOsajL7vcb/fXZZ6CgxjDGZlWaIoCjRN4w6PCSVYa60/gkQEOWayudvtsN1usd/vcT6fcTqdsF6v3b7necOhMbquc5DaEXLRti1WqxUWi4XLx+MRm80G8/kcy+UPjocDtP1Ha8GjK8kkExUzyuOmShXSNEUcxwjD0NVpYqFyJGkOz7/iEkTw/cB1TM9930cQBO784KGYH1misq6gO/MAPbHdVI1G1RrcdI9aW1kW7ISqRLqEIxTTb4lCE6bQSQYdKxjblbG1UQWMXeswcbn7rfAaT1OWjUJl+LUorPScUqMYWZwgt2vFOkoe2VqR5/mAtx1SMr0IoxDB9YqyKgfTKV2bUf6XK+BA5Lo9S77d0Nqxc/T8ML7Y7yAXmjVJn4byLqZehRB/9PD1wLegVL4wgoomCb91RoIsy4ahsK6q6plwKsYy+e5JxCyQadPLP/ZRQqB2umgGAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;2-1-unlock_jenkins.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/2-1-unlock_jenkins-39041c28153ad934b9f90f3cb258835a-7d5a0.png&quot;
+        srcset=&quot;/static/2-1-unlock_jenkins-39041c28153ad934b9f90f3cb258835a-1da31.png 240w,
+/static/2-1-unlock_jenkins-39041c28153ad934b9f90f3cb258835a-39605.png 480w,
+/static/2-1-unlock_jenkins-39041c28153ad934b9f90f3cb258835a-7d5a0.png 840w&quot;
+        sizes=&quot;(max-width: 840px) 100vw, 840px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;br/&gt;&lt;br/&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/2-1-docker_logs_password-6ca9ab6aa8696fbbffd0f0a084379ee2-7e6c7.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 905px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 46.96132596685083%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAAAsSAAALEgHS3X78AAABLElEQVQoz42SS0+DUBCFaaQJUCjPC5dHaUsKRahQRRfauFET//8vOs4dk8aFRhZfZlhwOGcOmpQSWZYhS1Okkki/d5lIJs9yWJYFTdPm4XseFIHvwVuvecYihhCCiFnUsW3c6DqWy+WVPwVvT2ccjj3q9oSW9rYfEIYh4jiG7/s81/Qh07Rgk7DaHcfBYrH4XfD++Q3T5QMPL+94ev3EabrAMEx2oStXP5zNihwGPkQYICICz4V6LjclUxQbniIS7GqWqKQi8rzg42dUiColiiISDil6xJENw5hfijr+brfDfl9x20mSwHVdupnJkRWzxbiUrkPX92iaI7quxzCMuBsGnMcRdd1gmh4pesFOV6vV/4KHQ80vVlUFtSu22y27Tul/LMuSXSvHc274BXHr0PEh2r/PAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;2-1-docker_logs_password.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/2-1-docker_logs_password-6ca9ab6aa8696fbbffd0f0a084379ee2-7e6c7.png&quot;
+        srcset=&quot;/static/2-1-docker_logs_password-6ca9ab6aa8696fbbffd0f0a084379ee2-3b5dd.png 240w,
+/static/2-1-docker_logs_password-6ca9ab6aa8696fbbffd0f0a084379ee2-3f9f9.png 480w,
+/static/2-1-docker_logs_password-6ca9ab6aa8696fbbffd0f0a084379ee2-7e6c7.png 905w&quot;
+        sizes=&quot;(max-width: 905px) 100vw, 905px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;br/&gt;&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;이어서 나오는메뉴에서 Install suggested 입력합니다.&lt;br/&gt;
+&lt;img src=&quot;/2-1-install_suggested-a07a3adbae85c93493a56ea587b491b2.gif&quot; alt=&quot;2-1-install_suggested.gif&quot;&gt;&lt;br/&gt;&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;admin 계정생성하라고 나오는데, 대충 만들어줍니다. github auth 사용하면 이 계정으로 로그인 불가합니다.&lt;br/&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/2-1-create_admin-ddf60b92b8f85dfa38c5e210aaac3c06-eb3c2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 92.4075924075924%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAAsSAAALEgHS3X78AAABUklEQVQ4y9VU7WqDUAz12fdnzzLGHmIPMGVIbaEiolPqR/32etXqmbldt0qtdt2vBQ4kMRxOYm4kwzCg6zpM08R+vxeIougb5/HJj+N4BMolSQLHcSAVRYGqqnA4HHCr9X1/ATIilcqyRF3X2G63UFUViqJgvV5js9mIWJZlaJomcvQtDEN0XYemadC2rQD5lCOlEmNMqCO5lmWJ1j3PQxAE2O12cF1X+L7vixqqJyOCSYWcc5EgpURMPuWWWp6K0zSFRHLJ8jxHlqWo2DDPtjsWdtfnNZW7IGQDWZTFsD0TUREgKRMca/tJ4llCzqtBHUfKInyEGmx/BT+1R4RLIxgRzkwMM1zXCcctdF/o71f4M+wxbl30q4T32D8m/C1w8fQmf8ryAs9em/M9/EvbZPR0pSzLQDeRDsLpHC2haVrEOUPFa7wbPh6fZTw8veHldYVPYcqBNoUTCwQAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;2-1-create_admin.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/2-1-create_admin-ddf60b92b8f85dfa38c5e210aaac3c06-c83f1.png&quot;
+        srcset=&quot;/static/2-1-create_admin-ddf60b92b8f85dfa38c5e210aaac3c06-569e3.png 240w,
+/static/2-1-create_admin-ddf60b92b8f85dfa38c5e210aaac3c06-93400.png 480w,
+/static/2-1-create_admin-ddf60b92b8f85dfa38c5e210aaac3c06-c83f1.png 960w,
+/static/2-1-create_admin-ddf60b92b8f85dfa38c5e210aaac3c06-eb3c2.png 1001w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;br/&gt;&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;jenkins URL 입력해줍니다.&lt;/li&gt;
+&lt;li&gt;domain 을 사용할 계획이라면, 여기에서 ip address 를 domain 으로 바꿔야합니다.&lt;br/&gt;
+제 경우 여기에서 넘어갔다가, 나중에 새로 할당받은 도메인으로 변경하려고 하니 proxy 설정에러가 발생해 재설치가 필요했습니다.&lt;br/&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/2-1-jenkins_url-4231a995cdf2ac764c912f7d5ad95d25-62766.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 960px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 89.14342629482073%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAAAsSAAALEgHS3X78AAABPklEQVQ4y+1Uy07DMBDMP/Mz3LjwC9wRoIi2NBECesmpl0RV4zQP521nyKQySEmEqFqJCyuNdj3xjteOdi3f9xEEAcIwxG+s6zporSegFUUBK0mSgciyDEIIxHEMckQURT1E/y3FoY/JVVWFpmkmoIaUEhYF2raF53mwbRuO42Cz2eDt/QPLlzUeHp+wXK3xvFjBdd2hirkqvypM03RY5HkOxhTvtIIvJHZxDSEV9mmLUGo0rYJWCmoEI1iWJSyWaQR5bZ7CmDzBmJzsPWMmjffwGSaCZiO9gVnTM8nwdV0P70ZP8FYTQZJmA5NNPIfxG3I9ETzHZgVJnoNZwYtX+C/4d39Z6+67l9lClzLV1MfhwAZnp8zNuZ/Q9nkcGLtDju0+wzYQx3nIVjP9eMpVG8UJpHF77+HqZoHru1d8Ah6lg3zOH8h6AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;2-1-jenkins_url.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/2-1-jenkins_url-4231a995cdf2ac764c912f7d5ad95d25-c83f1.png&quot;
+        srcset=&quot;/static/2-1-jenkins_url-4231a995cdf2ac764c912f7d5ad95d25-569e3.png 240w,
+/static/2-1-jenkins_url-4231a995cdf2ac764c912f7d5ad95d25-93400.png 480w,
+/static/2-1-jenkins_url-4231a995cdf2ac764c912f7d5ad95d25-c83f1.png 960w,
+/static/2-1-jenkins_url-4231a995cdf2ac764c912f7d5ad95d25-62766.png 1004w&quot;
+        sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;br/&gt;&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;restart 해줍니다.&lt;br/&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/2-1-restart-14c50efa8966d55791234840cf31feb8-7f4a9.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 839px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 48.390941597139445%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsSAAALEgHS3X78AAABCklEQVQoz5WR2U6FQAyGeX+fwUfwDXwDWWSHC5YThBhzYmQi+/JLq0PGnHMBTRqmfztfW0YryxJVVWEYBqzrimVZDjnVqk7m+z40AqkmobJI1aVRnu6N47j7PM/wPA9a0zRwHAe6rsO2bcRxjDzPkSQJTNPkrqSlacp1lmWhKApuQBDyaZo4ZmAtBGzHxesGc10XQRAgyzKEYcgAiqMoYqBhGDuQpur7nielifeVp3ETOoFGfKHtOrRty4X0JacL3abTJnSWubquIbZhSJfGwMuHwMOTgZf4/fdf4bz9e5S36zcen2O4l08W5zsveMR3oNpp+UscBai1O5CCaV5uYGfWvQGq4hnYPeAPb2sEU1BggEYAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;2-1-restart.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/2-1-restart-14c50efa8966d55791234840cf31feb8-7f4a9.png&quot;
+        srcset=&quot;/static/2-1-restart-14c50efa8966d55791234840cf31feb8-76209.png 240w,
+/static/2-1-restart-14c50efa8966d55791234840cf31feb8-ab067.png 480w,
+/static/2-1-restart-14c50efa8966d55791234840cf31feb8-7f4a9.png 839w&quot;
+        sizes=&quot;(max-width: 839px) 100vw, 839px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;br/&gt;&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;restart 하니 제 경우 계속 저 progress창에서 멈춰있었습니다.&lt;/li&gt;
+&lt;li&gt;새로고침하면 다시 뜹니다.&lt;br/&gt;
+&lt;img src=&quot;/2-1-hangged_progress-ee6ac7d4a7cfe90c0c34148c2f24b70a.gif&quot; alt=&quot;2-1-hangged_progress.gif&quot;&gt;&lt;br/&gt;&lt;br/&gt;&lt;/li&gt;
+&lt;li&gt;로그인창이 나타납니다.&lt;br/&gt;
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/2-1-signin_after_restart-126e758edebb20a82b125197f91e4cce-ebc70.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; ; max-width: 574px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 87.45644599303135%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAAAsSAAALEgHS3X78AAABz0lEQVQ4y61US2/TQBDOT+NYoETiBCckDqinliPiijilAnGivVRqc+PCLeoBIX4BIi+5Ic2jiRUnrpfY6+fG9vpj7cRRaGJbSF1pNOv5Zsbfzs5sCRkriniiqWlCkYcb9gh5q7Q72TKIOS6+fTlD4/IUcldaYpz/f0IehokefP+B6stnOH/3GrW3b/7BChOmrGIdroJm/T7KT57j4MUrfP18kthibNM3l+Euh6veAD/rdWhzHUW+64QxmDrEDGRZhqqqIBqBSWkihq5DURTcCjtjDHfjMo/MRdHb7RZarRY6nQ4k6QrDwSDZNwTTZqMJg5r5R96siSnaxHEc2LadXXnhx1e3vZPhZkLDoNA0TQiB43rwgwC+H2CRiJ/o+Du9uMKEjqXDNP7AtWlcgJTStojGX4blJAx5hN6EQroh6MoGxpoHmSwwJkzoVBYYaQyWF2Qz5CsjsQI8/TTGo+MR9j+MsFe5wVFVweGFgvLHER5Whnh8PMSD933UfplrEpkMgzBCX2W4njF0px4k2UJPcdCbOsn+98QV+EJgDNTNqeHuFojELFPMiQpT10DUCXzPLmzurUvhfCVx0279Ams8a/xKWS9NOgV3pegJK+Ge119xLCBbjPTb/AAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;2-1-signin_after_restart.png&quot;
+        title=&quot;&quot;
+        src=&quot;/static/2-1-signin_after_restart-126e758edebb20a82b125197f91e4cce-ebc70.png&quot;
+        srcset=&quot;/static/2-1-signin_after_restart-126e758edebb20a82b125197f91e4cce-feffd.png 240w,
+/static/2-1-signin_after_restart-126e758edebb20a82b125197f91e4cce-3bb17.png 480w,
+/static/2-1-signin_after_restart-126e758edebb20a82b125197f91e4cce-ebc70.png 574w&quot;
+        sizes=&quot;(max-width: 574px) 100vw, 574px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;br/&gt;&lt;br/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;2-2- 참고1. jenkins web 언어 한글로 나올때.&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;언어가 한글로 나오는경우 메뉴이름이 달라져서 구글링도 힘들어지고 여러모로 불편합니다.&lt;/li&gt;
+&lt;li&gt;브라우저 주 언어설정을 English로 변경합니다.&lt;/li&gt;
+&lt;li&gt;chrome의경우 settings(cmd+,) - advance - language - english(미국)을 맨 위로 올려주면 됩니다.&lt;br/&gt;
+&lt;img src=&quot;/2-2-language-333187a02aa87431d037e1f7019bbbf0.gif&quot; alt=&quot;2-2-language.gif&quot;&gt;
+&lt;br/&gt;&lt;br/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;2-3- 참고2. jenkins log&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;jenkins log를 보면서 과정을 진행하면 문제가 생겼을때 상황을 알기 더 용이합니다.&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;docker logs -f jenkins&lt;/code&gt;로 로그를 무중단으로 볼수있습니다.&lt;br/&gt;
+&lt;img src=&quot;/2-3-jenkinslog-b6a317798b527c1381426134a5c167d7.gif&quot; alt=&quot;2-3-jenkinslog.gif&quot;&gt;
+&lt;br/&gt;&lt;br/&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[gatsby starter lumen으로 블로그 생성하기 - 4. Search Engine Optimization - Naver]]></title><description><![CDATA[네이버 검색엔진 Console에서 robots.txt추가, Open Graph meta tag 추가 등의 검색노출을 위한 작업을 진행했다.]]></description><link>https://kujyp.github.io/posts/2019-03-13---gatsby-starter-lumen으로-블로그-생성하기---4--Search-Engine-Optimization---Naver/</link><guid isPermaLink="false">https://kujyp.github.io/posts/2019-03-13---gatsby-starter-lumen으로-블로그-생성하기---4--Search-Engine-Optimization---Naver/</guid><pubDate>Tue, 12 Mar 2019 16:51:00 GMT</pubDate><content:encoded>&lt;h3&gt;TL;DR&lt;/h3&gt;
 &lt;p&gt;네이버 검색엔진 Console에서 robots.txt추가, Open Graph meta tag 추가 등의 검색노출을 위한 작업을 진행했다.&lt;/p&gt;
 &lt;h3&gt;Naver webmaster tool&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&quot;https://webmastertool.naver.com/guide/site_check.naver&quot;&gt;https://webmastertool.naver.com/guide/site_check.naver&lt;/a&gt;&lt;/p&gt;
