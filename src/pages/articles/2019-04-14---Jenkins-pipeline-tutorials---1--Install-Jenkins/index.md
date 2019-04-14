@@ -121,15 +121,17 @@ https://hub.docker.com/r/jenkinsci/blueocean/tags (official jenkins/blueocean)
 jenkins 는 jenkins home 경로에 Configurations, Installed Jenkins plugins, <br/>
 Job 도중 생성되는 files(cloned source codes, build artifacts)를 저장합니다.
 - 즉 Jenkins docker container 를 삭제, 재생성할때, 위의 경로에 이전에 사용하던 파일이 존재하면, 그 상태 그대로 복구가능합니다.
-```bash
-docker run -d --restart=always \
-    --name jenkins \
-    -p 80:8080 \
-    -u root \
-    -v <JENKINS_HOME>:/var/jenkins_home \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    jenkinsci/blueocean:1.9.0
 ```
+docker run -d --restart=always \
+        --name jenkins \
+        -p 80:8080 \
+        -u root \
+        -v <JENKINS_HOME>:/var/jenkins_home \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        jenkinsci/blueocean:1.9.0
+```
+<br/>
+
 - 실행후 `docker ps` 로 실행여부 확인해줍니다.<br/>
 ![docker_container_dockerps.png](2-0-dockerps.png)<br/><br/>
 - 참고: 이때 docker run 옵션에서 `-v /var/run/docker.sock:/var/run/docker.sock` 는 jenkins 내부에서 docker agent를 돌려야하는데, jenkins 이미지는 [docker in docker](https://github.com/jpetazzo/dind)가 구현되어있지않아서 내부에 docker container를 생성할수없습니다.<br/>
