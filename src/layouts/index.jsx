@@ -8,7 +8,7 @@ class Layout extends React.Component {
 
     return (
       <div className="layout">
-        <Helmet defaultTitle="Blog by John Doe" />
+        <Helmet defaultTitle={this.props.data.site.siteMetadata.title} />
         {children()}
       </div>
     );
@@ -16,3 +16,13 @@ class Layout extends React.Component {
 }
 
 export default Layout;
+
+export const pageQuery = graphql`
+  query LayoutQuery {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+  }
+`;
