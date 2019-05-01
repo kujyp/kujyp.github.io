@@ -22,20 +22,22 @@ description: "github authentication plugin 을 연동합니다."
 - jenkins job을 docker agent를 사용하여 구동합니다.(위의 host container와 구분되는 runner container 입니다)
 
 ## 목차
-- [Install Jenkins](/posts/2019-04-14---Jenkins-pipeline-tutorials---1--Install-Jenkins/)
-  - 1- docker 설치
-  - 2- jenkins container 실행
-- **Install github authentication plugin**
-  - 3- github authentication plugin
+- [1. Install Jenkins](/posts/2019-04-14---Jenkins-pipeline-tutorials---1--Install-Jenkins/)
+  - 1-1. docker 설치
+  - 1-2. jenkins container 실행
+  - 1-3. jenkins web 접속
+- **2. Install github authentication plugin**
+  - 2-1. plugin 설치
+  - 2-2. plugin 설정
+- [3. Webhook settings](/posts/2019-05-01---Jenkins-pipeline-tutorials---3--Webhook-settings/)
 - (미작성)
-  - 4- webhook 세팅
   - 5- pipeline organization job 생성
   - 6- jenkins concurrency
 <br/>
 
 ## 과정
-### 3- github authentication plugin
-#### 3-1- plugin 설치
+### 2. Install github authentication plugin
+#### 2-1. plugin 설치
 - 아까 입력한 관리자계정으로 접속해줍니다.<br/>
 ![9627d258-10f3-11e9-8b36-c0524e734271](https://user-images.githubusercontent.com/19223089/56739946-df4d5800-67aa-11e9-901d-acaf9deea301.png)<br/><br/>
 - Manage Jenkins - Manage plugins - available탭 들어갑니다.<br/>
@@ -47,15 +49,19 @@ description: "github authentication plugin 을 연동합니다."
 ![32c607ce-10f4-11e9-8f11-f63c704a2ebf](https://user-images.githubusercontent.com/19223089/56739951-dfe5ee80-67aa-11e9-9b99-e510d3bfc706.png)
 <br/><br/>
 
-#### 3-2- plugin 설정
+#### 2-2. plugin 설정
 - manage jenkins - configure global security - github authentication plugin 선택합니다.<br/>
 ![cc5f1df2-1113-11e9-9829-df19061f64bd](https://user-images.githubusercontent.com/19223089/56742603-05c1c200-67b0-11e9-9676-bc06b4d74f8c.gif)<br/><br/>
-- github web uri - https://github.com or https://GITHUB-ENTERPRISE-URL <br/>
-github api uri - https://api.github.com or https://GITHUB-ENTERPRISE-URL/v3 <br/>
+- GitHub Web URI - https://github.com <br/>
+GitHub API URI - https://api.github.com <br/>
+- 참고: github enterprise 의 경우 아래 내용을 입력해줍니다.<br/>
+GitHub Web URI - https://GITHUB-ENTERPRISE-URL <br/>
+GitHub API URI - https://GITHUB-ENTERPRISE-URL/api/v3 <br/>
 ![스크린샷 2019-04-25 오후 11 25 04](https://user-images.githubusercontent.com/19223089/56743369-64d40680-67b1-11e9-9c90-beb763083fac.png)
 <br/><br/>
 - client id, client secret 는 github 에서 `OAuth app`을 등록한뒤 생성되는 값을 가져와줍니다.<br/>
-OAuth 발급링크: https://github.com/settings/applications/new or https://GITHUB-ENTERPRISE-URL/settings/applications/new <br/>
+OAuth 발급링크: https://github.com/settings/applications/new <br/>
+참고: github enterprise 의 경우 https://GITHUB-ENTERPRISE-URL/settings/applications/new <br/>
 - Register a new OAuth application 페이지에서<br/>
 homepage url - http://USER-JENKINS-HOST/ <br/>
 Authorization callback URL - http://USER-JENKINS-HOST/securityRealm/finishLogin <br/>

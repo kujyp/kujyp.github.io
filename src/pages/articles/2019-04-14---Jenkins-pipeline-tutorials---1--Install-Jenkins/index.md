@@ -22,18 +22,22 @@ description: "아래 스펙의 jenkins를 설치하는것을 목적으로 합니
 - jenkins job을 docker agent를 사용하여 구동합니다.(위의 host container와 구분되는 runner container 입니다)
 
 ## 목차
-- Install Jenkins
-  - 1- docker 설치
-  - 2- jenkins container 실행
+- **1. Install Jenkins**
+  - 1-1. docker 설치
+  - 1-2. jenkins container 실행
+  - 1-3. jenkins web 접속
+- [2. Install github authentication plugin](/posts/2019-04-25---Jenkins-pipeline-tutorials---2--Install-github-authentication-plugin/)
+  - 2-1. plugin 설치
+  - 2-2. plugin 설정
+- [3. Webhook settings](/posts/2019-05-01---Jenkins-pipeline-tutorials---3--Webhook-settings/)
 - (미작성)
-  - 3- github authentication plugin
-  - 4- webhook 세팅
   - 5- pipeline organization job 생성
   - 6- jenkins concurrency
 <br/>
 
 ## 과정
-### 1- docker 설치
+### 1. Install jenkins
+#### 1-1. docker 설치
 가이드는 Centos를 기준으로 작성합니다. Ubuntu나 기타 OS 사용자는 Reference 링크 참조하면 될 것 같습니다.
 
 제 경우 GPU 가 필요한 job을 돌려야하기 때문에, nvidia-docker 까지 설치합니다.
@@ -111,7 +115,7 @@ systemctl start docker
 <br/><br/>
 
 
-### 2- jenkins container 실행
+### 1-2. jenkins container 실행
 - jenkins를 docker container로 구동합니다.
 - Jenkins image는 `jenkinsci/blueocean:1.9.0` 를 사용합니다.<br/>
 사용가능한 tag list는 아래링크에서 확인가능합니다.<br/>
@@ -139,7 +143,7 @@ docker run -d --restart=always \
 - ref: https://jenkins.io/doc/tutorials/build-a-python-app-with-pyinstaller/#run-jenkins-in-docker <br/><br/>
 
 
-#### 2-1 jenkins web 접속
+#### 1-3. jenkins web 접속
 - 2번과정에서 80포트로 개방한 jenkins web으로 접속합니다.
 - Jenkins container 를 띄운 곳의 Web domain or ip 를 브라우저에 입력하여 접속합니다.
 - 최초 Unlock 진행해야합니다. `docker logs jenkins` 로 로그로 찍혀있는 password 복사, 입력합니다.<br/>
@@ -162,14 +166,14 @@ docker run -d --restart=always \
 ![2-1-signin_after_restart.png](./2-1-signin_after_restart.png)
 <br/><br/>
 
-### 2-2- 참고1. jenkins web 언어 한글로 나올때.
+#### 참고1. jenkins web 언어 한글로 나올때.
 - 언어가 한글로 나오는경우 메뉴이름이 달라져서 구글링도 힘들어지고 여러모로 불편합니다.
 - 브라우저 주 언어설정을 English로 변경합니다.
 - chrome의경우 settings(cmd+,) - advance - language - english(미국)을 맨 위로 올려주면 됩니다.<br/>
 ![2-2-language.gif](./2-2-language.gif)
 <br/><br/>
 
-#### 2-3- 참고2. jenkins log
+#### 참고2. jenkins log
 - jenkins log를 보면서 과정을 진행하면 문제가 생겼을때 상황을 알기 더 용이합니다.
 - `docker logs -f jenkins`로 로그를 무중단으로 볼수있습니다.<br/>
 ![2-3-jenkinslog.gif](./2-3-jenkinslog.gif)
