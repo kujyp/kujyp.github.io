@@ -22,7 +22,7 @@ description: "아래 스펙의 jenkins를 설치하는것을 목적으로 합니
 - jenkins job을 docker agent를 사용하여 구동합니다.(위의 host container와 구분되는 runner container 입니다)
 
 ## 목차
-- **1. Install Jenkins**
+- [**1. Install Jenkins**](/posts/2019-04-14---Jenkins-pipeline-tutorials---1--Install-Jenkins/)
   - 1-1. docker 설치
   - 1-2. jenkins container 실행
   - 1-3. jenkins web 접속
@@ -30,9 +30,12 @@ description: "아래 스펙의 jenkins를 설치하는것을 목적으로 합니
   - 2-1. plugin 설치
   - 2-2. plugin 설정
 - [3. Webhook settings](/posts/2019-05-01---Jenkins-pipeline-tutorials---3--Webhook-settings/)
+- [4. Jenkins Job 생성하기](/posts/2019-05-06---Jenkins-pipeline-tutorials---4--Jenkins-Job-생성하기/)
+  - 4-1. Pipeline Organization job 생성하기
+  - 4-2. tag automatic trigger 문제
+  - 4-3. tag automatic trigger 문제해결
 - (미작성)
-  - 5- pipeline organization job 생성
-  - 6- jenkins concurrency
+  - 5. jenkins concurrency
 <br/>
 
 ## 과정
