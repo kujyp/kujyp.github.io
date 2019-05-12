@@ -5,6 +5,7 @@
   "main": "n/a",
   "scripts": {
     "develop": "gatsby develop",
+    "develop_debug": "node $NODE_DEBUG_OPTION node_modules/.bin/gatsby develop",
     "build": "gatsby build",
     "clean:public": "rm -rf public",
     "clean": "npm run clean:public",
