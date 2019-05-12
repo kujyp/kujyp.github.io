@@ -1,9 +1,8 @@
 ---
 title: Jenkins pipeline tutorials - 4. Jenkins Job 생성하기
-date: "2019-05-07T24:07:00+0900"
+date: "2019-05-07T00:07:00+0900"
 layout: post
 draft: false
-path: "/posts/2019-05-06---Jenkins-pipeline-tutorials---4--Jenkins-Job-생성하기/"
 category: "Development"
 tags:
   - "jenkins"
