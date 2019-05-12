@@ -3,7 +3,6 @@ title: gatsby starter lumen으로 블로그 생성하기 - 4. Search Engine Opti
 date: "2019-03-13T01:51:00+0900"
 layout: post
 draft: false
-path: "/posts/2019-03-13---gatsby-starter-lumen으로-블로그-생성하기---4--Search-Engine-Optimization---Naver/"
 category: "Development"
 tags:
   - "gatsby"

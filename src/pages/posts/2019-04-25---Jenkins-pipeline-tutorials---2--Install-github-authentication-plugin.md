@@ -3,7 +3,6 @@ title: Jenkins pipeline tutorials - 2. Install github authentication plugin
 date: "2019-04-25T23:53:00+0900"
 layout: post
 draft: false
-path: "/posts/2019-04-25---Jenkins-pipeline-tutorials---2--Install-github-authentication-plugin/"
 category: "Development"
 tags:
   - "jenkins"

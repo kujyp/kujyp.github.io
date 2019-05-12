@@ -3,7 +3,6 @@ title: Jenkins pipeline tutorials - 3. Webhook settings
 date: "2019-05-01T22:51:00+0900"
 layout: post
 draft: false
-path: "/posts/2019-05-01---Jenkins-pipeline-tutorials---3--Webhook-settings/"
 category: "Development"
 tags:
   - "jenkins"

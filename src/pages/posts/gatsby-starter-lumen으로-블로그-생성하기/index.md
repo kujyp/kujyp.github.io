@@ -3,7 +3,6 @@ title: gatsby starter lumen으로 블로그 생성하기
 date: "2019-01-03T04:00:00.169Z"
 layout: post
 draft: false
-path: "/posts/gatsby-starter-lumen으로-블로그-생성하기/"
 category: "Development"
 tags:
   - "hosting"

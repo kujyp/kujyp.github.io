@@ -3,7 +3,6 @@ title: PyCharm toggle case
 date: "2019-02-23T02:00:00.000Z"
 layout: post
 draft: false
-path: "/posts/2019-02-23---PyCharm-Toggle-case"
 category: "Development"
 tags:
   - "ide"

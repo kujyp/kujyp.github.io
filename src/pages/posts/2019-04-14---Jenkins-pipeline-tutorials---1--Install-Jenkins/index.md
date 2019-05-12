@@ -3,7 +3,6 @@ title: Jenkins pipeline tutorials - 1. Install Jenkins
 date: "2019-04-14T21:15:00+0900"
 layout: post
 draft: false
-path: "/posts/2019-04-14---Jenkins-pipeline-tutorials---1--Install-Jenkins/"
 category: "Development"
 tags:
   - "jenkins"

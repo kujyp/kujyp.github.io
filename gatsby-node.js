@@ -102,9 +102,7 @@ exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
     }
 
     const parentDirname = path.basename(node.relativeDirectory);
-    if (/^\d\d\d\d-\d\d-\d\d---/.test(parentDirname)) {
-      slug = `${_.trimEnd(slug, '/')}/${parentDirname.split('---')[1]}/`;
-    } else if (parentDirname) {
+    if (parentDirname) {
       slug = `${_.trimEnd(slug, '/')}/${parentDirname}/`;
     }
 

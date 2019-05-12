@@ -3,7 +3,6 @@ title: get docker 스크립트 파헤치기(command_exists)
 date: "2019-01-15T17:06:00.169Z"
 layout: post
 draft: false
-path: "/posts/get-docker-스크립트-파헤치기-command-exists/"
 category: "Development"
 tags:
   - "shell"

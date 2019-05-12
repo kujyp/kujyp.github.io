@@ -3,7 +3,6 @@ title: gatsby 정적블로그 생성하기 - 자동deploy, CircleCI연동
 date: "2019-02-24T22:00:00.169Z"
 layout: post
 draft: false
-path: "/posts/2019-02-24---gatsby-정적블로그-생성하기---자동deploy,-CircleCI연동/"
 category: "Development"
 tags:
   - "gatsby"
