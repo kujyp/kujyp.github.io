@@ -95,13 +95,27 @@ exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
   const { createNodeField } = boundActionCreators;
 
   if (node.internal.type === 'File') {
-    const parsedFilePath = path.parse(node.absolutePath);
-    const slug = `/${parsedFilePath.dir.split('---')[1]}/`;
+    let slug = '';
+    const grandParentDirname = path.dirname(node.relativeDirectory);
+    if (grandParentDirname !== '.' && grandParentDirname) {
+      slug = `${_.trimEnd(slug, '/')}/${grandParentDirname}/`;
+    }
+
+    const parentDirname = path.basename(node.relativeDirectory);
+    if (/^\d\d\d\d-\d\d-\d\d---/.test(parentDirname)) {
+      slug = `${_.trimEnd(slug, '/')}/${parentDirname.split('---')[1]}/`;
+    } else if (parentDirname) {
+      slug = `${_.trimEnd(slug, '/')}/${parentDirname}/`;
+    }
+
+    const filenameWithoutExt = path.parse(node.base).name;
+    if (filenameWithoutExt !== 'index') {
+      slug = `${_.trimEnd(slug, '/')}/${_.trimEnd(node.base, '.md')}/`;
+    }
+
     createNodeField({ node, name: 'slug', value: slug });
-  } else if (
-    node.internal.type === 'MarkdownRemark' &&
-    typeof node.slug === 'undefined'
-  ) {
+  } else if (node.internal.type === 'MarkdownRemark'
+            && typeof node.slug === 'undefined') {
     const fileNode = getNode(node.parent);
     let slug = fileNode.fields.slug;
     if (typeof node.frontmatter.path !== 'undefined') {
