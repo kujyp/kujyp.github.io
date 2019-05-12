@@ -139,7 +139,8 @@ docker run -d --restart=always \
 <br/>
 
 - 실행후 `docker ps` 로 실행여부 확인해줍니다.<br/>
-![docker_container_dockerps.png](2-0-dockerps.png)<br/><br/>
+![2-0-dockerps](https://user-images.githubusercontent.com/19223089/57585936-a0006480-7529-11e9-8528-026412b5ea05.png)
+<br/><br/>
 - 참고: 이때 docker run 옵션에서 `-v /var/run/docker.sock:/var/run/docker.sock` 는 jenkins 내부에서 docker agent를 돌려야하는데, jenkins 이미지는 [docker in docker](https://github.com/jpetazzo/dind)가 구현되어있지않아서 내부에 docker container를 생성할수없습니다.<br/>
 따라서 외부의 docker를 사용하기위해 docker.sock을 공유해줍니다.
 - ref: https://jenkins.io/doc/tutorials/build-a-python-app-with-pyinstaller/#run-jenkins-in-docker <br/><br/>
@@ -149,34 +150,41 @@ docker run -d --restart=always \
 - 2번과정에서 80포트로 개방한 jenkins web으로 접속합니다.
 - Jenkins container 를 띄운 곳의 Web domain or ip 를 브라우저에 입력하여 접속합니다.
 - 최초 Unlock 진행해야합니다. `docker logs jenkins` 로 로그로 찍혀있는 password 복사, 입력합니다.<br/>
-![2-1-unlock_jenkins.png](./2-1-unlock_jenkins.png)<br/><br/>
-![2-1-docker_logs_password.png](./2-1-docker_logs_password.png)<br/><br/>
+![2-1-unlock_jenkins](https://user-images.githubusercontent.com/19223089/57585944-a1319180-7529-11e9-8adc-2b7a5d7de8de.png)
+<br/><br/>
+![2-1-docker_logs_password](https://user-images.githubusercontent.com/19223089/57585938-a098fb00-7529-11e9-8a0d-f3c5737f60e1.png)
+<br/><br/>
 - 이어서 나오는메뉴에서 Install suggested 입력합니다.<br/>
-![2-1-install_suggested.gif](./2-1-install_suggested.gif)<br/><br/>
+![2-1-install_suggested](https://user-images.githubusercontent.com/19223089/57585940-a098fb00-7529-11e9-97dc-bb824ea9e8e3.gif)
+<br/><br/>
 - admin 계정생성하라고 나오는데, 대충 만들어줍니다. github auth 사용하면 이 계정으로 로그인 불가합니다.<br/>
-![2-1-create_admin.png](./2-1-create_admin.png)<br/><br/>
+![2-1-create_admin](https://user-images.githubusercontent.com/19223089/57585937-a0006480-7529-11e9-960b-5ffcd2a18b6a.png)
+<br/><br/>
 - jenkins URL 입력해줍니다.
 - domain 을 사용할 계획이라면, 여기에서 ip address 를 domain 으로 바꿔야합니다.<br/>
 제 경우 여기에서 넘어갔다가, 나중에 새로 할당받은 도메인으로 변경하려고 하니 proxy 설정에러가 발생해 재설치가 필요했습니다.<br/>
-![2-1-jenkins_url.png](./2-1-jenkins_url.png)<br/><br/>
+![2-1-jenkins_url](https://user-images.githubusercontent.com/19223089/57585941-a098fb00-7529-11e9-82f0-1c53b0027879.png)
+<br/><br/>
 - restart 해줍니다.<br/>
-![2-1-restart.png](./2-1-restart.png)<br/><br/>
+![2-1-restart](https://user-images.githubusercontent.com/19223089/57585942-a1319180-7529-11e9-8c92-dc91e7c04f40.png)
+<br/><br/>
 - restart 하니 제 경우 계속 저 progress창에서 멈춰있었습니다.
 - 새로고침하면 다시 뜹니다.<br/>
-![2-1-hangged_progress.gif](./2-1-hangged_progress.gif)<br/><br/>
+![2-1-hangged_progress](https://user-images.githubusercontent.com/19223089/57585939-a098fb00-7529-11e9-9205-04d51a2a165b.gif)
+<br/><br/>
 - 로그인창이 나타납니다.<br/>
-![2-1-signin_after_restart.png](./2-1-signin_after_restart.png)
+![2-1-signin_after_restart](https://user-images.githubusercontent.com/19223089/57585943-a1319180-7529-11e9-83e4-2617337154f4.png)
 <br/><br/>
 
 #### 참고1. jenkins web 언어 한글로 나올때.
 - 언어가 한글로 나오는경우 메뉴이름이 달라져서 구글링도 힘들어지고 여러모로 불편합니다.
 - 브라우저 주 언어설정을 English로 변경합니다.
 - chrome의경우 settings(cmd+,) - advance - language - english(미국)을 맨 위로 올려주면 됩니다.<br/>
-![2-2-language.gif](./2-2-language.gif)
+![2-2-language](https://user-images.githubusercontent.com/19223089/57585945-a1319180-7529-11e9-92a0-3e9e7dfffdbd.gif)
 <br/><br/>
 
 #### 참고2. jenkins log
 - jenkins log를 보면서 과정을 진행하면 문제가 생겼을때 상황을 알기 더 용이합니다.
 - `docker logs -f jenkins`로 로그를 무중단으로 볼수있습니다.<br/>
-![2-3-jenkinslog.gif](./2-3-jenkinslog.gif)
+![2-3-jenkinslog](https://user-images.githubusercontent.com/19223089/57585946-a1ca2800-7529-11e9-97bd-cf5e38becf5a.gif)
 <br/><br/>

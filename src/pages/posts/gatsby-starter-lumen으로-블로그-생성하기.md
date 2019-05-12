@@ -40,7 +40,7 @@ React를 사용하는 정적 페이지 생성 툴 [gatsby](https://www.gatsbyjs.
 
 이 조건을 모두 만족하는 서비스를 찾다보니, [github pages](https://pages.github.com/)+[gatsby](https://www.gatsbyjs.org/)를 찾게되었다.
 호스팅을 [github pages](https://pages.github.com/)로 대신해주고, 유명하고(github star 3만개), 평소사용하던 markdown, nodejs/React 를 사용하는 서비스였다.
-![gatsby_star.png](./gatsby_star.png)
+<img width="1100" alt="gatsby_star" src="https://user-images.githubusercontent.com/19223089/57585873-de495400-7528-11e9-8806-0625d52d1d48.png">
 
 [github pages](https://pages.github.com/)+[jekyll](https://jekyllrb.com/), [medium](https://medium.com), [가입형 wordpress](https://wordpress.com/) 들도 고려해보았지만,
  React의 생태계를 모두 사용할 수 있다는 말에 넘어가서 gatsby를 사용하기로 결정했다.  
@@ -73,41 +73,45 @@ git push -u origin development
 - github pages 배포
   - package.json 에서 deploy 명령어를 변경한다.<br/>
 `gh-pages -d public -b master`
-![packagejson_deploy.png](./packagejson_deploy.png)
+<img width="993" alt="packagejson_deploy" src="https://user-images.githubusercontent.com/19223089/57585875-de495400-7528-11e9-8467-3387420f1e64.png">
   - deploy를 실행한다. 30초정도 소요된다.
 ```bash
 yarn run deploy
 ```
-![yarn_deploy.png](./yarn_deploy.png)
-![yarn_deploy2.png](./yarn_deploy2.png)
+<img width="646" alt="yarn_deploy" src="https://user-images.githubusercontent.com/19223089/57585878-dee1ea80-7528-11e9-9585-bdb5982fffa1.png">
+<img width="663" alt="yarn_deploy2" src="https://user-images.githubusercontent.com/19223089/57585879-df7a8100-7528-11e9-8142-5b57ac0864ae.png">
 
 - 개발모드(hot reloading 기능이 지원되서 파일을 수정하면 localhost 페이지에 바로 반영된다.)
 ```bash
 gatsby develop
 ```
-![develop.png](./develop.png)
-
+<img width="1390" alt="develop" src="https://user-images.githubusercontent.com/19223089/57585863-dd182700-7528-11e9-9055-151aac35fa6d.png">
 
 ### disqus 추가하기
 - https://disqus.com 에 접속해서 사이트를 추가한다. disqusShortname 을 받아와야한다.
 - get started 클릭
-![disqus_getstarted_1.png](./disqus_getstarted_1.png)
+<img width="1131" alt="disqus_getstarted_1" src="https://user-images.githubusercontent.com/19223089/57585867-dd182700-7528-11e9-8ca8-33d0f2d03b62.png">
+
 - I want to install Disqus on my site 클릭
-![disqus_install_2.png](./disqus_install_2.png)
+<img width="571" alt="disqus_install_2" src="https://user-images.githubusercontent.com/19223089/57585868-ddb0bd80-7528-11e9-8fb7-e2b021f95fff.png">
+
 - website name 입력, category 선택
-![disqus_create_3.png](./disqus_create_3.png)
+<img width="767" alt="disqus_create_3" src="https://user-images.githubusercontent.com/19223089/57585865-dd182700-7528-11e9-92ff-4ee3d327e52f.png">
+
 - basic plan 선택(무료)
-![disqus_setup_plan_4.png](./disqus_setup_plan_4.png)
+<img width="936" alt="disqus_setup_plan_4" src="https://user-images.githubusercontent.com/19223089/57585870-ddb0bd80-7528-11e9-80d0-257b2a2973aa.png">
+
 - 지킬 등 site generator 어느 것 사용했냐고 물어보는데, 맨 하단 `I dont's see my platform ~` 선택
-![disqus_setup_type_5.png](./disqus_setup_type_5.png)
+<img width="1093" alt="disqus_setup_type_5" src="https://user-images.githubusercontent.com/19223089/57585871-ddb0bd80-7528-11e9-9e44-0bd489a388ff.png">
+
 - website URL 입력, Complete Setup 클릭
-![disqus_setup_6.png](./disqus_setup_6.png)
+<img width="1108" alt="disqus_setup_6" src="https://user-images.githubusercontent.com/19223089/57585869-ddb0bd80-7528-11e9-9fd1-5fee68146b71.png">
 - 이제 사이트 추가는 완료되었다.<br/>
 admin 페이지에서 settings - general 선택, shortname을 받아온다. <br/>
 위의 프로젝트에서 gatsby-config.js disqusShortname 필드를 수정해준다. 
-![disqus_site_general_shortname_7.png](./disqus_site_general_shortname_7.png)
+<img width="1085" alt="disqus_site_general_shortname_7" src="https://user-images.githubusercontent.com/19223089/57585872-de495400-7528-11e9-8172-2914a13b66dd.png">
 - 댓글기능 추가 완료
-![disqus_complete.png](./disqus_complete.png)
+<img width="450" alt="disqus_complete" src="https://user-images.githubusercontent.com/19223089/57585864-dd182700-7528-11e9-895c-a96375a02878.png">
 
 
 ### 글 posting
@@ -119,12 +123,13 @@ admin 페이지에서 settings - general 선택, shortname을 받아온다. <br/
 - markdown파일 맨 위에 frontmatter를 추가해준다.<br/>
 starter에 있는 형식그대로 가져와서 title, date, layout 등등을 추가해주었다.
 - 아래에 글내용을 markdown 형식으로 작성하면 완성.  
-![posting.png](./posting.png)
+<img width="918" alt="posting" src="https://user-images.githubusercontent.com/19223089/57585877-dee1ea80-7528-11e9-98ea-16c54f6f8131.png">
 - 글 작성은 `yarn run develop` 커맨드를 통해 localhost:8000 에서 결과물을 확인하면서 진행하였다.
-![posting_develop.png](./posting_develop.png)
+<img width="1370" alt="posting_develop" src="https://user-images.githubusercontent.com/19223089/57585876-dee1ea80-7528-11e9-8e88-c7ef5a135b46.png">
 - 마지막으로 development branch에 수정내용을 commit, push해주고, master branch에 deploy를 진행한다.<br/>
 `$ yarn run deploy`
-![yarn_deploy2.png](./yarn_deploy2.png)
+<img width="663" alt="yarn_deploy2" src="https://user-images.githubusercontent.com/19223089/57585879-df7a8100-7528-11e9-8142-5b57ac0864ae.png">
+
 
 
 ### 마치며

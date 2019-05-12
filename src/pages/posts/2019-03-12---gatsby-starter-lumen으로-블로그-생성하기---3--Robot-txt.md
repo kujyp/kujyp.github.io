@@ -25,11 +25,13 @@ yarn run develop
 ```
 
 project top level 에서 gatsby-config.js > plugins 에 `'gatsby-plugin-robots-txt'`를 추가해준다.
-![robotstxt_config_addplugin.png](./robotstxt_config_addplugin.png)<br/><br/>
+![robotstxt_config_addplugin](https://user-images.githubusercontent.com/19223089/57585960-c58d6e00-7529-11e9-95cd-166591cf1ac8.png)
+<br/><br/>
 
 음... 역시나 삽질없이 적용되지는 않았다.<br/>
 개발모드로 접속해보니 http://localhost:8000/robots.txt 주소에서 아무것도 돌려주지않는다.<br/>
-![robotstxt_doesnt_exist.png](./robotstxt_doesnt_exist.png)<br/><br/>
+![robotstxt_doesnt_exist](https://user-images.githubusercontent.com/19223089/57585962-c58d6e00-7529-11e9-8790-bd8295356eef.png)
+<br/><br/>
 
 
 이것저것 바꿔보아도 생기지않아서 당황했는데, <br/>
@@ -37,16 +39,18 @@ project top level 에서 gatsby-config.js > plugins 에 `'gatsby-plugin-robots-t
 
 [plugin 문서](https://www.gatsbyjs.org/packages/gatsby-plugin-robots-txt/#options)를 읽어보니 기본값으로 `siteMetadata.siteUrl` 을 참조했는데, <br/>
 [gatsby-lumen-starter](https://github.com/alxshelepenok/gatsby-starter-lumen) 에는 해당 값이 미리 만들어져있지 않다. 새로 추가해줬다.<br/> 
-![robotstxt_docs.png](./robotstxt_docs.png)
-![robots_txt_gatsby_config.png](./robotstxt_gatsby_config.png)
+![robotstxt_docs](https://user-images.githubusercontent.com/19223089/57585961-c58d6e00-7529-11e9-90e0-e12edeca1d16.png)
+![robotstxt_gatsby_config](https://user-images.githubusercontent.com/19223089/57585963-c6260480-7529-11e9-8821-0e759a1f8422.png)
 
 
 수정사항을 github에 push를 하니, 이전글에서 세팅해놓은 자동배포 과정이 재대로 도는것을 확인할수 있었다.<br/>
 이전글 - [gatsby 정적블로그 생성하기 - 자동deploy, CircleCI연동](/posts/2019-02-24---gatsby-정적블로그-생성하기---자동deploy,-CircleCI연동/)<br/>
-![ci_result.png](./ci_result.png)<br/><br/>
+![ci_result](https://user-images.githubusercontent.com/19223089/57585959-c58d6e00-7529-11e9-9f76-06cbcdbb79b9.png)
+<br/><br/>
 
 정식사이트(https://kujyp.github.io/robots.txt)에도 잘 반영되었다.<br/>
-![robotstxt_result.png](./robotstxt_result.png)<br/><br/>
+![robotstxt_result](https://user-images.githubusercontent.com/19223089/57585964-c6260480-7529-11e9-9ce5-8b14ef192706.png)
+<br/><br/>
 
 끝.<br/>
 

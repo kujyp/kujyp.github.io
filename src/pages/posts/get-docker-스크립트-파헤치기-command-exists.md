@@ -40,13 +40,14 @@ shebang line `#!/bin/sh` 로 시작하는 쉘 스크립트의 내용을 볼 수 
 <br/>
 
 내용 중 아래로 내려가다보면 `command_exists` 라는 함수가 보일것이다. 3줄짜리 간단한 코드이고, 오늘 파헤쳐볼 코드이다.<br/>
-![command_exists.png](./command_exists.png)
+![command_exists](https://user-images.githubusercontent.com/19223089/57585833-70049180-7528-11e9-8753-cdbbfb1fc83f.png)
 
 
 # command -v
 `command -v "$@"` 부터 알아보자.<br/> 
 아래는 command manual 중 `-v` 옵션의 내용이다. 
-![man_command.png](./man_command.png)<br/><br/>
+![man_command](https://user-images.githubusercontent.com/19223089/57585837-709d2800-7528-11e9-98a4-d99e372dd53b.png)
+<br/><br/>
 
 `-v` 뒤의 내용을 `re-read` 되는 내용으로 변경해준다. python 으로 예를들면 이런식이다.<br/>
 ```bash
@@ -56,7 +57,8 @@ command -v python
 
 뒤의 내용이 실제로 실행할 파일이 있을때 결과가 출력된다.<br/>
 없을때에는? 아무것도 출력되지않는다.
-![command_v_nothing.png](./command_v_nothing.png)<br/><br/>
+![command_v_nothing](https://user-images.githubusercontent.com/19223089/57585834-70049180-7528-11e9-8945-f344ccd4417c.png)
+<br/><br/>
 
 즉 command 가 존재하는지 여부를 판단할때 아래와 같은 쉘 조건문을 많이 사용한다.
 ```bash
@@ -133,7 +135,7 @@ ls file_that_doesnt_exist 2> /dev/null
 ```
 
 -> ls 명령어의 출력이 비슷해보이지만 `stdout`, `stderr`가 나뉘어져있었다.
-![ls_output.png](./ls_output.png)
+![ls_output]("https://user-images.githubusercontent.com/19223089/57585836-709d2800-7528-11e9-9080-0244c7fdadb4.png")
 
 - ref: [In the shell, what does “ 2>&1 ” mean?](https://stackoverflow.com/a/818284)
 
@@ -168,7 +170,7 @@ cat 1
 > ls: cannot access file_that_doesnt_exist: No such file or directory
 ``` 
 - 참고: `2>1`을 하는 상황에서 `ls` 를 입력해보면, `1` 이라는 파일이 생성된것을 볼 수 있다.
-![ls_file1.png](./ls_file1.png)
+<img width="656" alt="ls_file1" src="https://user-images.githubusercontent.com/19223089/57585835-70049180-7528-11e9-9431-5baf1fe8aabd.png">
 
 - ref: [In the shell, what does “ 2>&1 ” mean?](https://stackoverflow.com/a/818284)
 - ref2: [Why is redirecting STDERR to /dev/null done this way?](https://unix.stackexchange.com/a/23966)
