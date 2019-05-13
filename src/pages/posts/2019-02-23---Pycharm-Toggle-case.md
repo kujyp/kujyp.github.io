@@ -20,7 +20,7 @@ PyCharm toggle case 기능 소개
 뭔가 신박해서 내가 사용하고있는 pycharm은 그런기능이 없나 찾아보았다.<br/>
 
 퀵액션기능으로(`cmd+shift+A`, 단어로 기능을 찾을때 유용하다) 찾아보니, 역시 갓브레인... `Toggle Case` 라는 기능이 있었다.
-![quickaction_case.png](./quickaction_case.png)
+<img width="1014" alt="quickaction_case" src="https://user-images.githubusercontent.com/19223089/57585991-e8b81d80-7529-11e9-9eaf-337eb6dfd7ae.png">
 
 `cmd+shift+U`를 입력하니 전환이 잘 되는것을 확인할 수 있었다. 
-![toggle_case.gif](./toggle_case.gif)
+![toggle_case](https://user-images.githubusercontent.com/19223089/57585992-e8b81d80-7529-11e9-8492-1120d5fffa19.gif)

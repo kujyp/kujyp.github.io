@@ -62,18 +62,18 @@ Jenkins에서는 이를 `$CHANGE_TITLE` 로 제공한다.<br/>
 ```bash
 $PROJECT_NAME $CHANGE_TITLE - Build # $BUILD_NUMBER - $BUILD_STATUS!
 ```
-![before_setting.png](./before_setting.png)
+![before_setting](https://user-images.githubusercontent.com/19223089/57585996-f2da1c00-7529-11e9-9262-6155f73d8880.png)
 
 그런데 이것이 일반 브랜치(master, tag로 trigger되는경우)에서는 PR제목이 존재하지않아서, `$CHANGE_TITLE` 에 넣을 값이 존재하지 않는 경우가 생긴다.<br/>
 이 경우 Email-ext plugin은 이메일에 `$CHANGE_TITLE` 문자를 그대로 발송한다.<br/>
-![prev_example.png](./prev_example.png)
+![prev_example](https://user-images.githubusercontent.com/19223089/57585998-f372b280-7529-11e9-80d1-71f19b858657.png)
 
 이를 개선하려고 찾아보니 환경변수를 `${ENV, var="VARIABLE_NAME"}`로 가져올수 있어서, 이 포맷를 적용했다.<br/>
 Shell 환경변수는 가져올때 해당변수가 할당이 안되어있는경우 공백("")을 제공하므로 위의 문제를 해결할 수 있다.<br/>   
-![env_setting.png](./env_setting.png)
+<img width="1515" alt="env_setting" src="https://user-images.githubusercontent.com/19223089/57585997-f2da1c00-7529-11e9-9345-40c43b0411c5.png">
 
 - 아래는 참고했었던, 문서 위치.<br/>
 `Manage Jenkins > Configure System > Extended E-mail Notification` 섹션에서, `Content Reference` 오른쪽의 물음표(?)를 클릭하면 볼수있다.  
-![reference_gif.gif](./reference_gif.gif)
+![reference_gif](https://user-images.githubusercontent.com/19223089/57585999-f372b280-7529-11e9-8b7f-eab0d5c53fe1.gif)
 - ${ENV, var="VARIABLENAME"}
-![reference.png](./reference.png)
+![reference](https://user-images.githubusercontent.com/19223089/57586000-f372b280-7529-11e9-8928-0183a6551fb9.png)
