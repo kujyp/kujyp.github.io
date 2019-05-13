@@ -4,6 +4,7 @@ const path = require('path');
 const lost = require('lost');
 const pxtorem = require('postcss-pxtorem');
 const slash = require('slash');
+const fs = require('fs');
 
 exports.createPages = ({ graphql, boundActionCreators }) => {
   const { createPage } = boundActionCreators;
@@ -93,6 +94,15 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
 exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
   const { createNodeField } = boundActionCreators;
+
+  if (node.internal.type === 'File'
+      && path.parse(node.base).ext === '.html') {
+    const pubilcPath = './public';
+
+    fs.createReadStream(node.absolutePath)
+      .pipe(fs.createWriteStream(`${pubilcPath}/${node.relativePath}`));
+    return;
+  }
 
   if (node.internal.type === 'File') {
     let slug = '';
