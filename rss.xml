@@ -1,4 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python, Docker ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Mon, 13 May 2019 08:17:12 GMT</lastBuildDate><item><title><![CDATA[Jenkins pipeline tutorials - 4. Jenkins Job 생성하기]]></title><description><![CDATA[이제 jenkins job을 생성할차례입니다. pipeline organization job 을 추가합니다.]]></description><link>https://kujyp.github.io/posts/2019-05-06---Jenkins-pipeline-tutorials---4--Jenkins-Job-생성하기/</link><guid isPermaLink="false">https://kujyp.github.io/posts/2019-05-06---Jenkins-pipeline-tutorials---4--Jenkins-Job-생성하기/</guid><pubDate>Mon, 06 May 2019 15:07:00 GMT</pubDate><content:encoded>&lt;h3&gt;개요&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python, Docker ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 16 May 2019 16:16:35 GMT</lastBuildDate><item><title><![CDATA[Pycharm pytest 케이스 1개씩 실행하기]]></title><description><![CDATA[Pycharm pytest 케이스 1개씩 실행하기]]></description><link>https://kujyp.github.io/posts/pycharm_pytest_each_case/</link><guid isPermaLink="false">https://kujyp.github.io/posts/pycharm_pytest_each_case/</guid><pubDate>Fri, 17 May 2019 01:06:00 GMT</pubDate><content:encoded>&lt;h3&gt;Pycharm pytest 케이스 1개씩 실행하기.&lt;/h3&gt;
+&lt;p&gt;Jetbrains IDE 에서 유용하게 쓰고있는 기능이있다.&lt;br/&gt;
+테스트 케이스를 1개씩 실행시키는기능인데, 이 기능을 이용해서 디버그모드로 한줄한줄 실행하면 디버깅하기 매우 편하다.&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;Intellij IDEA, CLion, Webstorm 에서 설정없이 바로 테스트케이스 옆에 초록색 재생버튼이 떠서,&lt;br/&gt;
+편하게 잘 쓰고있었다.&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;참고: CLion 에서 해당 기능이 뜨는 모습.
+&lt;img src=&quot;https://user-images.githubusercontent.com/19223089/57869246-99cafa80-783f-11e9-8302-0de5afa33880.png&quot; alt=&quot;image&quot;&gt;
+&lt;br/&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;요즘 업무에 python 을 많이 사용하게 되면서, pytest 를 사용해 test case 를 많이 작성하게 되었는데,&lt;br/&gt;
+이상하게, pycharm 에서는 케이스 하나씩 실행하는 버튼이 기본적으로 안뜬다.
+&lt;img src=&quot;https://user-images.githubusercontent.com/19223089/57865582-d0514700-7838-11e9-87be-04f3fbf57fae.png&quot; alt=&quot;스크린샷 2019-05-16 오후 7 57 18&quot;&gt;
+&lt;br/&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;다행히 검색해보니 방법이 있다고한다.&lt;br/&gt;
+Preferences &gt; Tools &gt; Python Integrated Tools 을 들어간다.&lt;br/&gt;
+Testing &gt; Default test runner 에 기본값으로 &lt;code class=&quot;language-text&quot;&gt;Unittests&lt;/code&gt; 로 되어있는데, &lt;code class=&quot;language-text&quot;&gt;pytest&lt;/code&gt; 로 바꾼다.&lt;br/&gt;
+&lt;img src=&quot;https://user-images.githubusercontent.com/19223089/57865572-caf3fc80-7838-11e9-8785-59c781e273a2.gif&quot; alt=&quot;a0c04d48f364ba447024f32dda76bdca&quot;&gt;
+&lt;br/&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;반가운 버튼이 생겼다!
+&lt;img src=&quot;https://user-images.githubusercontent.com/19223089/57865578-cdeeed00-7838-11e9-9c02-75c4651691d1.png&quot; alt=&quot;스크린샷 2019-05-16 오후 7 57 56&quot;&gt;
+&lt;br/&gt;
+&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;Ref: Pycharm enable pytest - &lt;a href=&quot;https://www.jetbrains.com/help/pycharm/pytest.html#enable-pytest&quot;&gt;https://www.jetbrains.com/help/pycharm/pytest.html#enable-pytest&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Jenkins pipeline tutorials - 4. Jenkins Job 생성하기]]></title><description><![CDATA[이제 jenkins job을 생성할차례입니다. pipeline organization job 을 추가합니다.]]></description><link>https://kujyp.github.io/posts/2019-05-06---Jenkins-pipeline-tutorials---4--Jenkins-Job-생성하기/</link><guid isPermaLink="false">https://kujyp.github.io/posts/2019-05-06---Jenkins-pipeline-tutorials---4--Jenkins-Job-생성하기/</guid><pubDate>Mon, 06 May 2019 15:07:00 GMT</pubDate><content:encoded>&lt;h3&gt;개요&lt;/h3&gt;
 &lt;p&gt;아래 스펙의 jenkins를 설치하는것을 목적으로 합니다.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;jenkins(host container)를 docker image를 사용하여 구동합니다.&lt;/li&gt;
