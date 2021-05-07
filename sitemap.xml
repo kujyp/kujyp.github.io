@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 <url> <loc>https://kujyp.github.io/about/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://kujyp.github.io/posts/2019-02-23---Jenkins-Extended-E-mail-Notification-plugin에서-비어있는-환경변수-처리/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://kujyp.github.io/tags/jenkins/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://kujyp.github.io/tags/devops/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://kujyp.github.io/categories/development/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/posts/2019-02-23---Pycharm-Toggle-case/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/tags/ide/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/tags/pycharm/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://kujyp.github.io/posts/2019-02-24---gatsby-정적블로그-생성하기---자동deploy,-CircleCI연동/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://kujyp.github.io/tags/gatsby/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://kujyp.github.io/tags/circleci/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://kujyp.github.io/posts/2019-03-12---gatsby-starter-lumen으로-블로그-생성하기---3--Robot-txt/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://kujyp.github.io/categories/development/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://kujyp.github.io/posts/2019-02-23---Jenkins-Extended-E-mail-Notification-plugin에서-비어있는-환경변수-처리/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://kujyp.github.io/tags/jenkins/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://kujyp.github.io/tags/devops/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/posts/2019-03-13---gatsby-starter-lumen으로-블로그-생성하기---4--Search-Engine-Optimization---Naver/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://kujyp.github.io/tags/gatsby/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://kujyp.github.io/posts/2019-02-24---gatsby-정적블로그-생성하기---자동deploy,-CircleCI연동/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://kujyp.github.io/tags/circleci/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/posts/2019-04-14---Jenkins-pipeline-tutorials---1--Install-Jenkins/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/posts/2019-04-25---Jenkins-pipeline-tutorials---2--Install-github-authentication-plugin/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://kujyp.github.io/posts/2019-03-12---gatsby-starter-lumen으로-블로그-생성하기---3--Robot-txt/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/posts/2019-05-01---Jenkins-pipeline-tutorials---3--Webhook-settings/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/posts/2019-05-06---Jenkins-pipeline-tutorials---4--Jenkins-Job-생성하기/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/posts/2019-06-17---pocu-C++-언매니지드-프로그래밍-후기/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -24,12 +24,12 @@
 <url> <loc>https://kujyp.github.io/posts/get-docker-스크립트-파헤치기-command-exists/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/tags/shell/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/tags/linux/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://kujyp.github.io/posts/pycharm_pytest_each_case/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://kujyp.github.io/tags/jetbrains/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/posts/gatsby-starter-lumen으로-블로그-생성하기/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/tags/hosting/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/tags/react/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/tags/nodejs/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://kujyp.github.io/posts/pycharm_pytest_each_case/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://kujyp.github.io/tags/jetbrains/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/categories/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://kujyp.github.io/tags/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
