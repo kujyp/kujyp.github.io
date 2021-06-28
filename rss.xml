@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python, Docker ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Mon, 10 May 2021 01:55:34 GMT</lastBuildDate><item><title><![CDATA[익명게시판 탐지기 개발]]></title><description><![CDATA[익명게시판에서 글쓴이가 쓴 다른글을 찾는 크롤러를 개발해보았다.]]></description><link>https://kujyp.github.io/posts/2019-08-22---익명게시판-탐지기-개발/</link><guid isPermaLink="false">https://kujyp.github.io/posts/2019-08-22---익명게시판-탐지기-개발/</guid><pubDate>Wed, 21 Aug 2019 19:20:00 GMT</pubDate><content:encoded>&lt;h3&gt;TL;DR&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[kujyp 개발블로그]]></title><description><![CDATA[ML DevOps, Python, Docker ...]]></description><link>https://kujyp.github.io</link><generator>RSS for Node</generator><lastBuildDate>Mon, 28 Jun 2021 18:51:32 GMT</lastBuildDate><item><title><![CDATA[익명게시판 탐지기 개발]]></title><description><![CDATA[익명게시판에서 글쓴이가 쓴 다른글을 찾는 크롤러를 개발해보았다.]]></description><link>https://kujyp.github.io/posts/2019-08-22---익명게시판-탐지기-개발/</link><guid isPermaLink="false">https://kujyp.github.io/posts/2019-08-22---익명게시판-탐지기-개발/</guid><pubDate>Wed, 21 Aug 2019 19:20:00 GMT</pubDate><content:encoded>&lt;h3&gt;TL;DR&lt;/h3&gt;
 &lt;p&gt;익명게시판에서 글쓴이가 쓴 다른글을 찾는 크롤러를 개발해보았다.&lt;br/&gt;
 해당 글쓴이를 차단하고, 게시판의 모든 글을 조회해서&lt;br/&gt;
 차단되어 보이지않는 글, 코멘트를 크롤링을 통해 찾아낸다.
@@ -262,7 +262,7 @@ Behaviors &gt; Add &gt; discovery tags 추가&lt;br/&gt;
 &lt;li&gt;
 &lt;p&gt;위의 사항을 테스트해보기위해, Jenkinsfile을 아래와 같이 두고 tag를 push해봅니다.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;아래 jenkinsfile의 의도는 tag를 push햇을때 &lt;code class=&quot;language-text&quot;&gt;when { tag &amp;#39;*&amp;#39; }&lt;/code&gt; 아래부분을 추가로 수행시키는것입니다.&lt;/li&gt;
+&lt;li&gt;아래 jenkinsfile의 의도는 tag를 push햇을때 &lt;code class=&quot;language-text&quot;&gt;when { tag &apos;*&apos; }&lt;/code&gt; 아래부분을 추가로 수행시키는것입니다.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -652,55 +652,55 @@ ref: plugin 문서 &lt;a href=&quot;https://wiki.jenkins.io/display/JENKINS/GitH
 &lt;p&gt;가이드는 Centos를 기준으로 작성합니다. Ubuntu나 기타 OS 사용자는 Reference 링크 참조하면 될 것 같습니다.&lt;/p&gt;
 &lt;p&gt;제 경우 GPU 가 필요한 job을 돌려야하기 때문에, nvidia-docker 까지 설치합니다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;yellow&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;\033[0;33m&quot;&lt;/span&gt;
-red&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;\033[0;31m&quot;&lt;/span&gt;
-nocolor&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;\033[0m&quot;&lt;/span&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token assign-left variable&quot;&gt;yellow&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token entity&quot; title=&quot;\033&quot;&gt;\033&lt;/span&gt;[0;33m&quot;&lt;/span&gt;
+&lt;span class=&quot;token assign-left variable&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token entity&quot; title=&quot;\033&quot;&gt;\033&lt;/span&gt;[0;31m&quot;&lt;/span&gt;
+&lt;span class=&quot;token assign-left variable&quot;&gt;nocolor&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token entity&quot; title=&quot;\033&quot;&gt;\033&lt;/span&gt;[0m&quot;&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; command_exists&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; -v &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;$@&lt;/span&gt;&quot;&lt;/span&gt; 1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;1
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function-name function&quot;&gt;command_exists&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;command&lt;/span&gt; -v &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;$@&lt;/span&gt;&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;1&lt;/span&gt;&gt;&lt;/span&gt; /dev/null &lt;span class=&quot;token operator&quot;&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;2&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;&amp;amp;1&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; check_gpu_exists&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    nvidia-smi 1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;1
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function-name function&quot;&gt;check_gpu_exists&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    nvidia-smi &lt;span class=&quot;token operator&quot;&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;1&lt;/span&gt;&gt;&lt;/span&gt; /dev/null &lt;span class=&quot;token operator&quot;&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;2&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;&amp;amp;1&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
 
 &lt;span class=&quot;token comment&quot;&gt;### Main&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;id&lt;/span&gt; -u&lt;span class=&quot;token variable&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&quot;&lt;/span&gt; -ne &lt;span class=&quot;token string&quot;&gt;&quot;0&quot;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;${red}&lt;/span&gt;[ERROR] install with root privilege.&lt;span class=&quot;token variable&quot;&gt;${nocolor}&lt;/span&gt;&quot;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;exit&lt;/span&gt; 1
+    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;${red}&lt;/span&gt;[ERROR] install with root privilege.&lt;span class=&quot;token variable&quot;&gt;${nocolor}&lt;/span&gt;&quot;&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;exit&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
 
 &lt;span class=&quot;token comment&quot;&gt;# Remove legacy docker&lt;/span&gt;
-yum remove docker \
-    docker-client \
-    docker-client-latest \
-    docker-common \
-    docker-latest \
-    docker-latest-logrotate \
-    docker-logrotate \
+yum remove docker &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
+    docker-client &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
+    docker-client-latest &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
+    docker-common &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
+    docker-latest &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
+    docker-latest-logrotate &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
+    docker-logrotate &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
     docker-engine
 
 &lt;span class=&quot;token comment&quot;&gt;# Remove pre-installed docker, nvidia-docker&lt;/span&gt;
-yum remove docker -y \
-    docker-engine \
-    containerd.io \
-    docker-ce-cli \
+yum remove docker -y &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
+    docker-engine &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
+    containerd.io &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
+    docker-ce-cli &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
     nvidia-container-runtime
 
 &lt;span class=&quot;token comment&quot;&gt;# Install dependencies&lt;/span&gt;
-yum &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -y yum-utils \
-    device-mapper-persistent-data \
+yum &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -y yum-utils &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
+    device-mapper-persistent-data &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
     lvm2
 
-yum-config-manager \
-    --add-repo \
+yum-config-manager &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
+    --add-repo &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
     https://download.docker.com/linux/centos/docker-ce.repo
 
 
 &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; check_gpu_exists&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
-    distribution&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;.&lt;/span&gt; /etc/os-release&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; $ID$VERSION_ID&lt;span class=&quot;token variable&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
-    &lt;span class=&quot;token function&quot;&gt;curl&lt;/span&gt; -s -L https://nvidia.github.io/nvidia-docker/&lt;span class=&quot;token variable&quot;&gt;$distribution&lt;/span&gt;/nvidia-docker.repo &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; \
+    &lt;span class=&quot;token assign-left variable&quot;&gt;distribution&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;.&lt;/span&gt; /etc/os-release&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; $ID$VERSION_ID&lt;span class=&quot;token variable&quot;&gt;)&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;curl&lt;/span&gt; -s -L https://nvidia.github.io/nvidia-docker/&lt;span class=&quot;token variable&quot;&gt;$distribution&lt;/span&gt;/nvidia-docker.repo &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;\&lt;/span&gt;
         &lt;span class=&quot;token function&quot;&gt;tee&lt;/span&gt; /etc/yum.repos.d/nvidia-docker.repo
 
     yum &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; -y nvidia-docker2
@@ -713,7 +713,7 @@ yum-config-manager \
 &lt;span class=&quot;token function&quot;&gt;usermod&lt;/span&gt; -aG docker &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;LINUX_USERNAME&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
 
 &lt;span class=&quot;token comment&quot;&gt;# Start docker service on startup&lt;/span&gt;
-systemctl &lt;span class=&quot;token function&quot;&gt;enable&lt;/span&gt; docker.service
+systemctl &lt;span class=&quot;token builtin class-name&quot;&gt;enable&lt;/span&gt; docker.service
 
 systemctl start docker&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
@@ -735,7 +735,7 @@ systemctl start docker&lt;/code&gt;&lt;/pre&gt;
 &lt;a href=&quot;https://hub.docker.com/r/jenkinsci/blueocean/tags&quot;&gt;https://hub.docker.com/r/jenkinsci/blueocean/tags&lt;/a&gt; (official jenkins/blueocean)&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;아래의 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;JENKINS_HOME&amp;gt;&lt;/code&gt; 부분을 본인이 jenkins home으로 사용하고싶은 경로로 지정합니다.&lt;br/&gt;
+&lt;p&gt;아래의 &lt;code class=&quot;language-text&quot;&gt;&amp;lt;JENKINS_HOME&gt;&lt;/code&gt; 부분을 본인이 jenkins home으로 사용하고싶은 경로로 지정합니다.&lt;br/&gt;
 jenkins 는 jenkins home 경로에 Configurations, Installed Jenkins plugins, &lt;br/&gt;
 Job 도중 생성되는 files(cloned source codes, build artifacts)를 저장합니다.&lt;/p&gt;
 &lt;/li&gt;
@@ -840,10 +840,10 @@ robots.txt, Open Graph tag가 미비한것으로 확인되었고, 추가를 진�
 &lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
 &lt;p&gt;site로 가서 태그가 재대로 적용이 되었는지 한번 더 확인을 해 보았다.&lt;br/&gt;
 아래 내용으로 meta 태그가 붙어있는것을 확인가능했다.&lt;br/&gt;
-설마 &lt;code class=&quot;language-text&quot;&gt;data-react-helmet=&amp;quot;true&amp;quot;&lt;/code&gt; 때문인가.&lt;br/&gt;
+설마 &lt;code class=&quot;language-text&quot;&gt;data-react-helmet=&quot;true&quot;&lt;/code&gt; 때문인가.&lt;br/&gt;
 아니겠지 설마 그정도로 단순하게 parsing code를 넣어놓진 않았겠지…&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;meta&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;data-react-helmet&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;true&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;naver-site-verification&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;cd14eb7aa77c570360a07270cab55fbabb276d18&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;meta&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;data-react-helmet&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;true&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;naver-site-verification&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;cd14eb7aa77c570360a07270cab55fbabb276d18&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;img width=&quot;919&quot; alt=&quot;naver_verify_metatag&quot; src=&quot;https://user-images.githubusercontent.com/19223089/57585954-b4dcf800-7529-11e9-9135-1e3570c2ac90.png&quot;&gt;
 &lt;br&gt;&lt;br&gt;
@@ -858,11 +858,11 @@ robots.txt, Open Graph tag가 미비한것으로 확인되었고, 추가를 진�
 &lt;p&gt;robots.txt 같은경우에는 gatsby plugin으로 잘 되어있어서 해당 플러그인을 설치하는것으로 진행하였다.&lt;br/&gt;
 gatsby-plugin-robots-txt plugin - &lt;a href=&quot;https://www.gatsbyjs.org/packages/gatsby-plugin-robots-txt&quot;&gt;https://www.gatsbyjs.org/packages/gatsby-plugin-robots-txt&lt;/a&gt;&lt;br/&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;yarn add gatsby-plugin-robots-txt
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;yarn&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt; gatsby-plugin-robots-txt
 &lt;span class=&quot;token comment&quot;&gt;# gatsby-config.js 수정&lt;/span&gt;
-yarn run develop&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;token function&quot;&gt;yarn&lt;/span&gt; run develop&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
-&lt;p&gt;project top level 에서 gatsby-config.js &gt; plugins 에 &lt;code class=&quot;language-text&quot;&gt;&amp;#39;gatsby-plugin-robots-txt&amp;#39;&lt;/code&gt;를 추가해준다.
+&lt;p&gt;project top level 에서 gatsby-config.js &gt; plugins 에 &lt;code class=&quot;language-text&quot;&gt;&apos;gatsby-plugin-robots-txt&apos;&lt;/code&gt;를 추가해준다.
 &lt;img src=&quot;https://user-images.githubusercontent.com/19223089/57585960-c58d6e00-7529-11e9-95cd-166591cf1ac8.png&quot; alt=&quot;robotstxt_config_addplugin&quot;&gt;
 &lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
 &lt;p&gt;음… 역시나 삽질없이 적용되지는 않았다.&lt;br/&gt;
@@ -1036,19 +1036,19 @@ tag나 Pull Request로 유발된 작업이거나, master branch 인 경우, 작�
     always &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;token comment&quot;&gt;// recipientProviders document: https://jenkins.io/doc/pipeline/steps/email-ext/&lt;/span&gt;
         script &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;env&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;BRANCH_NAME &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;master&quot;&lt;/span&gt;
-                    &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; env&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;BRANCH_NAME&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;startsWith&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;PR&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
-                    &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; env&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;TAG_NAME&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;BRANCH_NAME &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;master&quot;&lt;/span&gt;
+                    &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;BRANCH_NAME&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;startsWith&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;PR&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; env&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;TAG_NAME&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
                 &lt;span class=&quot;token keyword&quot;&gt;def&lt;/span&gt; committerEmail &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; sh &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
                     script&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;git --no-pager show -s --format=\&apos;%ae\&apos;&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
                     returnStdout&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
-                &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;trim&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;trim&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 
                 &lt;span class=&quot;token function&quot;&gt;emailext&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
                   subject&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;$DEFAULT_SUBJECT&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
                   body&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &apos;&lt;span class=&quot;token punctuation&quot;&gt;$&lt;/span&gt;DEFAULT_CONTENT\n\
 \n\
-This email triggered by &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;PR&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; tag&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; master branch&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; only&lt;span class=&quot;token operator&quot;&gt;.&lt;/span&gt;\n\
+This email triggered by &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;PR&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; tag&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; master branch&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; only&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;\n\
 &apos;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
                   to&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; committerEmail&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
                   recipientProviders&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
@@ -1067,7 +1067,7 @@ This email triggered by &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/sp
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;p&gt;Email-ext plugin을 사용하면, &lt;code class=&quot;language-text&quot;&gt;Default Subject&lt;/code&gt;(제목)이 &lt;code class=&quot;language-text&quot;&gt;$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!&lt;/code&gt; 로 세팅되어있다.&lt;br/&gt;
-&lt;code class=&quot;language-text&quot;&gt;Manage Jenkins &amp;gt; Configure System &amp;gt; Extended E-mail Notification &amp;gt; Defalt Subject, Default Content&lt;/code&gt; 에서 변경이 가능한데,&lt;br/&gt;
+&lt;code class=&quot;language-text&quot;&gt;Manage Jenkins &gt; Configure System &gt; Extended E-mail Notification &gt; Defalt Subject, Default Content&lt;/code&gt; 에서 변경이 가능한데,&lt;br/&gt;
 Pull Request를 하는경우 어떤 PR에서 날라온 결과인지 구분하기위해 제목에 PR이름을 추가했다.&lt;br/&gt;
 Jenkins에서는 이를 &lt;code class=&quot;language-text&quot;&gt;$CHANGE_TITLE&lt;/code&gt; 로 제공한다.&lt;br/&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
@@ -1077,12 +1077,12 @@ Jenkins에서는 이를 &lt;code class=&quot;language-text&quot;&gt;$CHANGE_TITL
 &lt;p&gt;그런데 이것이 일반 브랜치(master, tag로 trigger되는경우)에서는 PR제목이 존재하지않아서, &lt;code class=&quot;language-text&quot;&gt;$CHANGE_TITLE&lt;/code&gt; 에 넣을 값이 존재하지 않는 경우가 생긴다.&lt;br/&gt;
 이 경우 Email-ext plugin은 이메일에 &lt;code class=&quot;language-text&quot;&gt;$CHANGE_TITLE&lt;/code&gt; 문자를 그대로 발송한다.&lt;br/&gt;
 &lt;img src=&quot;https://user-images.githubusercontent.com/19223089/57585998-f372b280-7529-11e9-80d1-71f19b858657.png&quot; alt=&quot;prev_example&quot;&gt;&lt;/p&gt;
-&lt;p&gt;이를 개선하려고 찾아보니 환경변수를 &lt;code class=&quot;language-text&quot;&gt;${ENV, var=&amp;quot;VARIABLE_NAME&amp;quot;}&lt;/code&gt;로 가져올수 있어서, 이 포맷를 적용했다.&lt;br/&gt;
+&lt;p&gt;이를 개선하려고 찾아보니 환경변수를 &lt;code class=&quot;language-text&quot;&gt;${ENV, var=&quot;VARIABLE_NAME&quot;}&lt;/code&gt;로 가져올수 있어서, 이 포맷를 적용했다.&lt;br/&gt;
 Shell 환경변수는 가져올때 해당변수가 할당이 안되어있는경우 공백(&quot;&quot;)을 제공하므로 위의 문제를 해결할 수 있다.&lt;br/&gt;&lt;br&gt;
 &lt;img width=&quot;1515&quot; alt=&quot;env_setting&quot; src=&quot;https://user-images.githubusercontent.com/19223089/57585997-f2da1c00-7529-11e9-9345-40c43b0411c5.png&quot;&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;아래는 참고했었던, 문서 위치.&lt;br/&gt;
-&lt;code class=&quot;language-text&quot;&gt;Manage Jenkins &amp;gt; Configure System &amp;gt; Extended E-mail Notification&lt;/code&gt; 섹션에서, &lt;code class=&quot;language-text&quot;&gt;Content Reference&lt;/code&gt; 오른쪽의 물음표(?)를 클릭하면 볼수있다.&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;Manage Jenkins &gt; Configure System &gt; Extended E-mail Notification&lt;/code&gt; 섹션에서, &lt;code class=&quot;language-text&quot;&gt;Content Reference&lt;/code&gt; 오른쪽의 물음표(?)를 클릭하면 볼수있다.&lt;br&gt;
 &lt;img src=&quot;https://user-images.githubusercontent.com/19223089/57585999-f372b280-7529-11e9-8b7f-eab0d5c53fe1.gif&quot; alt=&quot;reference_gif&quot;&gt;&lt;/li&gt;
 &lt;li&gt;${ENV, var=“VARIABLENAME”}
 &lt;img src=&quot;https://user-images.githubusercontent.com/19223089/57586000-f372b280-7529-11e9-8928-0183a6551fb9.png&quot; alt=&quot;reference&quot;&gt;&lt;/li&gt;
@@ -1096,11 +1096,11 @@ Shell 환경변수는 가져올때 해당변수가 할당이 안되어있는경�
 사용예는 이렇다.&lt;br/&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; command_exists &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; exists
+    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token builtin class-name&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; exists
 &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
 
 &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; command_exists &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; not exists
+    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token builtin class-name&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;sudo&lt;/span&gt; not exists
 &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;p&gt;이번 글에서는 이 &lt;code class=&quot;language-text&quot;&gt;command_exists&lt;/code&gt; 함수 내부의 내용을 파헤쳐보겠다. &lt;/p&gt;
@@ -1111,13 +1111,13 @@ shebang line &lt;code class=&quot;language-text&quot;&gt;#!/bin/sh&lt;/code&gt; 
 &lt;p&gt;내용 중 아래로 내려가다보면 &lt;code class=&quot;language-text&quot;&gt;command_exists&lt;/code&gt; 라는 함수가 보일것이다. 3줄짜리 간단한 코드이고, 오늘 파헤쳐볼 코드이다.&lt;br/&gt;
 &lt;img src=&quot;https://user-images.githubusercontent.com/19223089/57585833-70049180-7528-11e9-8753-cdbbfb1fc83f.png&quot; alt=&quot;command_exists&quot;&gt;&lt;/p&gt;
 &lt;h1&gt;command -v&lt;/h1&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &amp;quot;$@&amp;quot;&lt;/code&gt; 부터 알아보자.&lt;br/&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &quot;$@&quot;&lt;/code&gt; 부터 알아보자.&lt;br/&gt;
 아래는 command manual 중 &lt;code class=&quot;language-text&quot;&gt;-v&lt;/code&gt; 옵션의 내용이다.
 &lt;img src=&quot;https://user-images.githubusercontent.com/19223089/57585837-709d2800-7528-11e9-98a4-d99e372dd53b.png&quot; alt=&quot;man_command&quot;&gt;
 &lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;-v&lt;/code&gt; 뒤의 내용을 &lt;code class=&quot;language-text&quot;&gt;re-read&lt;/code&gt; 되는 내용으로 변경해준다. python 으로 예를들면 이런식이다.&lt;br/&gt;&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; -v python
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;command&lt;/span&gt; -v python
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /usr/bin/python&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;p&gt;뒤의 내용이 실제로 실행할 파일이 있을때 결과가 출력된다.&lt;br/&gt;
@@ -1126,10 +1126,10 @@ shebang line &lt;code class=&quot;language-text&quot;&gt;#!/bin/sh&lt;/code&gt; 
 &lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
 &lt;p&gt;즉 command 가 존재하는지 여부를 판단할때 아래와 같은 쉘 조건문을 많이 사용한다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; -v nothing&lt;span class=&quot;token variable&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;command&lt;/span&gt; -v nothing&lt;span class=&quot;token variable&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
     &lt;span class=&quot;token comment&quot;&gt;# early exit&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Install nothing first&quot;&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;exit&lt;/span&gt; 1&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Install nothing first&quot;&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;exit&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
 
 &lt;span class=&quot;token comment&quot;&gt;# do something &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
@@ -1142,8 +1142,8 @@ shebang line &lt;code class=&quot;language-text&quot;&gt;#!/bin/sh&lt;/code&gt; 
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker run -it --rm centos:centos7 /bin/bash
 
-&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; helloworld&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;helloworld &lt;span class=&quot;token variable&quot;&gt;$@&lt;/span&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function-name function&quot;&gt;helloworld&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;helloworld &lt;span class=&quot;token variable&quot;&gt;$@&lt;/span&gt;&quot;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;token comment&quot;&gt;### MAIN ###&lt;/span&gt;
@@ -1159,8 +1159,8 @@ helloworld a b
 &lt;li&gt;ref: &lt;a href=&quot;https://stackoverflow.com/a/9994328&quot;&gt;What does $@ mean in a shell script?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1&gt;/dev/null(널장치)&lt;/h1&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;먼저 &lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 앞의 &lt;code class=&quot;language-text&quot;&gt;&amp;gt;&lt;/code&gt;는 표준입력(stdout)을 redirection 한다는 것을 의미한다.&lt;br/&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &quot;$@&quot; &gt; /dev/null 2&gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;먼저 &lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 앞의 &lt;code class=&quot;language-text&quot;&gt;&gt;&lt;/code&gt;는 표준입력(stdout)을 redirection 한다는 것을 의미한다.&lt;br/&gt;
 표준입력을 &lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 로 redirection 한다는 의미인데, 여기에서 &lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 로 보낸다는의미는 버린다는 의미와 같다.&lt;br/&gt;
 즉 stdout으로 출력될 문구를 출력하지 말라는 의미이다.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://ko.wikipedia.org/wiki/%EB%84%90_%EC%9E%A5%EC%B9%98&quot;&gt;wikipedia 널 장치&lt;/a&gt;에 따르면 유닉스 쪽에서 &lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 은 비트 버킷 또는 블랙홀로 불린다고한다.&lt;/p&gt;
@@ -1168,7 +1168,7 @@ helloworld a b
 &lt;li&gt;ref: wikipedia 널 장치 &lt;a href=&quot;https://ko.wikipedia.org/wiki/%EB%84%90_%EC%9E%A5%EC%B9%98&quot;&gt;https://ko.wikipedia.org/wiki/%EB%84%90_%EC%9E%A5%EC%B9%98&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1&gt;file descriptor 1, 2&lt;/h1&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &quot;$@&quot; &gt; /dev/null 2&gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 바로 뒤 &lt;code class=&quot;language-text&quot;&gt;2&lt;/code&gt; 에 주목하자 이는 file descriptor를 의미한다.&lt;br/&gt;
 여기서 &lt;code class=&quot;language-text&quot;&gt;file descriptor 1&lt;/code&gt; 은 &lt;code class=&quot;language-text&quot;&gt;stdout&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;file descriptor 2&lt;/code&gt; 는 &lt;code class=&quot;language-text&quot;&gt;stderr&lt;/code&gt; 를 의미한다.&lt;br/&gt;
 아래의 예시를 보자.&lt;/p&gt;
@@ -1177,15 +1177,15 @@ helloworld a b
 
 &lt;span class=&quot;token function&quot;&gt;touch&lt;/span&gt; file_that_exists
 &lt;span class=&quot;token comment&quot;&gt;# stdout을 버린다.&lt;/span&gt;
-&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_exists 1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null
+&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_exists &lt;span class=&quot;token operator&quot;&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;1&lt;/span&gt;&gt;&lt;/span&gt; /dev/null
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;
-&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist 1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null
+&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist &lt;span class=&quot;token operator&quot;&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;1&lt;/span&gt;&gt;&lt;/span&gt; /dev/null
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; ls: cannot access file_that_doesnt_exist: No such &lt;span class=&quot;token function&quot;&gt;file&lt;/span&gt; or directory
 
 &lt;span class=&quot;token comment&quot;&gt;# stderr를 버린다.&lt;/span&gt;
-&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_exists 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null
+&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_exists &lt;span class=&quot;token operator&quot;&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;2&lt;/span&gt;&gt;&lt;/span&gt; /dev/null
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; file_that_exists
-&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null
+&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist &lt;span class=&quot;token operator&quot;&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;2&lt;/span&gt;&gt;&lt;/span&gt; /dev/null
 &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;p&gt;-&gt; ls 명령어의 출력이 비슷해보이지만 &lt;code class=&quot;language-text&quot;&gt;stdout&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;stderr&lt;/code&gt;가 나뉘어져있었다.
@@ -1194,8 +1194,8 @@ helloworld a b
 &lt;li&gt;ref: &lt;a href=&quot;https://stackoverflow.com/a/818284&quot;&gt;In the shell, what does “ 2&gt;&amp;#x26;1 ” mean?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1&gt;2&gt;&amp;#x26;1&lt;/h1&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;다음은 &lt;code class=&quot;language-text&quot;&gt;2&amp;gt;&amp;amp;1&lt;/code&gt; 차례이다.&lt;br/&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &quot;$@&quot; &gt; /dev/null 2&gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;다음은 &lt;code class=&quot;language-text&quot;&gt;2&gt;&amp;amp;1&lt;/code&gt; 차례이다.&lt;br/&gt;
 &lt;code class=&quot;language-text&quot;&gt;&amp;amp;&lt;/code&gt; 기호는 뒤의 내용이 &lt;code class=&quot;language-text&quot;&gt;file descriptor&lt;/code&gt; 라는 것을 보여준다.&lt;br/&gt;
 즉 &lt;code class=&quot;language-text&quot;&gt;&amp;amp;1&lt;/code&gt; 은 &lt;code class=&quot;language-text&quot;&gt;stdout&lt;/code&gt; 을 의미한다.&lt;br/&gt;
 (&amp;#x26;가 없으면 &lt;code class=&quot;language-text&quot;&gt;1&lt;/code&gt; 을 파일이름으로 하는 파일에 해당 내용이 redirection 된다.)&lt;/p&gt;
@@ -1210,19 +1210,19 @@ helloworld a b
 &lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; ls: cannot access file_that_doesnt_exist: No such &lt;span class=&quot;token function&quot;&gt;file&lt;/span&gt; or directory
 &lt;span class=&quot;token comment&quot;&gt;# stderr도 버려서 아무것도 출력되지않는다. &lt;/span&gt;
-&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;1
+&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null &lt;span class=&quot;token operator&quot;&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;2&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;&amp;amp;1&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
 
 &lt;span class=&quot;token comment&quot;&gt;# stderr를 파일 &quot;1&quot;에 redirection, 아무것도 출력은 안된다.&lt;/span&gt;
-&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;1
+&lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null &lt;span class=&quot;token operator&quot;&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;2&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
 &lt;span class=&quot;token comment&quot;&gt;# cat으로 file &quot;1&quot;을 출력해보면 내용이 남아있다. &lt;/span&gt;
-&lt;span class=&quot;token function&quot;&gt;cat&lt;/span&gt; 1
+&lt;span class=&quot;token function&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; ls: cannot access file_that_doesnt_exist: No such &lt;span class=&quot;token function&quot;&gt;file&lt;/span&gt; or directory&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;참고: &lt;code class=&quot;language-text&quot;&gt;2&amp;gt;1&lt;/code&gt;을 하는 상황에서 &lt;code class=&quot;language-text&quot;&gt;ls&lt;/code&gt; 를 입력해보면, &lt;code class=&quot;language-text&quot;&gt;1&lt;/code&gt; 이라는 파일이 생성된것을 볼 수 있다.
+&lt;p&gt;참고: &lt;code class=&quot;language-text&quot;&gt;2&gt;1&lt;/code&gt;을 하는 상황에서 &lt;code class=&quot;language-text&quot;&gt;ls&lt;/code&gt; 를 입력해보면, &lt;code class=&quot;language-text&quot;&gt;1&lt;/code&gt; 이라는 파일이 생성된것을 볼 수 있다.
 &lt;img width=&quot;656&quot; alt=&quot;ls_file1&quot; src=&quot;https://user-images.githubusercontent.com/19223089/57585835-70049180-7528-11e9-9431-5baf1fe8aabd.png&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -1246,9 +1246,9 @@ if 문 내부에서 shell statement가 성공, 실패했을때 동작을 살펴�
 &lt;span class=&quot;token comment&quot;&gt;# shell statement 성공시&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_exists
 &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; file_that_exists
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
@@ -1256,9 +1256,9 @@ if 문 내부에서 shell statement가 성공, 실패했을때 동작을 살펴�
 &lt;span class=&quot;token comment&quot;&gt;# shell statement 실패시&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; file_that_doesnt_exist
 &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; ls: cannot access file_that_doesnt_exist: No such &lt;span class=&quot;token function&quot;&gt;file&lt;/span&gt; or directory
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
@@ -1270,25 +1270,25 @@ if 문 내부에서 shell statement가 성공, 실패했을때 동작을 살펴�
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker run -it --rm centos:centos7 /bin/bash
 
-&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; file_exists&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function-name function&quot;&gt;file_exists&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;$@&lt;/span&gt;&quot;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;token function&quot;&gt;touch&lt;/span&gt; file_that_exists
 &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; file_exists file_that_exists
 &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; file_that_exists
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
 
 &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; file_exists file_that_doesnt_exist
 &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; ls: cannot access file_that_doesnt_exist: No such &lt;span class=&quot;token function&quot;&gt;file&lt;/span&gt; or directory
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
@@ -1297,25 +1297,25 @@ if 문 내부에서 shell statement가 성공, 실패했을때 동작을 살펴�
 &lt;h1&gt;결론&lt;/h1&gt;
 &lt;p&gt;위에서 알아낸 내용을 종합하면 이 &lt;code class=&quot;language-text&quot;&gt;command_exists&lt;/code&gt; 함수는 &lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &amp;quot;인자&amp;quot;&lt;/code&gt; 의 성공/실패여부를 반환하고,&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;command -v &quot;인자&quot;&lt;/code&gt; 의 성공/실패여부를 반환하고,&lt;/li&gt;
 &lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;stdout&lt;/code&gt;, &lt;code class=&quot;language-text&quot;&gt;stderr&lt;/code&gt;로 나와야할 출력을 &lt;code class=&quot;language-text&quot;&gt;/dev/null&lt;/code&gt; 로 버려주는 역할을 수행한다.
 &lt;br/&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;command_exists&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; -v &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;$@&lt;/span&gt;&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;1
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function-name function&quot;&gt;command_exists&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;command&lt;/span&gt; -v &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;$@&lt;/span&gt;&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null &lt;span class=&quot;token operator&quot;&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;2&lt;/span&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;&amp;amp;1&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;p&gt;이 함수를 통해 아래와 같이 사용해왔던 if 문을 좀더 미려하게 사용할 수 있게 만들었다.   &lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;# before&lt;/span&gt;
-&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; -v somethingtocheck&lt;span class=&quot;token variable&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; not exists&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;token builtin class-name&quot;&gt;command&lt;/span&gt; -v somethingtocheck&lt;span class=&quot;token variable&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token builtin class-name&quot;&gt;command&lt;/span&gt; not exists&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
 
 &lt;span class=&quot;token comment&quot;&gt;# after&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt; command_exists somethingtocheck&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;
-    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;command&lt;/span&gt; not exists&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
+    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token builtin class-name&quot;&gt;command&lt;/span&gt; not exists&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;
 &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;h1&gt;마치며&lt;/h1&gt;
@@ -1325,28 +1325,28 @@ if 문 내부에서 shell statement가 성공, 실패했을때 동작을 살펴�
 &lt;h1&gt;참고&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;참고1. 위에서 사용한 스크립트를 좀더 개선해보았다.&lt;br/&gt;
-가독성 측면에서 기존의 &lt;code class=&quot;language-text&quot;&gt;2&amp;gt;&amp;amp;1&lt;/code&gt; 는 좀 더 의도가 숨겨져있는 느낌이다.&lt;/li&gt;
+가독성 측면에서 기존의 &lt;code class=&quot;language-text&quot;&gt;2&gt;&amp;amp;1&lt;/code&gt; 는 좀 더 의도가 숨겨져있는 느낌이다.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker run -it --rm centos:centos7 /bin/bash
 
-&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; file_exists&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;$@&lt;/span&gt;&quot;&lt;/span&gt; 1&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; /dev/null 2&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; dev/null
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function-name function&quot;&gt;file_exists&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&lt;span class=&quot;token variable&quot;&gt;$@&lt;/span&gt;&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;1&lt;/span&gt;&gt;&lt;/span&gt; /dev/null &lt;span class=&quot;token operator&quot;&gt;&lt;span class=&quot;token file-descriptor important&quot;&gt;2&lt;/span&gt;&gt;&lt;/span&gt; dev/null
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;token function&quot;&gt;touch&lt;/span&gt; file_that_exists
-&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; file_exists file_that_exists&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;     &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; file_exists file_that_exists&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;     &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;
 
-&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; file_exists file_that_doesnt_exist&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;     &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;    &lt;span class=&quot;token keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; file_exists file_that_doesnt_exist&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;then&lt;/span&gt;     &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt;    &lt;span class=&quot;token builtin class-name&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;fi&lt;/span&gt;
 &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;참고2. 중간에 띄어쓰기 때문에 작동안한 시행착오가있었다. 1, 2뒤에는 공백이 들어가면 안되는듯하다.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;ls &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2&amp;gt; dev/null&lt;/code&gt; (작동함)&lt;/li&gt;
-&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;ls &amp;quot;$@&amp;quot; &amp;gt; /dev/null 2 &amp;gt; dev/null&lt;/code&gt; (작동안함)&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;ls &quot;$@&quot; &gt; /dev/null 2&gt; dev/null&lt;/code&gt; (작동함)&lt;/li&gt;
+&lt;li&gt;&lt;code class=&quot;language-text&quot;&gt;ls &quot;$@&quot; &gt; /dev/null 2 &gt; dev/null&lt;/code&gt; (작동안함)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;참고3. shell은 공식 document를 어디서 찾아야하는지 몰라서 reference를 stackoverflow에서 가져왔다.&lt;/li&gt;
@@ -1384,10 +1384,10 @@ React의 생태계를 모두 사용할 수 있다는 말에 넘어가서 gatsby�
 &lt;li&gt;
 &lt;p&gt;gatsby-cli 설치, starter를 이용해 블로그 프로젝트 생성(yarn 대신 npm을 사용해도 무관.)&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; blog &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;cd&lt;/span&gt; blog
-yarn global add gatsby-cli
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;mkdir&lt;/span&gt; blog &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; blog
+&lt;span class=&quot;token function&quot;&gt;yarn&lt;/span&gt; global &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt; gatsby-cli
 gatsby new kujyp https://github.com/alxshelepenok/gatsby-starter-lumen
-&lt;span class=&quot;token function&quot;&gt;cd&lt;/span&gt; kujyp&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;token builtin class-name&quot;&gt;cd&lt;/span&gt; kujyp&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -1399,9 +1399,9 @@ gatsby new kujyp https://github.com/alxshelepenok/gatsby-starter-lumen
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
       &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; init
 &lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; checkout -b development
-&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; add &lt;span class=&quot;token keyword&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;token builtin class-name&quot;&gt;.&lt;/span&gt;
 &lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; commit -m &lt;span class=&quot;token string&quot;&gt;&quot;init with starter&quot;&lt;/span&gt;
-&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; remote add origin https://github.com/kujyp/kujyp.github.io.git
+&lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; remote &lt;span class=&quot;token function&quot;&gt;add&lt;/span&gt; origin https://github.com/kujyp/kujyp.github.io.git
 &lt;span class=&quot;token function&quot;&gt;git&lt;/span&gt; push -u origin development&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;/li&gt;
@@ -1424,7 +1424,7 @@ gatsby new kujyp https://github.com/alxshelepenok/gatsby-starter-lumen
 &lt;li&gt;
 &lt;p&gt;deploy를 실행한다. 30초정도 소요된다.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot;&gt;
-      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;yarn run deploy&lt;/code&gt;&lt;/pre&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;&lt;span class=&quot;token function&quot;&gt;yarn&lt;/span&gt; run deploy&lt;/code&gt;&lt;/pre&gt;
       &lt;/div&gt;
 &lt;img width=&quot;646&quot; alt=&quot;yarn_deploy&quot; src=&quot;https://user-images.githubusercontent.com/19223089/57585878-dee1ea80-7528-11e9-9585-bdb5982fffa1.png&quot;&gt;
 &lt;img width=&quot;663&quot; alt=&quot;yarn_deploy2&quot; src=&quot;https://user-images.githubusercontent.com/19223089/57585879-df7a8100-7528-11e9-8142-5b57ac0864ae.png&quot;&gt;
@@ -1461,7 +1461,7 @@ gatsby new kujyp https://github.com/alxshelepenok/gatsby-starter-lumen
 &lt;img width=&quot;936&quot; alt=&quot;disqus_setup_plan_4&quot; src=&quot;https://user-images.githubusercontent.com/19223089/57585870-ddb0bd80-7528-11e9-80d0-257b2a2973aa.png&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;지킬 등 site generator 어느 것 사용했냐고 물어보는데, 맨 하단 &lt;code class=&quot;language-text&quot;&gt;I dont&amp;#39;s see my platform ~&lt;/code&gt; 선택
+&lt;p&gt;지킬 등 site generator 어느 것 사용했냐고 물어보는데, 맨 하단 &lt;code class=&quot;language-text&quot;&gt;I dont&apos;s see my platform ~&lt;/code&gt; 선택
 &lt;img width=&quot;1093&quot; alt=&quot;disqus_setup_type_5&quot; src=&quot;https://user-images.githubusercontent.com/19223089/57585871-ddb0bd80-7528-11e9-9e44-0bd489a388ff.png&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -1499,7 +1499,7 @@ starter에 있는 형식그대로 가져와서 title, date, layout 등등을 추
 &lt;p&gt;gatsby를 활용하여, 인생 처음으로 기술블로그를 생성, 포스팅을 진행해보았다.&lt;br/&gt;
 글쓰는게 생각보다… 쉽지않다.&lt;br/&gt;
 1월 2일부터 쓰기시작해서 2일에 걸쳐 쓴것같은데, 다음글부터는 되도록 한호흡만에 글을 끝내도록 노력 해봐야겠다. 1편 2편으로 나눠야하나..&lt;/p&gt;
-&lt;p&gt;아 그리고 markdown 한줄만 띄우는방법을 몰라서&lt;code class=&quot;language-text&quot;&gt;&amp;lt;br/&amp;gt;&lt;/code&gt; 태그를 줄마다 붙이고있는데, 너무 불편하다.&lt;br/&gt;
+&lt;p&gt;아 그리고 markdown 한줄만 띄우는방법을 몰라서&lt;code class=&quot;language-text&quot;&gt;&amp;lt;br/&gt;&lt;/code&gt; 태그를 줄마다 붙이고있는데, 너무 불편하다.&lt;br/&gt;
 github wiki에서도 이랬는데, github issue에서는 안그러고 완전 중구난방이다.(더 쉬운 방법 아시는분은 알려주세요…ㅜㅜ)&lt;/p&gt;
 &lt;p&gt;아무튼 이번글은 여기까지 마치고, 다음 글에서는 시간이 허락한다면 circleci를 활용해 deploy과정 자동화를 진행해봐야겠다.&lt;/p&gt;
 &lt;h3&gt;도움을 받았던 링크들&lt;/h3&gt;
