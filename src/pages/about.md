@@ -10,14 +10,13 @@ layout: page
 
 ### Experiences
 #### Naver 2018.08 - 현재
-- Naver Papago MTEngine team(Machine Translation)
-- Python, C++, DevOps
-- Translation engine dockerize
-- In-house tool deployment, continuous integration
+- Naver Papago MLOps team
+1. ML 모델의 자동학습 및 자동배포를 위한 시스템 및 툴 개발
+2. 대용량 데이터 수집 및 처리를 위한 효율적인 파이프라인 설계 및 구현
+3. 배포환경 클라우드 이전 작업
 
 #### (주) MTCOM - Researcher 2017.09 - 2018.05
 - Kotlin, Java를 활용한 B2C 안드로이드 어플리케이션 개발
-- ReactiveX(RxJava) 개발 경험
 - GitLab-CI, CI/CD Pipeline 구축 경험
 
 #### 스타트업 smArts - 서버, 클라이언트 개발자 2017.01 - 2017.08
@@ -37,8 +36,8 @@ layout: page
 
 
 ### Skills
-- Strong: Python, Docker, Continuous Integration, Linux(Shell scripting, Deployment)
-- Knowledgeable: Python/tensorflow, Python/Flask, Java/Android, Kotlin/Android
+- Strong: Linux(Shell scripting, Deployment) / CI(Continuous Integration) / docker / Python / k8s
+- Knowledgeable: Kubeflow, Python/tensorflow, Python/Flask, Java/Android, Kotlin/Android
 
 
 ### Side-projects
